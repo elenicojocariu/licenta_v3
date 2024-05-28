@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../img/login_.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: 'roboto', sans-serif;
+
+}
+
+.container {
+    position: relative;
+    width: 90%;
+
+}
+
+.form {
+    width: 400px;
+    height: auto;
+    color: white;
+    font-family: 'roboto', sans-serif;
+    border: 5px solid #fff;
+    border-radius: 20px;
+}
+
+.heading {
+    opacity: 1;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 63px;
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+.input-container input {
+    width: calc(100% - 22px); /* Lățimea va fi egală pentru toate câmpurile */
+    padding: 8px; /* Păstrăm padding-ul */
+    margin-bottom: 10px; /* Păstrăm margin-bottom */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    box-sizing: border-box;
+}
+input,
+.submit-btn {
+    opacity: 1;
+    width: 80%;
+    height: 35px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: #ffffff;
+    padding: 15px;
+    transition: .5s;
+
+
+}
+
+input::placeholder {
+    color: #ffffff;
+}
+
+input:focus,
+.submit-btn:hover {
+    background: #ffffff;
+    color: black;
+}
+
+input:focus::placeholder {
+    color: black;
+}
+
+.submit-btn {
+    width: auto;
+    padding: 0 20px;
+    cursor: pointer;
+    margin: 50px auto 0;
+    opacity: 1;
+
+}
+
+.link {
+    opacity: 1;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    display: block;
+    margin: 30px auto;
+}
+
+.link:hover {
+    color: #ffffff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.password-container input {
+    width: calc(100% - 50px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    box-sizing: border-box;
+}
+
+
+
+
+.password-container {
+    position: relative;
+
+}
+
+.password-container input {
+    width: calc(100% - 40px);
+    padding-right: 0;
+}
+
+.password-container .fas {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 40px;
+    padding: 8px;
+    color: #333333;
+}
+
+
+
+.alert-box {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 150px;
+    max-width: 90%;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    text-transform: capitalize;
+    background: rgb(255, 119, 119);
+    border-top: 10px solid rgb(255, 37, 37);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+    font-family: 'roboto', sans-serif;
+    text-align: center;
+    transition: 1s;
+}
+button.toggle-btn {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+button.toggle-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.logo-container {
+    position: absolute;
+    top: 1rem;
+    left: 20px;
+}
+
+.logo {
+    font-size: 3em;
+    color: #333;
+    text-transform: uppercase;
+    display: inline-block;
+    line-height: 0.8;
+}
+
+.v, .a {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.v {
+    color: #ff69b4;
+}
+
+.a {
+    color: #1e90ff;
+}
+
+.forgot-password-btn {
+    background-color: #f0f0f0;
+    color: #333333;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: 125px;
+    text-decoration: underline
+;
+}
+
+.forgot-password-btn:hover {
+    background-color: #FAEBD7;
+}
+
+@media only screen and (max-width: 900px) {
+    .logo-container {
+        display: none;
+    }
+}

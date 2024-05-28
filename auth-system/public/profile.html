@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="profile-container">
+    <button id="back-button" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+    <form id="profile-form" enctype="multipart/form-data">
+        <div class="profile-pic">
+            <img id="profile-image" src="img/default-user.png" alt="Profile Picture">
+            <input type="file" id="profile-pic-input" name="profile-pic">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" readonly>
+        </div>
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" >
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" >
+        </div>
+        <div class="form-group">
+            <button type="button" id="change-password">Change Password</button>
+        </div>
+        <button type="submit">Save</button>
+        <button type="button" id="delete-account" class="delete-btn">Delete Account</button>
+    </form>
+</div>
+<script src="profile.js"></script>
+</body>
+</html>
