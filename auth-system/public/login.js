@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
 
-    loginForm.addEventListener('submit', async function (event)  {
+    loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({email, password})
             });
 
             const result = await response.json();
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('toggle-password').addEventListener('click', function() {
+    document.getElementById('toggle-password').addEventListener('click', function () {
         const passwordField = document.getElementById('password');
         const toggleIcon = document.getElementById('toggle-password');
         if (passwordField.type === 'password') {

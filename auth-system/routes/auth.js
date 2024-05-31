@@ -11,8 +11,6 @@ const authController = require('../controllers/authController');
 //const { register} = require('../controllers/authController');
 
 
-
-
 // Register route
 router.post('/register', authController.register);
 
@@ -22,6 +20,8 @@ router.post('/register', authController.register);
 // Login route
 router.post('/login', authController.login);
 
+router.post('/verify-password', authMiddleware.authenticate, authController.verifyPassword);
+router.post('/change-password', authMiddleware.authenticate, authController.changePassword);
 
 
 module.exports = router;

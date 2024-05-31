@@ -21,11 +21,11 @@
         </div>
         <div class="form-group">
             <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name" >
+            <input type="text" id="first-name" name="first-name">
         </div>
         <div class="form-group">
             <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name" >
+            <input type="text" id="last-name" name="last-name">
         </div>
         <div class="form-group">
             <button type="button" id="change-password">Change Password</button>
@@ -34,6 +34,30 @@
         <button type="button" id="delete-account" class="delete-btn">Delete Account</button>
     </form>
 </div>
+
+<!-- Pop-up pentru schimbarea parolei -->
+<div class="popup-overlay" id="popup-overlay"></div>
+<div class="popup" id="password-popup">
+    <form id="change-password-form">
+        <div class="form-group">
+            <label for="current-password">Enter Current Password</label>
+            <input type="password" id="current-password" name="current-password" required>
+        </div>
+        <button type="submit">Verify</button>
+    </form>
+    <form id="new-password-form" style="display:none;">
+        <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" name="new-password" required>
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Confirm New Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <button type="submit">Save New Password</button>
+    </form>
+</div>
+
 <script src="profile.js"></script>
 </body>
 </html>

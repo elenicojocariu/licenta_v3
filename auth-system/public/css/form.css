@@ -46,6 +46,7 @@ body {
     font-weight: 300;
     margin-bottom: 50px;
 }
+
 .input-container input {
     width: calc(100% - 22px); /* Lățimea va fi egală pentru toate câmpurile */
     padding: 8px; /* Păstrăm padding-ul */
@@ -55,6 +56,7 @@ body {
     display: block;
     box-sizing: border-box;
 }
+
 input,
 .submit-btn {
     opacity: 1;
@@ -123,8 +125,6 @@ input[type="password"],
 }
 
 
-
-
 .password-container {
     position: relative;
 
@@ -147,7 +147,6 @@ input[type="password"],
 }
 
 
-
 .alert-box {
     position: absolute;
     top: -100%;
@@ -168,6 +167,7 @@ input[type="password"],
     text-align: center;
     transition: 1s;
 }
+
 button.toggle-btn {
     padding: 5px 10px;
     background-color: #f0f0f0;
@@ -180,6 +180,7 @@ button.toggle-btn {
     display: inline-block;
     vertical-align: middle;
 }
+
 button.toggle-btn:hover {
     background-color: #e0e0e0;
 }
@@ -220,8 +221,7 @@ button.toggle-btn:hover {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     margin-left: 125px;
-    text-decoration: underline
-;
+    text-decoration: underline;
 }
 
 .forgot-password-btn:hover {

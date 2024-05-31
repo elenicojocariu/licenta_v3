@@ -6,11 +6,10 @@ const crypto = require('crypto');
 
 // Register user
 exports.register = async (req, res) => {
-    const { first_name, last_name, email, password } = req.body;
+    const {first_name, last_name, email, password} = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     const confirmationCode = crypto.randomBytes(20).toString('hex');
-
 
 
     const query = `INSERT INTO users (first_name, last_name, email, password, confirmation_code, is_confirmed) VALUES (?, ?, ?, ?, ?, ?)`;
@@ -18,26 +17,26 @@ exports.register = async (req, res) => {
 
     db.query(query, values, (err, results) => {
         if (err) {
-            res.status(500).send({ message: err.message });
+            res.status(500).send({message: err.message});
             return;
         }
         sendConfirmationEmail(email, confirmationCode);
-        res.status(200).send({ message: 'User registered successfully! Please check your email to confirm your account.' });
+        res.status(200).send({message: 'User registered successfully! Please check your email to confirm your account.'});
     });
 };
 
 exports.confirm = (req, res) => {
-    const { confirmationCode } = req.params;
+    const {confirmationCode} = req.params;
 
     const query = `SELECT * FROM users WHERE confirmation_code = ?`;
     db.query(query, [confirmationCode], (err, results) => {
         if (err) {
-            res.status(500).send({ message: err.message });
+            res.status(500).send({message: err.message});
             return;
         }
 
         if (results.length === 0) {
-            res.status(404).send({ message: 'User not found.' });
+            res.status(404).send({message: 'User not found.'});
             return;
         }
 
@@ -45,30 +44,66 @@ exports.confirm = (req, res) => {
         const updateQuery = `UPDATE users SET is_confirmed = ?, confirmation_code = ? WHERE id = ?`;
         db.query(updateQuery, [true, '', user.id], (err, results) => {
             if (err) {
-                res.status(500).send({ message: err.message });
+                res.status(500).send({message: err.message});
                 return;
             }
-            res.status(200).send({ message: 'Account confirmed successfully!' });
+            res.status(200).send({message: 'Account confirmed successfully!'});
         });
     });
 };
 
 // Login user
 exports.login = (req, res) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
         if (err) throw err;
         if (results.length === 0) {
-            return res.status(400).json({ message: 'Email or password is incorrect' });
+            return res.status(400).json({message: 'Email or password is incorrect'});
         } else {
             const user = results[0];
             const isMatch = bcrypt.compareSync(password, user.password);
             if (!isMatch) {
-                return res.status(400).json({ message: 'Email or password is incorrect' });
+                return res.status(400).json({message: 'Email or password is incorrect'});
             } else {
-                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-                res.status(200).json({ message: 'Login successful', token });
+                const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+                res.status(200).json({message: 'Login successful', token});
             }
         }
+    });
+};
+
+//vf parola curenta
+exports.verifyPassword = async (req, res) => {
+    const userId = req.user.id;
+    const {password} = req.body;
+
+    db.query('SELECT password FROM users WHERE id = ?', [userId], (err, results) => {
+        if (err) throw err;
+        if (results.length === 0) {
+            return res.status(400).json({message: 'User not found'});
+        } else {
+            const user = results[0];
+            const isMatch = bcrypt.compareSync(password, user.password);
+            if (!isMatch) {
+                return res.status(400).json({message: 'Current password is incorrect'});
+            } else {
+                res.status(200).json({message: 'Password verified'});
+            }
+        }
+    });
+};
+//schimba parola
+exports.changePassword = async (req, res) => {
+    const userId = req.user.id;
+    const {newPassword} = req.body;
+    const hashedPassword = bcrypt.hashSync(newPassword, 8);
+
+    const query = `UPDATE users SET password = ? WHERE id = ?`;
+    db.query(query, [hashedPassword, userId], (err, results) => {
+        if (err) {
+            res.status(500).send({message: err.message});
+            return;
+        }
+        res.status(200).send({message: 'Password updated successfully'});
     });
 };

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const registerData = { first_name: firstName, last_name: lastName, email, password };
+        const registerData = {first_name: firstName, last_name: lastName, email, password};
 
         try {
             const response = await fetch('/auth/register', {

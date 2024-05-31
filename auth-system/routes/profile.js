@@ -8,8 +8,8 @@ const path = require('path'); // Adaugă această linie
 router.use(authMiddleware.authenticate);
 
 
-router.get('/',  profileController.getProfile);
-router.put('/',  profileController.updateProfile);
+router.get('/', profileController.getProfile);
+router.put('/', profileController.updateProfile);
 
 // Configurarea multer pentru încărcarea imaginilor de profil
 const storage = multer.diskStorage({
@@ -20,11 +20,11 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname); // Generează un nume de fișier unic
     }
 });
-const upload = multer({ storage: storage });
+const upload = multer({storage: storage});
 
 // Ruta pentru încărcarea imaginilor de profil
 router.post('/upload-profile-pic', upload.single('profile-pic'), profileController.uploadProfilePic);
 
-router.delete('/',  profileController.deleteAccount);
+router.delete('/', profileController.deleteAccount);
 
 module.exports = router;

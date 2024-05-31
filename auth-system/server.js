@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Static files
 app.use(express.static('public'));
@@ -34,7 +34,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Setează secure: true dacă folosești HTTPS
+    cookie: {secure: false} // Setează secure: true dacă folosești HTTPS
 }));
 
 //app.use(fileUpload());

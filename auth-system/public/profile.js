@@ -1,5 +1,5 @@
 // profile.js
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     // Update profile
-    document.getElementById('profile-form').addEventListener('submit', function(event) {
+    document.getElementById('profile-form').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const firstName = document.getElementById('first-name').value;
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //update profile pic
-document.getElementById('profile-pic-input').addEventListener('change', function(event) {
+document.getElementById('profile-pic-input').addEventListener('change', function (event) {
 
     const file = event.target.files[0];
     const formData = new FormData();
@@ -86,7 +86,9 @@ document.getElementById('profile-pic-input').addEventListener('change', function
     })
         .then(response => {
             if (!response.ok) {
-                return response.text().then(text => { throw new Error(text) });
+                return response.text().then(text => {
+                    throw new Error(text)
+                });
             }
             return response.json();
         })
@@ -103,8 +105,8 @@ document.getElementById('profile-pic-input').addEventListener('change', function
             alert('An error occurred while updating the profile picture.');
         });
 });
-    // Delete account
-document.getElementById('delete-account').addEventListener('click', function() {
+// Delete account
+document.getElementById('delete-account').addEventListener('click', function () {
     if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
         fetch('http://localhost:5000/profile', {
             method: 'DELETE',
@@ -129,14 +131,108 @@ document.getElementById('delete-account').addEventListener('click', function() {
 });
 
 
-document.getElementById('profile-pic-input').addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('profile-image').src = e.target.result;
+document.getElementById('profile-pic-input').addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profile-image').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+//change pass
+document.addEventListener('DOMContentLoaded', function () {
+    const changePasswordButton = document.getElementById('change-password');
+    const passwordPopup = document.getElementById('password-popup');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const changePasswordForm = document.getElementById('change-password-form');
+    const newPasswordForm = document.getElementById('new-password-form');
+    const currentPasswordField = document.getElementById('current-password');
+    const newPasswordField = document.getElementById('new-password');
+    const confirmPasswordField = document.getElementById('confirm-password');
+    const token = localStorage.getItem('token');
+
+    changePasswordButton.addEventListener('click', function () {
+        popupOverlay.style.display = 'block';
+        passwordPopup.style.display = 'block';
+    });
+
+    popupOverlay.addEventListener('click', function () {
+        popupOverlay.style.display = 'none';
+        passwordPopup.style.display = 'none';
+        newPasswordForm.style.display = 'none';
+        changePasswordForm.style.display = 'block';
+        currentPasswordField.value = '';
+        newPasswordField.value = '';
+        confirmPasswordField.value = '';
+    });
+
+    changePasswordForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const currentPassword = currentPasswordField.value;
+
+        try {
+            const response = await fetch('/auth/verify-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+
+                },
+                body: JSON.stringify({password: currentPassword})
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                changePasswordForm.style.display = 'none';
+                newPasswordForm.style.display = 'block';
+            } else {
+                alert(result.message);
             }
-            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('An error occurred:', error.message);
         }
     });
+
+    newPasswordForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const newPassword = newPasswordField.value;
+        const confirmPassword = confirmPasswordField.value;
+
+        if (newPassword !== confirmPassword) {
+            alert('New password and confirm password do not match.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/auth/change-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+
+                },
+                body: JSON.stringify({newPassword})
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                popupOverlay.style.display = 'none';
+                passwordPopup.style.display = 'none';
+                newPasswordForm.style.display = 'none';
+                changePasswordForm.style.display = 'block';
+                currentPasswordField.value = '';
+                newPasswordField.value = '';
+                confirmPasswordField.value = '';
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error.message);
+        }
+    });
+});
 
