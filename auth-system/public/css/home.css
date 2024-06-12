@@ -127,3 +127,27 @@ body {
         align-items: flex-end;
     }
 }
+
+.art-gallery {
+    margin-top: 20px;
+}
+
+.art-container {
+    display: flex;
+    overflow-x: scroll;
+}
+
+.art-item {
+    min-width: 300px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.art-item img {
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.art-item img:hover {
+    transform: scale(1.1);
+}

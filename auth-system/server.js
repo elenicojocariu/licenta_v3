@@ -5,6 +5,7 @@ const session = require('express-session');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const path = require('path');
+const {connectToDatabase} = require('../config-mongodb/mongodb');
 
 dotenv.config();
 
@@ -38,9 +39,29 @@ app.use(session({
 }));
 
 //app.use(fileUpload());
+connectToDatabase().then(() => {
+    console.log('MongoDB connection established successfully.');
+}).catch(err => {
+    console.error('MongoDB connection failed:', err);
+});
+
+app.get('/', async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        const collection = db.collection('data');
+        const data = await collection.find({}).toArray();
+        res.json(data);
+    } catch (err) {
+        console.error('Failed to fetch data from MongoDB', err);
+        res.status(500).send('Error fetching data from MongoDB');
+    }
+
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+
 });
 
