@@ -58,6 +58,18 @@ app.get('/', async (req, res) => {
 
 });
 
+app.get('/api/artworks', async (req, res) => {
+    try {
+        const db = await connectToDatabase();
+        const collection = db.collection('data');
+        const data = await collection.find({}).toArray();
+        res.json(data);
+    } catch (err) {
+        console.error('Failed to fetch data from MongoDB', err);
+        res.status(500).send('Error fetching data from MongoDB');
+    }
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
