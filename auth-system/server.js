@@ -45,17 +45,9 @@ connectToDatabase().then(() => {
     console.error('MongoDB connection failed:', err);
 });
 
-app.get('/', async (req, res) => {
-    try {
-        const db = await connectToDatabase();
-        const collection = db.collection('data');
-        const data = await collection.find({}).toArray();
-        res.json(data);
-    } catch (err) {
-        console.error('Failed to fetch data from MongoDB', err);
-        res.status(500).send('Error fetching data from MongoDB');
-    }
-
+// Serve the homepage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.get('/api/artworks', async (req, res) => {
@@ -64,6 +56,7 @@ app.get('/api/artworks', async (req, res) => {
         const collection = db.collection('data');
         const data = await collection.find({}).toArray();
         res.json(data);
+        //console.log("sau aici?")
     } catch (err) {
         console.error('Failed to fetch data from MongoDB', err);
         res.status(500).send('Error fetching data from MongoDB');

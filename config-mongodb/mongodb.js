@@ -1,8 +1,7 @@
-
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { MongoClient } = require('mongodb');
+const {MongoClient} = require('mongodb');
 
 let db;
 
@@ -38,4 +37,4 @@ app.get('/test-mongodb', async (req, res) => {
 });
 */
 
-module.exports = { connectToDatabase };
+module.exports = {connectToDatabase};
