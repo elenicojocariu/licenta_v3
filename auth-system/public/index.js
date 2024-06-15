@@ -119,21 +119,4 @@ async function loadMoreArtworks() {
 window.addEventListener('DOMContentLoaded', (event) => {
     displayArtworks();
 });
-let lastScrollTop = 0;
-const topNavbar = document.querySelector('.top-navbar');
-const bottomNavbar = document.querySelector('.bottom-navbar');
-
-window.addEventListener('scroll', () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop) {
-        // Scroll in jos
-        topNavbar.classList.add('hidden');
-        bottomNavbar.classList.add('hidden');
-    } else {
-        // Scroll in sus
-        topNavbar.classList.remove('hidden');
-        bottomNavbar.classList.remove('hidden');
-    }
-    lastScrollTop = scrollTop;
-});
+omNavbar = document.querySelector('.bottom-navbar');
