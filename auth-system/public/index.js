@@ -1,9 +1,15 @@
 let paintings = [];
 let currentIndex = 0;
 
+let currentPage = 1;
+const limit = 20;
+const artGrid = document.getElementById('art-grid');
+const loadMoreBtn = document.getElementById('load-more-btn');
+
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchPaintings();
-    displayPaintings();
+    displayRandomPaintings();
+    displayArtworks();
 });
 
 async function fetchPaintings() {
@@ -11,8 +17,7 @@ async function fetchPaintings() {
         const response = await fetch('/api/artworks');
         const data = await response.json();
         paintings = extractArtworks(data);
-        console.log('Fetched paintingssss:', paintings);
-
+        console.log('Fetched paintings:', paintings);
     } catch (error) {
         console.error('Error fetching artworks:', error);
     }
@@ -25,26 +30,24 @@ function extractArtworks(data) {
             const period = periodData[periodKey];
             if (Array.isArray(period)) {
                 period.forEach(item => {
-                    const artistName = item.name;
+                    const artistName = item.name || 'Unknown Artist';
                     if (item.artworks && Array.isArray(item.artworks)) {
                         item.artworks.forEach(artwork => {
-                            // Construct artwork object and push it to the artworks array
                             artworks.push({
-                                image: artwork.image,
-                                title: artwork.title,
-                                name: artistName   // Fallback to 'Unknown Artist' if artist is undefined
+                                image: artwork.image || 'placeholder.jpg', // Fallback image
+                                title: artwork.title || 'Untitled',
+                                name: artistName
                             });
                         });
                     }
                 });
-
             }
-        })
+        });
     });
     return artworks;
 }
 
-function displayPaintings() {
+function displayRandomPaintings() {
     const slider = document.getElementById('art-slider');
     slider.innerHTML = '';
 
@@ -53,26 +56,11 @@ function displayPaintings() {
         const artElement = document.createElement('div');
         artElement.classList.add('art-item');
 
-        // Logging to check image URLs
-        console.log('Painting image URL:', painting.image);
-
-        // Ensure painting.image is defined
-        if (painting.image) {
-            artElement.innerHTML = `
+        artElement.innerHTML = `
             <img src="${painting.image}" alt="${painting.title}">
             <h3>${painting.title}</h3>
-                        <p>${painting.name}</p>
-
+            <p>${painting.name}</p>
         `;
-        } else {
-            console.warn('Image URL is undefined for painting:', painting);
-            artElement.innerHTML = `
-                <div class="placeholder-image">No Image Available</div>
-                <h3>${painting.title}</h3>
-                <p>${painting.name}</p>
-            `;
-
-        }
         slider.appendChild(artElement);
     });
 }
@@ -94,5 +82,58 @@ function scrollSlider(direction) {
         currentIndex = 0;
     }
 
-    displayPaintings();
+    displayRandomPaintings();
 }
+
+function createArtItem(art) {
+    const artItem = document.createElement('div');
+    artItem.classList.add('grid-art-item');
+    //artItem.className = 'grid-art-item';
+
+    artItem.innerHTML = `
+        <img src="${art.image || 'placeholder.jpg'}" alt="${art.title || 'Untitled'}">
+        <h3>${art.title || 'Untitled'}</h3>
+        <p>${art.name || 'Unknown Artist'}</p>
+    `;
+    return artItem;
+}
+
+async function displayArtworks() {
+    const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
+    artworks.forEach(art => {
+        const artItem = createArtItem(art);
+        artGrid.appendChild(artItem);
+    });
+    currentPage++;
+    if (artworks.length < limit) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'block';
+    }
+}
+
+async function loadMoreArtworks() {
+    displayArtworks();
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    displayArtworks();
+});
+let lastScrollTop = 0;
+const topNavbar = document.querySelector('.top-navbar');
+const bottomNavbar = document.querySelector('.bottom-navbar');
+
+window.addEventListener('scroll', () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Scroll in jos
+        topNavbar.classList.add('hidden');
+        bottomNavbar.classList.add('hidden');
+    } else {
+        // Scroll in sus
+        topNavbar.classList.remove('hidden');
+        bottomNavbar.classList.remove('hidden');
+    }
+    lastScrollTop = scrollTop;
+});

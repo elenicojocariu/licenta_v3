@@ -13,6 +13,8 @@ const app = express();
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 
+//const artworksRoutes = require('./routes/artworks');------------------
+
 
 // Middleware
 app.use(bodyParser.json());
@@ -28,6 +30,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
+
+//app.use('/artworks', artworksRoutes);----------------
 
 app.use(express.json())
 
