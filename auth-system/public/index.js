@@ -119,4 +119,27 @@ async function loadMoreArtworks() {
 window.addEventListener('DOMContentLoaded', (event) => {
     displayArtworks();
 });
-omNavbar = document.querySelector('.bottom-navbar');
+
+function sortByPaintingName() {
+    paintings.sort((a, b) => {
+        // Sortare alfabetică după titlu
+        const titleA = a.title.toUpperCase(); // Convertire la uppercase pentru a face sortarea case-insensitive
+        const titleB = b.title.toUpperCase();
+        if (titleA < titleB) {
+            return -1;
+        }
+        if (titleA > titleB) {
+            return 1;
+        }
+        return 0;
+    });
+
+    // Curăță artGrid înainte de a reafișa picturile sortate
+    artGrid.innerHTML = '';
+
+    // Afișează picturile sortate
+    paintings.forEach(art => {
+        const artItem = createArtItem(art);
+        artGrid.appendChild(artItem);
+    });
+}
