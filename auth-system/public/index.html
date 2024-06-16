@@ -36,7 +36,7 @@
     </div>
 </div>
     <div class="art-grid-container">
-        <button onclick="sortByPaintingName()">Sort by Painting Name</button>
+        <button onclick="showSearchPopup()">Search by Painting Name</button>
 
         <div class="art-grid" id="art-grid">
 
@@ -45,6 +45,14 @@
             <button id="load-more-btn" class="load-more" onclick="loadMoreArtworks()">Load More</button>
         </div>
 
+<!-- Search Popup -->
+<div id="search-popup" class="search-popup">
+    <div class="search-popup-content">
+        <span class="close-btn" onclick="hideSearchPopup()">&times;</span>
+        <input type="text" id="search-input" placeholder="Enter painting name..." oninput="searchPaintingsByName()">
+        <div id="search-results" class="search-results"></div>
+    </div>
+</div>
 
 <script src="logout.js"></script>
 <script src="index.js"></script>

@@ -17,7 +17,16 @@ async function fetchPaintings() {
         const response = await fetch('/api/artworks');
         const data = await response.json();
         paintings = extractArtworks(data);
-        console.log('Fetched paintings:', paintings);
+        // Sort paintings by title alphabetically by default
+        paintings.sort((a, b) => {
+            const titleA = a.title.toUpperCase();
+            const titleB = b.title.toUpperCase();
+            if (titleA < titleB) return -1;
+            if (titleA > titleB) return 1;
+            return 0;
+        });
+        console.log('Fetched and sorted paintings:', paintings);
+
     } catch (error) {
         console.error('Error fetching artworks:', error);
     }
@@ -99,6 +108,8 @@ function createArtItem(art) {
 }
 
 async function displayArtworks() {
+    // Clear the grid before displaying artworks
+    artGrid.innerHTML = '';
     const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
     artworks.forEach(art => {
         const artItem = createArtItem(art);
@@ -120,26 +131,30 @@ window.addEventListener('DOMContentLoaded', (event) => {
     displayArtworks();
 });
 
-function sortByPaintingName() {
-    paintings.sort((a, b) => {
-        // Sortare alfabetică după titlu
-        const titleA = a.title.toUpperCase(); // Convertire la uppercase pentru a face sortarea case-insensitive
-        const titleB = b.title.toUpperCase();
-        if (titleA < titleB) {
-            return -1;
-        }
-        if (titleA > titleB) {
-            return 1;
-        }
-        return 0;
-    });
+// Function to show the search popup
+function showSearchPopup() {
+    document.getElementById('search-popup').style.display = 'block';
+}
 
-    // Curăță artGrid înainte de a reafișa picturile sortate
-    artGrid.innerHTML = '';
+// Function to hide the search popup
+function hideSearchPopup() {
+    document.getElementById('search-popup').style.display = 'none';
+}
 
-    // Afișează picturile sortate
-    paintings.forEach(art => {
-        const artItem = createArtItem(art);
-        artGrid.appendChild(artItem);
-    });
+// Function to search paintings by name
+function searchPaintingsByName() {
+    const query = document.getElementById('search-input').value.toUpperCase();
+    const searchResults = document.getElementById('search-results');
+    searchResults.innerHTML = '';
+
+    const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
+
+    if (filteredPaintings.length > 0) {
+        filteredPaintings.forEach(painting => {
+            const artElement = createArtItem(painting);
+            searchResults.appendChild(artElement);
+        });
+    } else {
+        searchResults.innerHTML = '<p>No paintings found</p>';
+    }
 }
