@@ -61,9 +61,16 @@
         <h3 id="painting-title"></h3>
         <p id="painting-artist"></p>
         <p id="painting-period"></p>
+        <button id="modal-favorite-btn" class="favorite-btn">
+            <i class="fas fa-heart"></i>
+        </button>
     </div>
 </div>
-
+<div class="pagination-controls">
+    <button id="previous-btn" class="pagination-btn" onclick="loadPreviousPage()">Previous</button>
+    <span id="page-number"></span>
+    <button id="next-btn" class="pagination-btn" onclick="loadMoreArtworks()">Next</button>
+</div>
 <script src="logout.js"></script>
 <script src="index.js"></script>
 </body>

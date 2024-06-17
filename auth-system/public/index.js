@@ -5,6 +5,7 @@ let currentPage = 1;
 const limit = 20;
 const artGrid = document.getElementById('art-grid');
 const loadMoreBtn = document.getElementById('load-more-btn');
+const pageNumberDisplay = document.getElementById('page-number');
 
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchPaintings();
@@ -92,6 +93,9 @@ function displayRandomPaintings() {
             <img src="${painting.image}" alt="${painting.title}">
             <h3>${painting.title}</h3>
             <p>${painting.name}</p>
+             <button class="favorite-btn" onclick="toggleFavorite(this)">
+                <i class="fas fa-heart"></i>
+            </button>
         `;
         artElement.addEventListener('click', () => {
             showPaintingDetails(painting);
@@ -123,17 +127,19 @@ function scrollSlider(direction) {
 }
 
 function createArtItem(art) {
-    console.log('Creating art item:', art); // Logăm fiecare obiect art
+    //console.log('Creating art item:', art);
 
     const artItem = document.createElement('div');
     artItem.classList.add('grid-art-item');
-    //artItem.className = 'grid-art-item';
 
     artItem.innerHTML = `
         <img src="${art.image || 'placeholder.jpg'}" alt="${art.title || 'Untitled'}">
         <h3>${art.title || 'Untitled'}</h3>
         <p>${art.name || 'Unknown Artist'}</p>
         <!--<p>${art.period}</p> -->
+         <button class="favorite-btn" onclick="toggleFavorite(event, this)">
+            <i class="fas fa-heart ${art.isFavorite ? 'favorited' : ''}"></i>
+        </button>
     `;
 
     artItem.addEventListener('click', () => {
@@ -142,10 +148,23 @@ function createArtItem(art) {
 
     return artItem;
 }
+function toggleFavorite(event, button) {
+    event.stopPropagation(); // Stop the click event from propagating to parent elements
+    const heartIcon = button.querySelector('i');
 
+    if (heartIcon.classList.contains('favorited')) {
+        heartIcon.classList.remove('favorited');
+        const artIndex = paintings.findIndex(art => art.image === heartIcon.getAttribute('src'));
+        if (artIndex !== -1) {
+            paintings[artIndex].isFavorite = false;
+        }
+    } else {
+        heartIcon.classList.add('favorited');
+
+    }
+}
 async function displayArtworks() {
     sortByPaintingName();
-    // Clear the grid before displaying artworks
     artGrid.innerHTML = '';
     const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
     artworks.forEach(art => {
@@ -198,7 +217,7 @@ function searchPaintingsByName() {
 
 
 function showPaintingDetails(art) {
-    console.log('Selected art details:', art); // Logăm detaliile operei de artă selectate
+    //console.log('Selected art details:', art);
 
     const modal = document.getElementById('painting-details-modal');
     if (!modal) {
@@ -209,16 +228,36 @@ function showPaintingDetails(art) {
     const paintingTitle = document.getElementById('painting-title');
     const paintingArtist = document.getElementById('painting-artist');
     const paintingPeriod = document.getElementById('painting-period');
+    const favoriteBtn = document.getElementById('modal-favorite-btn');
 
     paintingImage.src = art.image || 'placeholder.jpg';
     paintingTitle.textContent = art.title || 'Untitled';
     paintingArtist.textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     paintingPeriod.textContent = `Period: ${art.period}`;
 
+    // Reset favorite button state
+    const heartIcon = favoriteBtn.querySelector('i');
+    heartIcon.classList.remove('favorited');
+
+    favoriteBtn.onclick = function(event) {
+        event.stopPropagation(); // Prevent the modal from closing when clicking the favorite button
+        toggleFavorite(favoriteBtn);
+    };
+
+
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
+function toggleFavorite(button) {
+    event.stopPropagation();
+    const heartIcon = button.querySelector('i');
 
+    if (heartIcon.classList.contains('favorited')) {
+        heartIcon.classList.remove('favorited');
+    } else {
+        heartIcon.classList.add('favorited');
+    }
+}
 function closePaintingDetails() {
     const modal = document.getElementById('painting-details-modal');
     modal.style.display = 'none';
@@ -232,3 +271,6 @@ window.addEventListener('click', (event) => {
         closePaintingDetails();
     }
 });
+
+
+window.toggleFavorite = toggleFavorite;

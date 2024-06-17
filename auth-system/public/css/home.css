@@ -384,3 +384,25 @@ body.modal-open {
     filter: blur(5px);
     overflow: hidden; /* Prevent background scrolling */
 }
+
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.favorite-btn i {
+    font-size: 1.8em;
+    color: #a9a6a6;
+    transition: color 0.3s ease;
+
+}
+.favorite-btn i:hover{
+    color: red;
+}
+
+
+.favorite-btn i.favorited {
+    color: red;
+}
+
