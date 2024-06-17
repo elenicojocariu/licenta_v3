@@ -35,15 +35,14 @@
         </div>
     </div>
 </div>
-    <div class="art-grid-container">
-        <button onclick="showSearchPopup()">Search by Painting Name</button>
 
-        <div class="art-grid" id="art-grid">
+<div class="art-grid-container">
+    <button onclick="showSearchPopup()">Search by Painting Name</button>
 
-                <!-- Art items will be dynamically added here -->
-            </div>
-            <button id="load-more-btn" class="load-more" onclick="loadMoreArtworks()">Load More</button>
-        </div>
+    <div class="art-grid" id="art-grid">
+        <!-- Art items will be dynamically added here -->
+    </div>
+</div>
 
 <!-- Search Popup -->
 <div id="search-popup" class="search-popup">
@@ -69,7 +68,7 @@
 <div class="pagination-controls">
     <button id="previous-btn" class="pagination-btn" onclick="loadPreviousPage()">Previous</button>
     <span id="page-number"></span>
-    <button id="next-btn" class="pagination-btn" onclick="loadMoreArtworks()">Next</button>
+    <button id="next-btn" class="pagination-btn" onclick="loadNextPage()">Next</button>
 </div>
 <script src="logout.js"></script>
 <script src="index.js"></script>

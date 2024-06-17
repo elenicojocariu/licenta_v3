@@ -4,13 +4,15 @@ let currentIndex = 0;
 let currentPage = 1;
 const limit = 20;
 const artGrid = document.getElementById('art-grid');
-const loadMoreBtn = document.getElementById('load-more-btn');
+const previousBtn = document.getElementById('previous-btn');
+const nextBtn = document.getElementById('next-btn');
 const pageNumberDisplay = document.getElementById('page-number');
 
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchPaintings();
     displayRandomPaintings();
     displayArtworks();
+    updatePaginationControls();
 });
 
 
@@ -171,17 +173,30 @@ async function displayArtworks() {
         const artItem = createArtItem(art);
         artGrid.appendChild(artItem);
     });
-    currentPage++;
-    if (artworks.length < limit) {
-        loadMoreBtn.style.display = 'none';
-    } else {
-        loadMoreBtn.style.display = 'block';
+    updatePaginationControls();
+
+}
+function updatePaginationControls() {
+    pageNumberDisplay.textContent = `Page ${currentPage}`;
+    pageNumberDisplay.style.display = currentPage === 1 ? 'none' : 'inline-block';
+    previousBtn.style.display = currentPage === 1 ? 'none' : 'inline-block';
+    nextBtn.style.display = (currentPage * limit >= paintings.length) ? 'none' : 'inline-block';
+}
+
+function loadPreviousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayArtworks();
     }
 }
 
-async function loadMoreArtworks() {
-    displayArtworks();
+function loadNextPage() {
+    if ((currentPage * limit) < paintings.length) {
+        currentPage++;
+        displayArtworks();
+    }
 }
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     displayArtworks();
