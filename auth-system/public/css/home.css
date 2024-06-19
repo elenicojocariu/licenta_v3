@@ -419,3 +419,72 @@ body.modal-open {
     color: red;
 }
 
+
+/*  search bar and results */
+
+
+#nav-search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: calc(50% - 20px); /* Adjust the width to take half the screen minus some padding */
+    position: relative; /* Ensure the search bar is positioned correctly */
+    z-index: 1100; /* Set a higher z-index than the navbars */
+}
+
+.nav-search-container {
+    display: none;
+    position: absolute;
+    left: 10px; /* Aligned with the button or another reference point */
+    top: 20px; /* Adjust to lift it higher on the page */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    z-index: 1200;
+    width: 50%;
+}
+
+.nav-search-results {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1200;
+    width: 100%;
+}
+
+/* Additional styles for the results */
+.nav-search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.nav-search-result-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.nav-search-result-item h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.nav-search-result-item p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.nav-search-result-item:hover {
+    background-color: #f0f0f0;
+}
+
+
+

@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const crypto = require('crypto');
+
 //const { sendConfirmationEmail } = require('../services/emailService');
 
 // Register user
@@ -107,3 +108,9 @@ exports.changePassword = async (req, res) => {
         res.status(200).send({message: 'Password updated successfully'});
     });
 };
+//doar pentru implementare favorite
+exports.verifyToken = (req, res) => {
+    const userId = req.user.id;
+    res.status(200).json({ userId });
+};
+

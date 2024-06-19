@@ -3,18 +3,16 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const cors = require('cors');
-const fileUpload = require('express-fileupload');
 const path = require('path');
 const {connectToDatabase} = require('../config-mongodb/mongodb');
+
 
 dotenv.config();
 
 const app = express();
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
-
-//const artworksRoutes = require('./routes/artworks');------------------
-
+const favoriteRoutes = require('./routes/favorites');
 
 // Middleware
 app.use(bodyParser.json());
@@ -27,11 +25,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+
 // Routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
+app.use('/favorites', favoriteRoutes);
 
-//app.use('/artworks', artworksRoutes);----------------
 
 app.use(express.json())
 
@@ -48,8 +47,9 @@ connectToDatabase().then(() => {
 }).catch(err => {
     console.error('MongoDB connection failed:', err);
 });
-
-// Serve the homepage
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/login.html'));
+});
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });

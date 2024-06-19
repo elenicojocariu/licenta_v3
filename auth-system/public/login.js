@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('password').value;
 
         //console.log('Sending request with:', { email, password });
-
+        //console.log("token:", token);
         try {
             const response = await fetch('/auth/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+
                 },
                 body: JSON.stringify({email, password})
             });
