@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell a painting</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/sell.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<nav class="navbar top-navbar">
+    <ul>
+        <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+        <li><a href="art.html"><i class="fas fa-palette"></i> Art</a></li>
+        <li><a href="javascript:menu()" class="toggle-btn"><i class="fa fa-bars"></i> Menu</a></li>
+    </ul>
+
+    <div id="Menu_Container" style="visibility: hidden;">
+        <button class="Button_Menu_Container" id="paintings" onclick="window.location.href = 'paintings.html';">
+            <span class="Label_Nav">Paintings</span>
+        </button>
+        <button class="Button_Menu_Container" id="artists" onclick="window.location.href = 'az-listing.html';">
+            <span class="Label_Nav">Artists</span>
+        </button>
+        <button class="Button_Menu_Container" id="sell" onclick="window.location.href = '.html';">
+            <span class="Label_Nav">Sell a painting</span>
+        </button>
+        <button class="Button_Menu_Container" id="for_sale" onclick="window.location.href = 'notifications.html';">
+            <span class="Label_Nav">For sale</span>
+        </button>
+    </div>
+</nav>
+
+<div class="message-container">
+    <div class="message-text">Sell a painting</div>
+</div>
+
+<div class="container-sell">
+    <form id="contactForm">
+        <label for="name">Painting Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="artist-name">Artist Name:</label>
+        <input type="text" id="artist-name" name="artist-name" required>
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required>
+
+        <label>Photo:</label>
+        <div class="profile-pic">
+            <input type="file" id="profile-pic-input" name="profile-pic">
+        </div>
+
+        <input type="submit" style="margin-top: 10px; : center" value="Submit" onclick="sendContactForm(event) ">
+    </form>
+    <div id="responseMessage" class="message" style="display: none; margin-top: 10px"></div>
+</div>
+
+<section id="info-section">
+    <h2>How to Sell a Painting on Our Site</h2>
+    <div class="info-content">
+        <p>Complete the information required to list your painting. Once your painting is listed, you will receive an email confirming the successful listing. You will be notified when your painting gets sold.</p>
+        <p>Once your listing is approved, it will appear in the gallery, and potential buyers can view and purchase it. Keep an eye on your email for notifications regarding the status of your listing and sales.</p>
+    </div>
+</section>
+
+<script src="js/sell.js"></script>
+
+</body>
+</html>

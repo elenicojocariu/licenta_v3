@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('token', token);
                 console.log('Token:', token); // Loghează doar token-ul în consolă
                 console.log('Login successful');
-                window.location.href = 'index.html'; // Sau pagina către care vrei să redirecționezi utilizatorul după login
+                window.location.href = 'home.html'; // Sau pagina către care vrei să redirecționezi utilizatorul după login
             } else {
                 alert(result.message);
             }
