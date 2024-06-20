@@ -12,6 +12,9 @@ connection.connect((err) => {
 
 const addFavorite = async (req, res) => {
     const { userId, paintingId } = req.body;
+    console.log("userrrrrrrr", userId);
+    console.log("painging idddd", paintingId);
+
     try {
         const userQuery = 'SELECT * FROM users WHERE id = ?';
         connection.query(userQuery, [userId], async (err, userResults) => {

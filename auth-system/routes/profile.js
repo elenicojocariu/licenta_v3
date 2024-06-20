@@ -3,7 +3,7 @@ const router = express.Router();
 const profileController = require('../controllers/profileController');
 const authMiddleware = require('../middleware/authMiddleware');
 const multer = require('multer');
-const path = require('path'); // Adaugă această linie
+const path = require('path');
 
 router.use(authMiddleware.authenticate);
 

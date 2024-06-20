@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const db = require('../config/db');
 const multer = require('multer');
-const upload = multer({dest: 'uploads/'}); // Directorul în care sunt salvate temporar imaginile încărcate
+const upload = multer({dest: 'uploads/'});
 
 exports.getProfile = async (req, res) => {
     const userId = req.user.id; // Id-ul utilizatorului autentificat
@@ -45,7 +45,7 @@ exports.uploadProfilePic = async (req, res) => {
     //const profilePicPath = req.file.path; // Calea către imaginea încărcată
     const profilePicUrl = `/uploads/${req.file.filename}`;
 
-    console.log('Received file:', req.file); // Log pentru a verifica detaliile fișierului încărcat
+    console.log('Received file:', req.file); //fisier incarcat
     console.log('User ID:', userId);
 
     try {

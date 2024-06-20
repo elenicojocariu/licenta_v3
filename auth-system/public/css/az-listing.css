@@ -1,0 +1,75 @@
+.artists-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.artist {
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s;
+}
+
+.artist:hover {
+    transform: scale(1.05);
+}
+
+.artist img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.artist p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination-btn {
+    padding: 15px 30px;
+    background-color: rgba(117, 111, 111, 0.82);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: #555;
+}
+
+#page-number {
+    font-size: 1.5em;
+    color: white;
+}
+
+.message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 7rem;
+    margin-bottom: 2rem;
+}
+
+.message-text {
+    font-size: 3em;
+    font-weight: bold;
+    color: #ffffff;
+}

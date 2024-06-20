@@ -51,7 +51,6 @@ async function authenticateUser() {
     }
 }
 
-
 async function fetchPaintings() {
     try {
         const response = await fetch('/api/artworks');
@@ -74,6 +73,8 @@ async function fetchPaintings() {
 
 function extractArtworks(data) {
     let artworks = [];
+    let artworkImages = new Set();
+
     data.forEach(periodData => {
         Object.keys(periodData).forEach(periodKey => {
             const period = periodData[periodKey];
@@ -82,25 +83,50 @@ function extractArtworks(data) {
                     const artistName = item.name || 'Unknown Artist';
                     if (item.artworks && Array.isArray(item.artworks)) {
                         item.artworks.forEach(artwork => {
-                            let artworkItem = {
-                                image: artwork.image || 'placeholder.jpg', // Fallback image
-                                title: artwork.title || 'Untitled',
-                                name: artistName,
-                                period: periodKey,
-                                paintingId: artwork.paintingId, // Ensure paintingId is included
-
-                            };
-                            // console.log('Extracted artwork item:', artworkItem);
-                            artworks.push(artworkItem);
+                            if (!artworkImages.has(artwork.image)) {
+                                artworkImages.add(artwork.image);
+                                let artworkItem = {
+                                    image: artwork.image || 'placeholder.jpg', // Fallback image
+                                    title: artwork.title || 'Untitled',
+                                    name: artistName,
+                                    period: periodKey,
+                                    paintingId: artwork.paintingId, // Ensure paintingId is included
+                                };
+                                artworks.push(artworkItem);
+                            }
                         });
                     }
                 });
             }
         });
     });
+
     return artworks;
 }
 
+function displayRandomPaintings() {
+    const slider = document.getElementById('art-slider');
+    slider.innerHTML = '';
+
+    const randomPaintings = getRandomPaintings(5);
+    randomPaintings.forEach(painting => {
+        const artElement = document.createElement('div');
+        artElement.classList.add('art-item');
+
+        artElement.innerHTML = `
+            <img src="${painting.image}" alt="${painting.title}">
+            <h3 style="margin-top: 2rem">${painting.title}</h3>
+            <p style="margin-top: 1rem">${painting.name}</p>
+            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}')"><i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i></button>
+
+        `;
+        artElement.addEventListener('click', () => {
+            showPaintingDetails(painting);
+        });
+
+        slider.appendChild(artElement);
+    });
+}
 
 function sortByPaintingName() {
     paintings.sort((a, b) => {
@@ -119,29 +145,6 @@ function sortByPaintingName() {
 
 }
 
-function displayRandomPaintings() {
-    const slider = document.getElementById('art-slider');
-    slider.innerHTML = '';
-
-    const randomPaintings = getRandomPaintings(5);
-    randomPaintings.forEach(painting => {
-        const artElement = document.createElement('div');
-        artElement.classList.add('art-item');
-
-        artElement.innerHTML = `
-            <img src="${painting.image}" alt="${painting.title}">
-            <h3>${painting.title}</h3>
-            <p>${painting.name}</p>
-            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}')"><i class="far fa-heart"></i></button>
-
-        `;
-        artElement.addEventListener('click', () => {
-            showPaintingDetails(painting);
-        });
-
-        slider.appendChild(artElement);
-    });
-}
 
 
 function getRandomPaintings(count) {
@@ -186,17 +189,7 @@ function createArtItem(art) {
     return artItem;
 }
 
-async function displayArtworks() {
-    sortByPaintingName();
-    artGrid.innerHTML = '';
-    const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
-    artworks.forEach(art => {
-        const artItem = createArtItem(art);
-        artGrid.appendChild(artItem);
-    });
-    updatePaginationControls();
 
-}
 
 function updatePaginationControls() {
     pageNumberDisplay.textContent = `Page ${currentPage}`;
@@ -205,24 +198,6 @@ function updatePaginationControls() {
     nextBtn.style.display = (currentPage * limit >= paintings.length) ? 'none' : 'inline-block';
 }
 
-function loadPreviousPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        displayArtworks();
-    }
-}
-
-function loadNextPage() {
-    if ((currentPage * limit) < paintings.length) {
-        currentPage++;
-        displayArtworks();
-    }
-}
-
-
-window.addEventListener('DOMContentLoaded', (event) => {
-    displayArtworks();
-});
 
 // Function to show the search popup
 function showSearchPopup() {
@@ -315,6 +290,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
+
 async function addFavorite(userId, paintingId) {
     const token = localStorage.getItem('token');
 
@@ -326,7 +302,7 @@ async function addFavorite(userId, paintingId) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ userId, paintingId })
+            body: JSON.stringify({userId, paintingId})
         });
 
         if (response.ok) {
@@ -348,7 +324,7 @@ async function addFavorite(userId, paintingId) {
         alert('A apărut o eroare la adăugarea picturii la favorite.');
     }
 }
-
+/*
 async function getFavorites(userId) {
     const token = localStorage.getItem('token');
     const response = await fetch(`/favorites/getFavorites/${userId}`, {
@@ -360,12 +336,12 @@ async function getFavorites(userId) {
 
     if (response.ok) {
         const favoritePaintings = await response.json();
-        // Afișează picturile favorite utilizând favoritePaintings
+        //afisez picturile cu favoritePaintings
     } else {
         const errorData = await response.json();
         alert(`Eroare: ${errorData.message}`);
     }
-}
+} */
 
 async function removeFavorite(userId, paintingId) {
     const token = localStorage.getItem('token');
@@ -388,3 +364,16 @@ async function removeFavorite(userId, paintingId) {
 
 
 window.toggleFavorite = toggleFavorite;
+
+
+let menuContainer = document.getElementById("Menu_Container");
+function menu() {
+    if (menuContainer.style.visibility === "hidden") {
+        menuContainer.style.animationName = "OpenMenu";
+        menuContainer.style.visibility = "visible";
+    } else if (menuContainer.style.visibility === "visible") {
+        menuContainer.style.animationName = "CloseMenu";
+        menuContainer.style.visibility = "hidden";
+    }
+
+}
