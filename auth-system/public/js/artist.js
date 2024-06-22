@@ -1,5 +1,7 @@
 const artistNameElement = document.getElementById('artist-name');
+const artistImageElement = document.getElementById('artist-image');
 const artworksList = document.getElementById('artworks-list');
+const paginationControls = document.querySelector('.pagination-controls');
 
 function getArtistNameFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -10,8 +12,13 @@ async function fetchArtworksByArtist(artistName) {
     try {
         const response = await fetch('/api/artworks');
         const data = await response.json();
-        const artworks = extractArtworksByArtist(data, artistName);
-        displayArtworks(artworks);
+        const artistData = extractArtworksByArtist(data, artistName);
+        if (artistData) {
+            displayArtistInfo(artistData.artistImage, artistName);
+            displayArtworks(artistData.artworks);
+        } else {
+            displayArtistInfo(null, 'Unknown Artist');
+        }
     } catch (error) {
         console.error('Error fetching artworks:', error);
     }
@@ -19,12 +26,14 @@ async function fetchArtworksByArtist(artistName) {
 
 function extractArtworksByArtist(data, artistName) {
     let artworks = [];
+    let artistImage = null;
 
     data.forEach(periodData => {
         Object.values(periodData).forEach(period => {
             if (Array.isArray(period)) {
                 period.forEach(item => {
                     if (item.name === artistName) {
+                        artistImage = item.image;
                         item.artworks.forEach(artwork => {
                             artworks.push({
                                 title: artwork.title,
@@ -38,7 +47,22 @@ function extractArtworksByArtist(data, artistName) {
         });
     });
 
-    return artworks;
+    if (artworks.length > 0) {
+        return { artistImage, artworks };
+    } else {
+        return null;
+    }
+}
+
+function displayArtistInfo(artistImage, artistName) {
+    artistNameElement.textContent = artistName;
+    if (artistImage) {
+        artistImageElement.src = artistImage;
+        artistImageElement.alt = artistName;
+    } else {
+        artistImageElement.src = '';
+        artistImageElement.alt = 'No Image Available';
+    }
 }
 
 function displayArtworks(artworks) {
@@ -59,24 +83,9 @@ function displayArtworks(artworks) {
     }
 }
 
-
-
 const artistName = getArtistNameFromURL();
 if (artistName) {
-    artistNameElement.textContent = artistName;
     fetchArtworksByArtist(artistName);
 } else {
-    artistNameElement.textContent = 'Unknown Artist';
-}
-
-let menuContainer = document.getElementById("Menu_Container");
-function menu() {
-    if (menuContainer.style.visibility === "hidden") {
-        menuContainer.style.animationName = "OpenMenu";
-        menuContainer.style.visibility = "visible";
-    } else if (menuContainer.style.visibility === "visible") {
-        menuContainer.style.animationName = "CloseMenu";
-        menuContainer.style.visibility = "hidden";
-    }
-
+    displayArtistInfo(null, 'Unknown Artist');
 }

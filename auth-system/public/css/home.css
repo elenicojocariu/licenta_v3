@@ -180,6 +180,14 @@ body {
     font-size: 3em;
     font-weight: bold;
     color: #ffffff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    margin-top: 14px;
+    border-radius: 10px;
 }
 
 
@@ -626,4 +634,41 @@ body.modal-open {
 }
 
 
+ .clickable-artist {
+    cursor: pointer;
+}
 
+
+ .clickable-artist:hover {
+    text-decoration: underline;
+}
+
+
+.logo-container {
+    position: absolute;
+    top: 1rem;
+    left: 20px;
+    z-index: 1100;
+
+}
+
+.logo {
+    font-size: 3em;
+    color: #333;
+    text-transform: uppercase;
+    display: inline-block;
+    line-height: 0.8;
+}
+
+.v, .a {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.v {
+    color: #ff69b4;
+}
+
+.a {
+    color: #1e90ff;
+}

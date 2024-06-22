@@ -3,7 +3,6 @@ let currentIndex = 0;
 
 let currentPage = 1;
 const limit = 20;
-const artGrid = document.getElementById('art-grid');
 const previousBtn = document.getElementById('previous-btn');
 const nextBtn = document.getElementById('next-btn');
 const pageNumberDisplay = document.getElementById('page-number');
@@ -116,10 +115,14 @@ function displayRandomPaintings() {
         artElement.innerHTML = `
             <img src="${painting.image}" alt="${painting.title}">
             <h3 style="margin-top: 2rem">${painting.title}</h3>
-            <p style="margin-top: 1rem">${painting.name}</p>
+            <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
             <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}')"><i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i></button>
 
         `;
+        artElement.querySelector('.clickable-artist').addEventListener('click', () => {
+            window.location.href = `artist.html?name=${encodeURIComponent(painting.name)}`;
+        });
+
         artElement.addEventListener('click', () => {
             showPaintingDetails(painting);
         });
@@ -128,22 +131,7 @@ function displayRandomPaintings() {
     });
 }
 
-function sortByPaintingName() {
-    paintings.sort((a, b) => {
 
-        const titleA = a.title.toUpperCase();
-        const titleB = b.title.toUpperCase();
-        if (titleA < titleB) {
-            return -1;
-        }
-        if (titleA > titleB) {
-            return 1;
-        }
-        return 0;
-    });
-
-
-}
 
 
 
@@ -167,27 +155,7 @@ function scrollSlider(direction) {
     displayRandomPaintings();
 }
 
-function createArtItem(art) {
-    //console.log('Creating art item:', art);
 
-    const artItem = document.createElement('div');
-    artItem.classList.add('grid-art-item');
-
-    artItem.innerHTML = `
-        <img src="${art.image || 'placeholder.jpg'}" alt="${art.title || 'Untitled'}">
-        <h3>${art.title || 'Untitled'}</h3>
-        <p>${art.name || 'Unknown Artist'}</p>
-        <!--<p>${art.period}</p> -->
-        <button class="favorite-btn" onclick="toggleFavorite(this, '${art.paintingId}')"><i class="far fa-heart"></i></button>
-
-    `;
-
-    artItem.addEventListener('click', () => {
-        showPaintingDetails(art);
-    });
-
-    return artItem;
-}
 
 
 
@@ -199,33 +167,7 @@ function updatePaginationControls() {
 }
 
 
-// Function to show the search popup
-function showSearchPopup() {
-    document.getElementById('search-popup').style.display = 'block';
-}
 
-// Function to hide the search popup
-function hideSearchPopup() {
-    document.getElementById('search-popup').style.display = 'none';
-}
-
-// Function to search paintings by name
-function searchPaintingsByName() {
-    const query = document.getElementById('search-input').value.toUpperCase();
-    const searchResults = document.getElementById('search-results');
-    searchResults.innerHTML = '';
-
-    const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
-
-    if (filteredPaintings.length > 0) {
-        filteredPaintings.forEach(painting => {
-            const artElement = createArtItem(painting);
-            searchResults.appendChild(artElement);
-        });
-    } else {
-        searchResults.innerHTML = '<p>No paintings found</p>';
-    }
-}
 
 
 function showPaintingDetails(art) {
@@ -291,89 +233,8 @@ window.addEventListener('click', (event) => {
 });
 
 
-async function addFavorite(userId, paintingId) {
-    const token = localStorage.getItem('token');
-
-    console.log("token for postman: ", token);
-    try {
-        const response = await fetch('http://localhost:5000/favorites/addFavorite', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({userId, paintingId})
-        });
-
-        if (response.ok) {
-            alert('Pictura adăugată la favorite cu succes!');
-        } else {
-            // Try to parse JSON response
-            try {
-                const errorData = await response.json();
-                alert(`Eroare: ${errorData.message}`);
-            } catch (jsonError) {
-                // Handle non-JSON response
-                const text = await response.text();
-                console.error('Non-JSON error response:', text);
-                alert(`Eroare: ${response.status} ${response.statusText}`);
-            }
-        }
-    } catch (error) {
-        console.error('Error adding favorite:', error);
-        alert('A apărut o eroare la adăugarea picturii la favorite.');
-    }
-}
-/*
-async function getFavorites(userId) {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`/favorites/getFavorites/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    if (response.ok) {
-        const favoritePaintings = await response.json();
-        //afisez picturile cu favoritePaintings
-    } else {
-        const errorData = await response.json();
-        alert(`Eroare: ${errorData.message}`);
-    }
-} */
-
-async function removeFavorite(userId, paintingId) {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/favorites/removeFavorite', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({userId, paintingId})
-    });
-
-    if (response.ok) {
-        alert('Pictura a fost ștearsă din favorite cu succes!');
-    } else {
-        const errorData = await response.json();
-        alert(`Eroare: ${errorData.message}`);
-    }
-}
 
 
 window.toggleFavorite = toggleFavorite;
 
 
-let menuContainer = document.getElementById("Menu_Container");
-function menu() {
-    if (menuContainer.style.visibility === "hidden") {
-        menuContainer.style.animationName = "OpenMenu";
-        menuContainer.style.visibility = "visible";
-    } else if (menuContainer.style.visibility === "visible") {
-        menuContainer.style.animationName = "CloseMenu";
-        menuContainer.style.visibility = "hidden";
-    }
-
-}

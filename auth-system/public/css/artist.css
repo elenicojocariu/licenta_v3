@@ -6,7 +6,6 @@
 }
 
 
-
 .grid-art-item {
     text-align: center;
     border: 1px solid #ddd;
@@ -64,15 +63,36 @@
     padding: 0.7rem;
 }
 
-#artist-name
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin-top: 7rem;
-    margin-bottom: 2rem;
+#artist-name {
     font-size: 3em;
     font-weight: bold;
     color: #ffffff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.artist-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-top: 5rem;
+}
+
+.artist-info img {
+    border-radius: 50% / 40%; /* Making the image more oval */
+    width: 200px;
+    height: 250px; /* Adjusted height to make the oval shape */
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.artist-info h1 {
+    font-size: 2.5em;
+    color: #333;
 }

@@ -1,60 +1,66 @@
-const favoritesList = document.getElementById('favorites-list');
-
-// Mock data for favorite artworks
-const favoriteArtworks = [
-    {
-        title: "Boy with a Floral Garland in His Hair",
-        image: "https://uploads2.wikiart.org/00210/images/fayum-portrait/boy-with-a-floral-garland-in-his-hair-google-art-project.jpg",
-        paintingId: "230d9d00-2082-4ef2-8521-b4ac278cbbd4"
-    },
-    {
-        title: "Bärtiger Mann Mit Lockenfrisur",
-        image: "https://uploads8.wikiart.org/00210/images/fayum-portrait/fayum-77.jpg",
-        paintingId: "23049d00-2082-4ef2-8521-b4ac278cbcd4"
-    },
-    {
-        title: "Agricultural Scene from the Tomb of Nakht, 18th Dynasty Thebes",
-        image: "https://uploads8.wikiart.org/00244/images/ancient-egyptian-painting/tomb-of-nakht-harvest.jpg",
-        paintingId: "23049d00-25682-4ef2-8521-b4ac278cbcd4"
-    }
-];
-
-function displayFavoriteArtworks(artworks) {
-    favoritesList.innerHTML = '';
-    artworks.forEach(artwork => {
-        const artworkDiv = document.createElement('div');
-        artworkDiv.classList.add('grid-art-item');
-        artworkDiv.innerHTML = `
-            <img src="${artwork.image}" alt="${artwork.title}">
-            <p>${artwork.title}</p>
-            <button class="favorite-btn" onclick="removeFromFavorites('${artwork.paintingId}')">Remove</button>
-        `;
-        favoritesList.appendChild(artworkDiv);
-    });
-}
-
-function removeFromFavorites(paintingId) {
-    console.log(`Removed painting ${paintingId} from favorites`);
-    // Here you can add your logic to remove the favorite from the database or local storage
-}
-
-displayFavoriteArtworks(favoriteArtworks);
-
-
-async function getFavorites(userId) {
+async function addFavorite(userId, paintingId) {
     const token = localStorage.getItem('token');
-    const response = await fetch(`/favorites/getFavorites/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
+
+    console.log("token for postman: ", token);
+    try {
+        const response = await fetch('http://localhost:5000/favorites/addFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ userId, paintingId })
+        });
+
+        if (response.ok) {
+            alert('Pictura adăugată la favorite cu succes!');
+        } else {
+            // Try to parse JSON response
+            try {
+                const errorData = await response.json();
+                alert(`Eroare: ${errorData.message}`);
+            } catch (jsonError) {
+                // Handle non-JSON response
+                const text = await response.text();
+                console.error('Non-JSON error response:', text);
+                alert(`Eroare: ${response.status} ${response.statusText}`);
+            }
         }
+    } catch (error) {
+        console.error('Error adding favorite:', error);
+        alert('A apărut o eroare la adăugarea picturii la favorite.');
+    }
+}
+
+
+
+
+
+
+
+
+
+async function removeFavorite(userId, paintingId) {
+    const token = localStorage.getItem('token');
+    const response = await fetch('/favorites/removeFavorite', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({userId, paintingId})
     });
 
     if (response.ok) {
-        const favoritePaintings = await response.json();
-        //afisez picturile cu favoritePaintings
+        alert('Pictura a fost ștearsă din favorite cu succes!');
     } else {
         const errorData = await response.json();
         alert(`Eroare: ${errorData.message}`);
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const userId = '1';
+    getFavorites(userId);
+});
+

@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
             console.log(result);
             if (response.ok) {
-                alert(result.message);
+                console.log(result.message);
                 const token = result.token;
                 localStorage.setItem('token', token);
                 console.log('Token:', token); // Loghează doar token-ul în consolă
                 console.log('Login successful');
                 window.location.href = 'home.html'; // Sau pagina către care vrei să redirecționezi utilizatorul după login
             } else {
-                alert(result.message);
+                console.log(result.message);
             }
         } catch (error) {
             console.error('An error occurred:', error.message);

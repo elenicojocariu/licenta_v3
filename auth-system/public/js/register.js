@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const token = result.token;
                 console.log('Token:', token);
                 localStorage.setItem('token', token);
-                window.location.href = 'index.html';
+                window.location.href = 'home.html';
             } else {
                 alert(result.message);
             }

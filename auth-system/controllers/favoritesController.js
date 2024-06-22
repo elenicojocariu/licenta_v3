@@ -1,130 +1,115 @@
+const connection = require('../config/db');
 const { connectToDatabase } = require('../../config-mongodb/mongodb');
-const mysql = require('mysql2');
-const connection = require('../config/db'); // Importați conexiunea din db.js
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err);
-        return;
-    }
-    console.log('Connected to MySQL.');
-});
 
-const addFavorite = async (req, res) => {
+exports.addFavorite = async (req, res) => {
     const { userId, paintingId } = req.body;
-    console.log("userrrrrrrr", userId);
-    console.log("painging idddd", paintingId);
+    console.log(`Adding favorite: userId=${userId}, paintingId=${paintingId}`);
+
+    if (!userId || !paintingId) {
+        return res.status(400).json({ message: 'userId and paintingId are required' });
+    }
 
     try {
-        const userQuery = 'SELECT * FROM users WHERE id = ?';
-        connection.query(userQuery, [userId], async (err, userResults) => {
+        connection.query('INSERT INTO favorite (user_id, painting_id) VALUES (?, ?)', [userId, paintingId], (err, results) => {
             if (err) {
-                console.error('Error fetching user from MySQL', err);
-                return res.status(500).send('Error fetching user from MySQL');
+                console.error('Error inserting into MySQL:', err);
+                return res.status(500).json({ message: 'Error inserting into MySQL', error: err });
             }
-            if (userResults.length === 0) {
-                return res.status(404).send('User not found.');
-            }
-            const db = await connectToDatabase();
-            const collection = db.collection('data');
-            const document = await collection.findOne({ "artworks.paintingId": paintingId });
-            console.log("here: ", paintingId);
-            if (document) {
-                const artwork = document.artworks.find(artwork => artwork.paintingId === paintingId);
-                if (artwork) {
-                    const favoriteQuery = 'INSERT INTO favorite (user_id, painting_id) VALUES (?, ?)';
-                    connection.query(favoriteQuery, [userId, paintingId], (err, result) => {
-                        if (err) {
-                            console.error('Error inserting into MySQL', err);
-                            return res.status(500).send('Error inserting into MySQL');
-                        }
-                        console.log(`Adding paintingId ${paintingId} to favorites for userId ${userId}`);
-                        res.status(200).json({ message: 'Pictura adăugată la favorite cu succes!' });
-                    });
-                } else {
-                    res.status(404).send('Pictura nu a fost găsită în MongoDB.');
-                }
-            } else {
-                res.status(404).send('Documentul nu a fost găsit în MongoDB.');
-            }
+
+            console.log('Favorite added:', results);
+            res.status(201).json({ message: 'Favorite added successfully' });
         });
-    } catch (err) {
-        console.error('Error fetching data from MongoDB', err);
-        res.status(500).send('Error fetching data from MongoDB');
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'An error occurred', error });
     }
 };
 
-const getFavorites = async (req, res) => {
-    const { userId } = req.params;
-    try {
-        const userQuery = 'SELECT * FROM users WHERE id = ?';
-        connection.query(userQuery, [userId], async (err, userResults) => {
-            if (err) {
-                console.error('Error fetching user from MySQL', err);
-                return res.status(500).send('Error fetching user from MySQL');
-            }
-            if (userResults.length === 0) {
-                return res.status(404).send('User not found.');
-            }
-            const favoriteQuery = 'SELECT painting_id FROM favorite WHERE user_id = ?';
-            connection.query(favoriteQuery, [userId], async (err, results) => {
-                if (err) {
-                    console.error('Error fetching from MySQL', err);
-                    return res.status(500).send('Error fetching from MySQL');
-                }
-                if (results.length === 0) {
-                    return res.status(404).send('No favorites found for this user.');
-                }
-                const paintingIds = results.map(row => row.painting_id);
-                const db = await connectToDatabase();
-                const collection = db.collection('data');
-                const paintings = await collection.find({ "artworks.paintingId": { $in: paintingIds } }).toArray();
-                const favoritePaintings = [];
-                paintings.forEach(doc => {
-                    doc.artworks.forEach(artwork => {
-                        if (paintingIds.includes(artwork.paintingId)) {
-                            favoritePaintings.push(artwork);
-                        }
-                    });
+
+
+
+// cand bagi o pictura in baza de date la fav, impreuna cu id pune si titlu, imagine, artist si perioada
+
+function extractArtworks(data) {
+    let artworks = [];
+    data.forEach(periodData => {
+        Object.keys(periodData).forEach(periodKey => {
+            const period = periodData[periodKey];
+            if (Array.isArray(period)) {
+                period.forEach(item => {
+                    const artistName = item.name || 'Unknown Artist';
+                    if (item.artworks && Array.isArray(item.artworks)) {
+                        item.artworks.forEach(artwork => {
+                            let artworkItem = {
+                                image: artwork.image || 'placeholder.jpg',
+                                title: artwork.title || 'Untitled',
+                                name: artistName,
+                                period: periodKey,
+                                paintingId: artwork.paintingId
+                            };
+                            artworks.push(artworkItem);
+                        });
+                    }
                 });
-                res.json(favoritePaintings);
-            });
+            }
         });
-    } catch (err) {
-        console.error('Error fetching data from MongoDB', err);
-        res.status(500).send('Error fetching data from MongoDB');
-    }
+    });
+    return artworks;
+}
+
+exports.getFavorites = async (req, res) => {
+    const userId = req.params.userId;
+    console.log(`Fetching favorites for userId: ${userId}`);
+
+    connection.query('SELECT painting_id FROM favorite WHERE user_id = ?', [userId], async (err, results) => {
+        if (err) {
+            console.error('Error querying MySQL:', err);
+            return res.status(500).json({ message: 'Error querying MySQL', error: err });
+        }
+
+        const paintingIds = results.map(row => row.painting_id.toString());
+        console.log('MySQL paintingIds:', paintingIds);
+
+        try {
+            const db = await connectToDatabase();
+            console.log('Connected to MongoDB');
+
+            // Debug: Verify connection and collection
+            const collection = db.collection('data');
+            const count = await collection.countDocuments();
+            console.log(`Number of documents in 'data' collection: ${count}`);
+
+            // Fetch all documents in 'data' collection
+            const periods = await collection.find().toArray();
+            console.log('MongoDB periods found:', JSON.stringify(periods, null, 2));
+
+            const allArtworks = extractArtworks(periods);
+            const favoriteArtworks = allArtworks.filter(artwork => paintingIds.includes(artwork.paintingId));
+            console.log('Favorite artworks:', JSON.stringify(favoriteArtworks, null, 2));
+
+            res.json(favoriteArtworks);
+        } catch (error) {
+            console.error('Error querying MongoDB:', error);
+            return res.status(500).json({ message: 'Error querying MongoDB', error });
+        }
+    });
 };
 
-const removeFavorite = async (req, res) => {
-    const { userId, paintingId } = req.body;
+exports.removeFavorite = async (req, res) => {
     try {
-        const userQuery = 'SELECT * FROM users WHERE id = ?';
-        connection.query(userQuery, [userId], async (err, userResults) => {
-            if (err) {
-                console.error('Error fetching user from MySQL', err);
-                return res.status(500).send('Error fetching user from MySQL');
-            }
-            if (userResults.length === 0) {
-                return res.status(404).send('User not found.');
-            }
-            const query = 'DELETE FROM favorite WHERE user_id = ? AND painting_id = ?';
-            connection.query(query, [userId, paintingId], (err, result) => {
-                if (err) {
-                    console.error('Error deleting from MySQL', err);
-                    return res.status(500).send('Error deleting from MySQL');
-                }
-                res.status(200).json({ message: 'Pictura a fost ștearsă din favorite cu succes!' });
-            });
-        });
-    } catch (err) {
-        console.error('Error deleting from MySQL', err);
-        res.status(500).send('Error deleting from MySQL');
-    }
-};
+        const { userId, paintingId } = req.body;
 
-module.exports = {
-    addFavorite,
-    getFavorites,
-    removeFavorite
+        // Șterge înregistrarea din baza de date
+        const result = await Favorite.deleteOne({ userId: userId, paintingId: paintingId });
+
+        if (result.deletedCount === 1) {
+            res.status(200).json({ message: 'Pictura a fost ștearsă din favorite cu succes!' });
+        } else {
+            res.status(404).json({ message: 'Pictura nu a fost găsită în favorite.' });
+        }
+    } catch (error) {
+        console.error('Error removing favorite:', error);
+        res.status(500).json({ message: 'A apărut o eroare la ștergerea picturii din favorite.' });
+    }
 };

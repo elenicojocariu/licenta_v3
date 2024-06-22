@@ -130,11 +130,14 @@ function createArtItem(art) {
     artItem.innerHTML = `
         <img src="${art.image || 'placeholder.jpg'}" alt="${art.title || 'Untitled'}">
         <h3>${art.title || 'Untitled'}</h3>
-        <p>${art.name || 'Unknown Artist'}</p>
+        <p class="clickable-artist">${art.name || 'Unknown Artist'}</p>
         <!--<p>${art.period}</p> -->
         <button class="favorite-btn" onclick="toggleFavorite(this, '${art.paintingId}')"><i class="far fa-heart"></i></button>
 
     `;
+    artItem.querySelector('.clickable-artist').addEventListener('click', () => {
+        window.location.href = `artist.html?name=${encodeURIComponent(art.name)}`;
+    });
 
     artItem.addEventListener('click', () => {
         showPaintingDetails(art);
@@ -346,15 +349,3 @@ async function removeFavorite(userId, paintingId) {
 
 
 window.toggleFavorite = toggleFavorite;
-
-let menuContainer = document.getElementById("Menu_Container");
-function menu() {
-    if (menuContainer.style.visibility === "hidden") {
-        menuContainer.style.animationName = "OpenMenu";
-        menuContainer.style.visibility = "visible";
-    } else if (menuContainer.style.visibility === "visible") {
-        menuContainer.style.animationName = "CloseMenu";
-        menuContainer.style.visibility = "hidden";
-    }
-
-}
