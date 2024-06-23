@@ -1,8 +1,17 @@
-// search-bar.js
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchBar = document.getElementById('nav-search-input');
     searchBar.addEventListener('input', handleSearchInput);
+
+    const closeButton = document.getElementById('nav-search-close');
+    closeButton.addEventListener('click', () => {
+        const searchContainer = document.getElementById('nav-search-container');
+        searchContainer.style.display = 'none';
+        searchBar.value = '';
+        const searchResults = document.getElementById('nav-search-results');
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
+    });
 });
 
 function handleSearchInput(event) {
@@ -21,13 +30,16 @@ function handleSearchInput(event) {
 
     if (filteredPaintings.length > 0) {
         filteredPaintings.forEach(painting => {
+            const highlightedTitle = highlightMatch(painting.title, query);
+            const highlightedName = highlightMatch(painting.name, query);
+
             const artElement = document.createElement('div');
             artElement.classList.add('nav-search-result-item');
             artElement.innerHTML = `
                 <img src="${painting.image}" alt="${painting.title}" />
                 <div>
-                    <h3>${painting.title}</h3>
-                    <p>${painting.name}</p>
+                    <h3>${highlightedTitle}</h3>
+                    <p>${highlightedName}</p>
                 </div>
             `;
             artElement.addEventListener('click', () => {
@@ -43,6 +55,12 @@ function handleSearchInput(event) {
         searchResults.style.display = 'block'; // Show "No paintings found"
     }
 }
+
+function highlightMatch(text, query) {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<strong class="highlight">$1</strong>');
+}
+
 
 function toggleSearchBar() {
     const searchContainer = document.getElementById('nav-search-container');
