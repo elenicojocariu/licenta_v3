@@ -1,37 +1,15 @@
-// js/az-listing.js
-function displayArtmovements() {
-    artmovementsList.innerHTML = '';
-    console.log('Displaying Artmovements:', artmovements); // Debugging line
-
-    artmovements.forEach(artmovement => {
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = artmovement;
-        checkbox.value = artmovement;
-
-        const label = document.createElement('label');
-        label.htmlFor = artmovement;
-        label.textContent = artmovement;
-
-        const div = document.createElement('div');
-        div.appendChild(checkbox);
-        div.appendChild(label);
-
-        artmovementsList.appendChild(div);
-    });
-}
-
-// Restul codului din az-listing.js
 const artistsList = document.getElementById('artists-list');
 const pageNumberElement = document.getElementById('page-number');
 const filterModal = document.getElementById('filter-modal');
 const artmovementsList = document.getElementById('artmovements-list');
+const alphabetFilter = document.getElementById('alphabet-filter');
 const itemsPerPage = 20;
 let currentPage = 1;
 let artists = [];
 let artmovements = [];
 let selectedArtmovements = new Set();
 let artworksData = [];
+let selectedLetter = '';
 
 async function fetchArtists() {
     try {
@@ -46,6 +24,7 @@ async function fetchArtists() {
         console.log('Number of Artmovements:', artmovements.length);
 
         displayArtmovements();
+        displayAlphabetFilter();
         artists.sort((a, b) => a.name.localeCompare(b.name)); // Sort artists alphabetically by name
         displayArtists();
     } catch (error) {
@@ -90,12 +69,35 @@ function extractArtmovements(data) {
     return Array.from(artmovementsSet);
 }
 
+function displayArtmovements() {
+    artmovementsList.innerHTML = '';
+    console.log('Displaying Artmovements:', artmovements); // Debugging line
+
+    artmovements.forEach(artmovement => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = artmovement;
+        checkbox.value = artmovement;
+
+        const label = document.createElement('label');
+        label.htmlFor = artmovement;
+        label.textContent = artmovement;
+
+        const div = document.createElement('div');
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        artmovementsList.appendChild(div);
+    });
+}
+
 function displayArtists() {
     artistsList.innerHTML = '';
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const filteredArtists = filterArtistsByArtmovement(artists);
-    const paginatedArtists = filteredArtists.slice(start, end);
+    const alphabetFilteredArtists = filterArtistsByAlphabet(filteredArtists);
+    const paginatedArtists = alphabetFilteredArtists.slice(start, end);
 
     paginatedArtists.forEach(artist => {
         const artistDiv = document.createElement('div');
@@ -136,8 +138,15 @@ function filterArtistsByArtmovement(artists) {
     return filteredArtists;
 }
 
+function filterArtistsByAlphabet(artists) {
+    if (!selectedLetter) {
+        return artists;
+    }
+    return artists.filter(artist => artist.name.charAt(0).toUpperCase() === selectedLetter);
+}
+
 function nextPage() {
-    if (currentPage * itemsPerPage < filterArtistsByArtmovement(artists).length) {
+    if (currentPage * itemsPerPage < filterArtistsByAlphabet(filterArtistsByArtmovement(artists)).length) {
         currentPage++;
         displayArtists();
     }
@@ -171,6 +180,21 @@ window.onclick = function(event) {
     if (event.target == filterModal) {
         filterModal.style.display = 'none';
     }
+}
+
+function displayAlphabetFilter() {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    alphabet.split('').forEach(letter => {
+        const letterButton = document.createElement('button');
+        letterButton.textContent = letter;
+        letterButton.classList.add('alphabet-button');
+        letterButton.addEventListener('click', () => {
+            selectedLetter = letter;
+            currentPage = 1;
+            displayArtists();
+        });
+        alphabetFilter.appendChild(letterButton);
+    });
 }
 
 fetchArtists();

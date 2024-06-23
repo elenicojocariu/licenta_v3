@@ -155,7 +155,8 @@
 button {
     margin-top: 20px;
     text-decoration: none;
-    padding: 15px 30px;    background-color: rgba(117, 111, 111, 0.82);
+    padding: 15px 30px;
+    background-color: rgba(117, 111, 111, 0.82);
     color: white;
     border: none;
     border-radius: 5px;
@@ -191,4 +192,22 @@ button:hover {
         grid-template-columns: repeat(2, 1fr); /* Adjust grid for smaller screens */
     }
 }
-
+.alphabet-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.alphabet-filter button {
+    background-color: rgba(117, 111, 111, 0.82);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.alphabet-filter button:hover {
+    background-color: #555;
+}
