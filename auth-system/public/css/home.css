@@ -20,6 +20,7 @@ body {
     align-items: center;
 }
 
+
 /*-------------menu---------------- */
 
 #Menu_Container{
@@ -239,45 +240,6 @@ body {
     z-index: 1000;
 }
 
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        align-items: flex-end;
-        padding: 6px;
-        background-color: transparent;
-
-    }
-
-    .navbar ul {
-        flex-direction: column;
-        align-items: flex-end;
-    }
-
-    .navbar ul li {
-        margin: 5px 0;
-    }
-
-    .navbar ul li a, .navbar ul li button {
-        padding: 5px 8px; /* Reducerea dimensiunii butonului */
-        background-color: transparent; /* Background transparent pentru butoane */
-        width: auto; /* Butonul ocupă întreaga lățime */
-        text-align: right; /* Aliniere text la dreapta */
-
-    }
-
-    .top-navbar {
-        width: auto;
-        background-color: transparent; /* O nuanță consistentă pentru navbar */
-        position: static;
-        margin-top: 2px;
-    }
-
-
-    .container {
-        align-items: flex-end;
-    }
-}
 
 
 /*-----------------start-----------------------------------------*/
@@ -630,7 +592,7 @@ body.modal-open {
 }
 .highlight {
     font-weight: bold;
-    color: orange; /* Alegeți culoarea dorită */
+    color: orange;
 }
 
 
@@ -671,4 +633,150 @@ body.modal-open {
 
 .a {
     color: #1e90ff;
+}
+@media (min-width: 1314px){
+    .mobile-welcome-container{
+        display: none;
+    }
+}
+@media (min-width: 1211px){
+    .mobile-welcome-container{
+        display: none;
+    }
+}
+@media (min-width: 1033px){
+    .mobile-welcome-container{
+        display: none;
+    }
+}
+@media (min-width: 883px){
+    .mobile-welcome-container{
+        display: none;
+    }
+}
+@media (min-width: 768px){
+    .mobile-welcome-container{
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 1033px) {
+    .logo {
+        font-size: 2em;
+        height: auto;
+    }
+}
+@media (min-width: 1314px){
+    .mobile-welcome-container{
+        display: none;
+    }
+}
+@media (max-width: 1211px){
+    .logo {
+        font-size: 1.5em;
+        height: auto;
+    }
+    .navbar ul li a, .navbar ul li button {
+        font-size: 1em;
+        padding: 10px 25px;
+    }
+
+}
+@media (max-width: 1033px) {
+    .logo {
+        font-size: 0.9em;
+    }
+    .navbar ul li a, .navbar ul li button {
+        font-size: 0.8em;
+        padding: 5px 20px;
+    }
+
+}
+@media (max-width: 883px){
+    .logo {
+        font-size: 0.8em;
+        height: auto;
+    }
+    .logo-container {
+        position: absolute;
+        top: 0.5rem;
+    }
+    .navbar ul li a, .navbar ul li button {
+        font-size: 0.6em;
+        padding: 3px 18px;
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 10px;
+        background-color: transparent;
+        font-size: 2em;
+
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .navbar ul li {
+        margin: 8px 0;
+    }
+
+    .navbar ul li a, .navbar ul li button {
+        padding: 15px 20px; /* Reducerea dimensiunii butonului */
+        background-color: transparent; /* Background transparent pentru butoane */
+        width: auto; /* Butonul ocupă întreaga lățime */
+        text-align: right; /* Aliniere text la dreapta */
+    }
+
+    .top-navbar {
+        width: auto;
+        background-color: transparent; /* O nuanță consistentă pentru navbar */
+        position: static;
+        margin-top: 2px;
+    }
+
+    .logo {
+        font-size: 2.5em;
+        background-color: rgba(150, 123, 88, 0.62);
+    }
+
+
+    .container {
+        align-items: flex-end;
+    }
+    .welcome-container{
+        display: none;
+    }
+
+    .mobile-welcome-container {
+        position: absolute;
+        top: 7em;
+        left: 6em;
+        margin-top: 1em;
+    }
+
+    .mobile-welcome-text {
+        font-size: 3em;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding: 20px;
+        margin-top: 14px;
+        border-radius: 10px;
+
+    }
+
 }
