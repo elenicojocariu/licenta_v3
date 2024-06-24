@@ -1,4 +1,4 @@
-const connection = require('../config/db'); // Asumând că fișierul de conexiune cu baza de date este în directorul rădăcină
+const connection = require('../config/db');
 
 exports.listPainting = (req, res) => {
     const { name, artistName, startDate, endDate } = req.body;
@@ -20,5 +20,23 @@ exports.listPainting = (req, res) => {
             return res.status(500).send({ message: 'Failed to list painting.' });
         }
         res.status(201).send({ message: 'Painting listed successfully.', paintingId: results.insertId });
+    });
+
+};
+
+exports.getAuctions = (req, res) => {
+    const query = `
+        SELECT painting_name, artist_name, painting_pic, start_date, end_date 
+        FROM auction_paintings 
+        WHERE verified_ok = 1
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Failed to fetch auctions:', err);
+            return res.status(500).send({ message: 'Failed to fetch auctions.' });
+        }
+        console.log(results);
+        res.status(200).send(results);
     });
 };
