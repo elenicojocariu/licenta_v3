@@ -6,13 +6,13 @@ const cors = require('cors');
 const path = require('path');
 const {connectToDatabase} = require('../config-mongodb/mongodb');
 
-
 dotenv.config();
 
 const app = express();
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const favoriteRoutes = require('./routes/favorites');
+const auctionRoutes = require('./routes/auction');
 
 // Middleware
 app.use(bodyParser.json());
@@ -24,13 +24,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Static files
 app.use(express.static('public'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads-paintings', express.static(path.join(__dirname, 'uploads-paintings')));
 
 
 // Routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 app.use('/favorites', favoriteRoutes);
-
+app.use('/auction', auctionRoutes);
 
 app.use(express.json())
 
