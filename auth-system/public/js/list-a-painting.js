@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('/auction/list', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}` // Asigură-te că token-ul este stocat în localStorage la autentificare
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
             body: formData
         })
@@ -75,6 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.message) {
                     alert(data.message);
+                    showPopup();
+                    resetForm();
                 }
             })
             .catch(error => {
@@ -82,4 +84,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Failed to list painting.');
             });
     });
+    function resetForm() {
+        document.getElementById('contactForm').reset();
+        // Resetează valorile Flatpickr
+        startDatePicker.clear();
+        endDatePicker.clear();
+    }
 });
+function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'block';
+}
+
+// Funcția pentru închiderea popup-ului
+function closePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+}

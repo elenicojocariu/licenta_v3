@@ -71,10 +71,18 @@
             <input type="file" id="profile-pic-input" name="profile-pic">
         </div>
 
-        <input type="submit" style="margin-top: 10px; text-align: center" value="Submit" onclick="sendContactForm(event)">
+        <input type="submit" style="margin-top: 10px; text-align: center" value="Submit" >
     </form>
     <div id="responseMessage" class="message" style="display: none; margin-top: 10px"></div>
 </div>
+
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <p>Congratulations! Right now the painting you listed is being checked by our experts for authenticity. This might take a while. Check your email for further details.</p>
+    </div>
+</div>
+
 
 <section id="info-section">
     <h2>How to List a Painting on Our Site</h2>
