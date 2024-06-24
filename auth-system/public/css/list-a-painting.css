@@ -87,3 +87,16 @@ input[type="submit"]:hover {
     font-size: 1.1em;
     line-height: 1.6;
 }
+.message-text{
+    font-size: 3em;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    margin-top: 14px;
+    border-radius: 10px;
+}
