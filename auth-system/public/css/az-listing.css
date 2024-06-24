@@ -211,3 +211,30 @@ button:hover {
 .alphabet-filter button:hover {
     background-color: #555;
 }
+
+#selected-artmovements {
+    text-align: center;
+
+}
+
+#selected-artmovements-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+}
+
+#selected-artmovements-list li {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+}
+#selected-artmovements-list li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

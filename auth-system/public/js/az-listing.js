@@ -15,14 +15,9 @@ async function fetchArtists() {
     try {
         const response = await fetch('/api/artworks');
         const data = await response.json();
-        console.log('Fetched Data:', data);
         artworksData = data;
         artists = extractArtists(data);
-        console.log("artistssssss: ", artists);
         artmovements = extractArtmovements(data);
-        console.log('Extracted Artmovements:', artmovements); // Debugging line
-        console.log('Number of Artmovements:', artmovements.length);
-
         displayArtmovements();
         displayAlphabetFilter();
         artists.sort((a, b) => a.name.localeCompare(b.name)); // Sort artists alphabetically by name
@@ -71,7 +66,6 @@ function extractArtmovements(data) {
 
 function displayArtmovements() {
     artmovementsList.innerHTML = '';
-    console.log('Displaying Artmovements:', artmovements); // Debugging line
 
     artmovements.forEach(artmovement => {
         const checkbox = document.createElement('input');
@@ -99,17 +93,21 @@ function displayArtists() {
     const alphabetFilteredArtists = filterArtistsByAlphabet(filteredArtists);
     const paginatedArtists = alphabetFilteredArtists.slice(start, end);
 
-    paginatedArtists.forEach(artist => {
-        const artistDiv = document.createElement('div');
-        artistDiv.classList.add('artist');
-        artistDiv.innerHTML = `
-            <a href="artist.html?name=${encodeURIComponent(artist.name)}">
-                <img src="${artist.image}" alt="${artist.name}">
-                <p>${artist.name}</p>
-            </a>
-        `;
-        artistsList.appendChild(artistDiv);
-    });
+    if (paginatedArtists.length === 0) {
+        artistsList.innerHTML = '<p>No artists found.</p>';
+    } else {
+        paginatedArtists.forEach(artist => {
+            const artistDiv = document.createElement('div');
+            artistDiv.classList.add('artist');
+            artistDiv.innerHTML = `
+                <a href="artist.html?name=${encodeURIComponent(artist.name)}">
+                    <img src="${artist.image}" alt="${artist.name}">
+                    <p>${artist.name}</p>
+                </a>
+            `;
+            artistsList.appendChild(artistDiv);
+        });
+    }
 
     pageNumberElement.textContent = currentPage;
 }
@@ -120,19 +118,21 @@ function filterArtistsByArtmovement(artists) {
     }
 
     let filteredArtists = [];
-    selectedArtmovements.forEach(selectedArtmovement => {
-        if (artworksData[selectedArtmovement]) {
-            artworksData[selectedArtmovement].forEach(item => {
-                let artistName = item.name || 'Unknown Artist';
-                if (!filteredArtists.some(artist => artist.name === artistName)) {
-                    let artist = {
-                        name: artistName,
-                        image: item.image || 'placeholder.jpg' // Fallback image
-                    };
-                    filteredArtists.push(artist);
-                }
-            });
-        }
+    artworksData.forEach(periodData => {
+        Object.keys(periodData).forEach(period => {
+            if (selectedArtmovements.has(period)) {
+                periodData[period].forEach(item => {
+                    let artistName = item.name || 'Unknown Artist';
+                    if (!filteredArtists.some(artist => artist.name === artistName)) {
+                        let artist = {
+                            name: artistName,
+                            image: item.image || 'placeholder.jpg'
+                        };
+                        filteredArtists.push(artist);
+                    }
+                });
+            }
+        });
     });
 
     return filteredArtists;
@@ -171,9 +171,20 @@ function applyFilter() {
     selectedArtmovements.clear();
     const checkboxes = artmovementsList.querySelectorAll('input[type="checkbox"]:checked');
     checkboxes.forEach(checkbox => selectedArtmovements.add(checkbox.value));
+    console.log('Selected Artmovements:', Array.from(selectedArtmovements)); // Debugging line
+    updateSelectedArtmovementsDisplay(); // Update the display of selected art movements
     currentPage = 1;
     displayArtists();
     closeFilterModal();
+}
+function updateSelectedArtmovementsDisplay() {
+    const selectedArtmovementsList = document.getElementById('selected-artmovements-list');
+    selectedArtmovementsList.innerHTML = ''; // Clear previous list
+    selectedArtmovements.forEach(artmovement => {
+        const li = document.createElement('li');
+        li.textContent = artmovement;
+        selectedArtmovementsList.appendChild(li);
+    });
 }
 
 window.onclick = function(event) {

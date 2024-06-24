@@ -310,11 +310,11 @@ body {
 }
 
 .art-item h3 {
-    font-size: 1.5em; /* Dimensiunea textului pentru titlu */
+    font-size: 1.5em;
 }
 
 .art-item p {
-    font-size: 1em; /* Dimensiunea textului pentru numele artistului */
+    font-size: 1em;
 }
 
 
@@ -660,19 +660,6 @@ body.modal-open {
     }
 }
 
-
-
-@media (max-width: 1033px) {
-    .logo {
-        font-size: 2em;
-        height: auto;
-    }
-}
-@media (min-width: 1314px){
-    .mobile-welcome-container{
-        display: none;
-    }
-}
 @media (max-width: 1211px){
     .logo {
         font-size: 1.5em;
@@ -780,3 +767,4 @@ body.modal-open {
     }
 
 }
+
