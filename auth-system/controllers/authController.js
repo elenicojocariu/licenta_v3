@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
 
 //const { sendConfirmationEmail } = require('../services/emailService');
 
@@ -21,7 +23,7 @@ exports.register = async (req, res) => {
             res.status(500).send({message: err.message});
             return;
         }
-        sendConfirmationEmail(email, confirmationCode);
+        sendConfirmationEmail(email);
         res.status(200).send({message: 'User registered successfully! Please check your email to confirm your account.'});
     });
 };
@@ -114,3 +116,31 @@ exports.verifyToken = (req, res) => {
     res.status(200).json({ userId });
 };
 
+const senderEmail = "cojocariu.eleni24@gmail.com";
+const password = "jwla mvkh bshz wlnh";
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: senderEmail,
+        pass: password,
+    },
+});
+
+function sendConfirmationEmail(email)
+{
+    // Setup email data
+    let mailOptions = {
+        from: senderEmail,
+        to: email,
+        subject: 'Account created successfully',
+        text: 'Hello! Your account has been created. Please enter on the following link to activate it:',
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+    });
+}

@@ -4,6 +4,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const auctionController = require('../controllers/auctionController');
 const multer = require('multer');
 const path = require('path');
+const {auth} = require("mysql/lib/protocol/Auth");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -20,6 +21,6 @@ router.post('/list', authMiddleware.authenticate, upload.single('paintingPic'), 
 
 
 router.get('/auctions',authMiddleware.authenticate, auctionController.getAuctions);
-
+router.post('/submit-offer', authMiddleware.authenticate, auctionController.submitAuction);
 
 module.exports = router;

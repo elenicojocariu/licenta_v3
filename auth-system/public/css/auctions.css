@@ -1,0 +1,175 @@
+.message-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 5rem; /* Ajustează margin-top pentru a reduce spațiul deasupra titlului */
+    margin-bottom: 2rem;
+}
+
+.message-text {
+    font-size: 3em;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 20px;
+    margin-top: 14px;
+    border-radius: 10px;
+}
+
+.auctions-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.auction {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.auction img {
+    width: 100%;
+    height: auto;
+}
+
+.auction h2 {
+    font-size: 1.2em;
+    margin: 16px 0;
+}
+
+.auction p {
+    color: #555;
+    margin: 8px 0;
+}
+
+.auction:hover {
+    transform: translateY(-10px);
+}
+
+.auction button {
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px;
+    background-color: rgba(117, 111, 111, 0.82);
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: 1em;
+    margin-bottom: 1rem;
+}
+
+.auction button:hover {
+    background-color: rgba(73, 72, 72, 0.82);
+}
+
+/* Modal styles */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+    backdrop-filter: blur(5px); /* Blur the background */
+}
+
+.popup-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    border-radius: 10px;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.popup h3, .popup p {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+body.popup-open {
+    filter: blur(5px);
+    overflow: hidden; /* Prevent background scrolling */
+}
+
+.popup input {
+    font-size: 1.2em;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.popup input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.popup input::placeholder {
+    color: #888;
+    opacity: 1;
+}
+
+#send-offer
+{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 15px;
+    background-color: rgba(117, 111, 111, 0.82);
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#send-offer button:hover {
+    background-color: rgba(73, 72, 72, 0.82);
+}
