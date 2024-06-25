@@ -5,14 +5,10 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/addFavorite', authMiddleware.authenticate, favoritesController.addFavorite);
 router.get('/getFavorites/:userId', authMiddleware.authenticate, favoritesController.getFavorites);
-//router.delete('/removeFavorite', authMiddleware.authenticate, favoritesController.removeFavorite);
+router.post('/removeFavorite', authMiddleware.authenticate, favoritesController.removeFavorite);
 
 module.exports = router;
 
 
-
-
-
 //router.delete('/removeFavorite', authMiddleware.authenticate, favoritesController.removeFavorite);
 
-module.exports = router;

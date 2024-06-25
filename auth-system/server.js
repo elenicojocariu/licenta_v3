@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
-const favoriteRoutes = require('./routes/favorites');
+const favoriteRoutes = require('./routes/favorite');
 const auctionRoutes = require('./routes/auction');
 
 // Middleware
@@ -30,7 +30,7 @@ app.use('/uploads-paintings', express.static(path.join(__dirname, 'uploads-paint
 // Routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
-app.use('/favorites', favoriteRoutes);
+app.use('/favorite', favoriteRoutes);
 app.use('/auction', auctionRoutes);
 
 app.use(express.json())

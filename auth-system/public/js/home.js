@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
     await fetchPaintings();
     displayRandomPaintings();
-    displayArtworks();
-    updatePaginationControls();
 });
 
 async function authenticateUser() {
@@ -116,7 +114,7 @@ function displayRandomPaintings() {
             <img src="${painting.image}" alt="${painting.title}">
             <h3 style="margin-top: 2rem">${painting.title}</h3>
             <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
-            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}')"><i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i></button>
+            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')"><i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i></button>
 
         `;
         artElement.querySelector('.clickable-artist').addEventListener('click', () => {
@@ -130,9 +128,6 @@ function displayRandomPaintings() {
         slider.appendChild(artElement);
     });
 }
-
-
-
 
 
 function getRandomPaintings(count) {
@@ -154,21 +149,6 @@ function scrollSlider(direction) {
 
     displayRandomPaintings();
 }
-
-
-
-
-
-function updatePaginationControls() {
-    pageNumberDisplay.textContent = `Page ${currentPage}`;
-    pageNumberDisplay.style.display = currentPage === 1 ? 'none' : 'inline-block';
-    previousBtn.style.display = currentPage === 1 ? 'none' : 'inline-block';
-    nextBtn.style.display = (currentPage * limit >= paintings.length) ? 'none' : 'inline-block';
-}
-
-
-
-
 
 function showPaintingDetails(art) {
     //console.log('Selected art details:', art);
@@ -195,7 +175,8 @@ function showPaintingDetails(art) {
 
     favoriteBtn.onclick = function (event) {
         event.stopPropagation();
-        toggleFavorite(favoriteBtn, art.paintingId);
+        console.log("hfjdoifsjdi", paintingImage.src, paintingTitle.textContent);
+        toggleFavorite(favoriteBtn, art.paintingId, paintingImage.src, paintingTitle.textContent);
     };
 
 
@@ -203,8 +184,9 @@ function showPaintingDetails(art) {
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
-function toggleFavorite(button, paintingId) {
+function toggleFavorite(button, paintingId, painting_img, painting_name) {
     event.stopPropagation();
+    console.log(painting_name, painting_img, "os")
     const heartIcon = button.querySelector('i');
 
     if (heartIcon.classList.contains('favorited')) {
@@ -213,8 +195,7 @@ function toggleFavorite(button, paintingId) {
 
     } else {
         heartIcon.classList.add('favorited');
-        addFavorite(userId, paintingId);
-
+        addToFavorite(userId, paintingId, painting_img, painting_name);
     }
 }
 
@@ -231,8 +212,6 @@ window.addEventListener('click', (event) => {
         closePaintingDetails();
     }
 });
-
-
 
 
 window.toggleFavorite = toggleFavorite;

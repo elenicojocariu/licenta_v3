@@ -132,7 +132,7 @@ function createArtItem(art) {
         <h3>${art.title || 'Untitled'}</h3>
         <p class="clickable-artist">${art.name || 'Unknown Artist'}</p>
         <!--<p>${art.period}</p> -->
-        <button class="favorite-btn" onclick="toggleFavorite(this, '${art.paintingId}')"><i class="far fa-heart"></i></button>
+        <button class="favorite-btn" onclick="toggleFavorite(this, '${art.paintingId}', '${art.image}', '${art.title}')"><i class="far fa-heart"></i></button>
 
     `;
     artItem.querySelector('.clickable-artist').addEventListener('click', () => {
@@ -238,7 +238,7 @@ function showPaintingDetails(art) {
 
     favoriteBtn.onclick = function (event) {
         event.stopPropagation();
-        toggleFavorite(favoriteBtn, art.paintingId);
+        toggleFavorite(favoriteBtn, art.paintingId, paintingImage.src, paintingTitle.textContent);
     };
 
 
@@ -246,8 +246,9 @@ function showPaintingDetails(art) {
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
-function toggleFavorite(button, paintingId) {
+function toggleFavorite(button, paintingId, painting_img, painting_name) {
     event.stopPropagation();
+    console.log(painting_name, painting_img, "os")
     const heartIcon = button.querySelector('i');
 
     if (heartIcon.classList.contains('favorited')) {
@@ -256,7 +257,7 @@ function toggleFavorite(button, paintingId) {
 
     } else {
         heartIcon.classList.add('favorited');
-        addFavorite(userId, paintingId);
+        addToFavorite(userId, paintingId, painting_img, painting_name);
 
     }
 }
@@ -275,77 +276,5 @@ window.addEventListener('click', (event) => {
     }
 });
 
-
-async function addFavorite(userId, paintingId) {
-    const token = localStorage.getItem('token');
-
-    console.log("token for postman: ", token);
-    try {
-        const response = await fetch('http://localhost:5000/favorites/addFavorite', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({userId, paintingId})
-        });
-
-        if (response.ok) {
-            alert('Pictura adăugată la favorite cu succes!');
-        } else {
-            // Try to parse JSON response
-            try {
-                const errorData = await response.json();
-                alert(`Eroare: ${errorData.message}`);
-            } catch (jsonError) {
-                // Handle non-JSON response
-                const text = await response.text();
-                console.error('Non-JSON error response:', text);
-                alert(`Eroare: ${response.status} ${response.statusText}`);
-            }
-        }
-    } catch (error) {
-        console.error('Error adding favorite:', error);
-        alert('A apărut o eroare la adăugarea picturii la favorite.');
-    }
-}
-/*
-async function getFavorites(userId) {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`/favorites/getFavorites/${userId}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    if (response.ok) {
-        const favoritePaintings = await response.json();
-        //afisez picturile cu favoritePaintings
-    } else {
-        const errorData = await response.json();
-        alert(`Eroare: ${errorData.message}`);
-    }
-} */
-
-async function removeFavorite(userId, paintingId) {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/favorites/removeFavorite', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({userId, paintingId})
-    });
-
-    if (response.ok) {
-        alert('Pictura a fost ștearsă din favorite cu succes!');
-    } else {
-        const errorData = await response.json();
-        alert(`Eroare: ${errorData.message}`);
-    }
-}
-
-
 window.toggleFavorite = toggleFavorite;
+
