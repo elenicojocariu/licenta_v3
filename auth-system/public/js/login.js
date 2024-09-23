@@ -24,8 +24,13 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(result);
             if (response.ok) {
                 console.log(result.message);
+
                 const token = result.token;
+                const userId = result.userId;
+
                 localStorage.setItem('token', token);
+                localStorage.setItem('userId', userId);
+
                 console.log('Token:', token); // Loghează doar token-ul în consolă
                 console.log('Login successful');
                 window.location.href = 'home.html'; // Sau pagina către care vrei să redirecționezi utilizatorul după login

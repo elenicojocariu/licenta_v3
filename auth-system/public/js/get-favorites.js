@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userId = '14';
-    getFavorites(userId);
+    //const userId = '14';
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+        getFavorites(userId);
+    }
+    else {
+        alert('Eroare: UserId nu este definit.');
+
+    }
 });
 
 async function getFavorites(userId) {
@@ -13,14 +20,14 @@ async function getFavorites(userId) {
     });
     if (response.ok) {
         const favoritePaintings = await response.json();
-        displayFavoriteArtworks(favoritePaintings);
+        displayFavoriteArtworks(favoritePaintings, userId);
     } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
     }
 }
 
-function displayFavoriteArtworks(artworks) {
+function displayFavoriteArtworks(artworks, userId) {
     const favoritesList = document.getElementById('favorites-list');
     favoritesList.innerHTML = '';
     artworks.forEach(artwork => {
@@ -29,7 +36,7 @@ function displayFavoriteArtworks(artworks) {
         artworkDiv.innerHTML = `
             <img src="${artwork.painting_img}" alt="${artwork.painting_name}">
             <p>${artwork.painting_name}</p>
-            <button class="delete-btn" onclick="removeFavorite('${14}', '${artwork.painting_id}')"> <i class="fas fa-trash"></i> </button>
+            <button class="delete-btn" onclick="removeFavorite('${userId}', '${artwork.painting_id}')"> <i class="fas fa-trash"></i> </button>
         `;
         favoritesList.appendChild(artworkDiv);
     });

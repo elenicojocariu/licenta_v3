@@ -1,7 +1,23 @@
+
 async function addToFavorite(userId, paintingId, painting_img, painting_name) {
     const token = localStorage.getItem('token');
+    //obt lista de fav pt a preveni adaugarea de 2 ori
+    const responseFavorites = await fetch(`/favorite/getFavorites/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
 
-    console.log("token for postman: ", token);
+    const favoritePaintings = await responseFavorites.json();
+    const alreadyFavorite = favoritePaintings.some(painting => painting.painting_id === paintingId);
+
+    if (alreadyFavorite) {
+        //alert('Pictura este deja în favorite.');
+        return;
+    }
+
+    //console.log("token for postman: ", token);
     try {
         const response = await fetch('http://localhost:5000/favorite/addFavorite', {
             method: 'POST',
@@ -14,6 +30,7 @@ async function addToFavorite(userId, paintingId, painting_img, painting_name) {
 
         if (response.ok) {
             alert('Pictura adăugată la favorite cu succes!');
+            //getFavorites(userId);
         } else {
             // Try to parse JSON response
             try {

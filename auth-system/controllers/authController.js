@@ -69,7 +69,11 @@ exports.login = (req, res) => {
                 return res.status(400).json({message: 'Email or password is incorrect'});
             } else {
                 const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
-                res.status(200).json({message: 'Login successfulllll', token});
+                res.status(200).json({
+                    message: 'Login successfulllll',
+                    token,
+                    userId: user.id //trim si userid in rasp
+                });
             }
         }
     });
