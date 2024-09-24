@@ -119,12 +119,6 @@ function displayArtworks() {
     artworks.forEach(art => {
         const artItem = createArtItem(art);
         artGrid.appendChild(artItem);
-
-        const heartIcon = artItem.querySelector('.favorite-btn i');
-        if (favoritePaintings.some(fav => fav.painting_id === art.paintingId)) {
-            heartIcon.classList.add('favorited'); // Adaugă stilul de inimă favorită
-        }
-
     });
     updatePaginationControls();
 }
@@ -193,6 +187,39 @@ function toggleFavorite(button, paintingId, painting_img, painting_name) {
         addToFavorite(userId, paintingId, painting_img, painting_name);
     }
 }
+
+function showSearchPopup() {
+    document.getElementById('search-popup').style.display = 'block';
+}
+// Function to hide the search popup
+function hideSearchPopup() {
+    document.getElementById('search-popup').style.display = 'none';
+}
+//---------------------------------------------aici
+function searchPaintingsByName() {
+    const query = document.getElementById('search-input').value.toUpperCase();
+    const searchResults = document.getElementById('search-results');
+
+    searchResults.innerHTML = '';
+    const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
+    if (filteredPaintings.length > 0) {
+        filteredPaintings.forEach(painting => {
+            const artElement = createArtItem(painting);
+            searchResults.appendChild(artElement);
+        });
+        //if (heartIcon.classList.contains('favorited')) {
+            //heartIcon.classList.remove('favorited');
+            //removeFavorite(userId, paintingId);
+       // } else {
+            //searchResults.innerHTML = '<p>No paintings found</p>';
+            //heartIcon.classList.add('favorited');
+            //addToFavorite(userId, paintingId, painting_img, painting_name);
+       // }
+    }
+}
+//------------------mai sus
+
+
 
 // Funcțiile pentru afișarea detaliilor picturii și gestionarea modalului
 function showPaintingDetails(art) {
