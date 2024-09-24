@@ -1,11 +1,6 @@
 let paintings = [];
 let currentIndex = 0;
 
-let currentPage = 1;
-const limit = 20;
-const previousBtn = document.getElementById('previous-btn');
-const nextBtn = document.getElementById('next-btn');
-const pageNumberDisplay = document.getElementById('page-number');
 
 let userId = null;
 document.addEventListener('DOMContentLoaded', async () => {
@@ -113,7 +108,7 @@ function displayRandomPaintings() {
         artElement.innerHTML = `
             <img src="${painting.image}" alt="${painting.title}">
             <h3 style="margin-top: 2rem">${painting.title}</h3>
-            <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
+            <p class="clickable-artist" style="margin-top: 1rem" >${painting.name}</p>
             <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')"><i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i></button>
 
         `;
