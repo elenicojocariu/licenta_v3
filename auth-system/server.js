@@ -39,7 +39,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false} // Setează secure: true dacă folosești HTTPS
+    cookie: {secure: false} // Seteaza secure: true dacă fol HTTPS
 }));
 
 //app.use(fileUpload());
