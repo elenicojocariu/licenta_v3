@@ -450,6 +450,9 @@ body.modal-open {
     color: red;
 }
 
+.favorited{
+    color: red;
+}
 
 /*  search bar and results */
 

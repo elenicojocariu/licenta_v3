@@ -11,10 +11,29 @@ let userId = null;
 // Inițializez pagina când documentul este gata
 document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
+    await fetchFavorites(); //favoritele
     await fetchPaintings();
     displayArtworks();
     updatePaginationControls();
 });
+
+
+async function fetchFavorites() {
+    const token = localStorage.getItem('token');
+    if (!userId) return;
+
+    try {
+        const response = await fetch(`/favorite/getFavorites/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        favoritePaintings = await response.json();  // Salvează picturile favorite
+    } catch (error) {
+        console.error('Error fetching favorite artworks:', error);
+    }
+}
 
 // Funcția pentru autentificarea utilizatorului
 async function authenticateUser() {
@@ -100,6 +119,12 @@ function displayArtworks() {
     artworks.forEach(art => {
         const artItem = createArtItem(art);
         artGrid.appendChild(artItem);
+
+        const heartIcon = artItem.querySelector('.favorite-btn i');
+        if (favoritePaintings.some(fav => fav.painting_id === art.paintingId)) {
+            heartIcon.classList.add('favorited'); // Adaugă stilul de inimă favorită
+        }
+
     });
     updatePaginationControls();
 }
