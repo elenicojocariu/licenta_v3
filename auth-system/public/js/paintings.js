@@ -186,16 +186,28 @@ function toggleFavorite(button, paintingId, painting_img, painting_name) {
         addToFavorite(userId, paintingId, painting_img, painting_name);
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
-    //actualize picture din homepage daca trb
-    const homepageArtItem = document.querySelector(`[data-painting-id="${paintingId}"]`);
-    if (homepageArtItem) {
-        const homepageHeartIcon = homepageArtItem.querySelector('.favorite-btn i');
+    //actualize iconita din homepage daca trb
+    const paintingArtItem = document.querySelector(`[data-painting-id="${paintingId}"]`);
+    if (paintingArtItem) {
+        const homepageHeartIcon = paintingArtItem.querySelector('.favorite-btn i');
         if (favorites.some(fav => fav.paintingId === paintingId)) {
             homepageHeartIcon.classList.add('favorited');
         } else {
             homepageHeartIcon.classList.remove('favorited');
         }
     }
+
+    const modal = document.getElementById('painting-details-modal');
+    if (modal.style.display === 'block') {
+        const modalFavoriteBtn = document.getElementById('modal-favorite-btn');
+        const modalHeartIcon = modalFavoriteBtn.querySelector('i');
+        if (favorites.some(fav => fav.paintingId === paintingId)) {
+            modalHeartIcon.classList.add('favorited');
+        } else {
+            modalHeartIcon.classList.remove('favorited');
+        }
+    }
+    updateSearchFavorites();
 }
 
 function showSearchPopup() {
@@ -205,7 +217,7 @@ function showSearchPopup() {
 function hideSearchPopup() {
     document.getElementById('search-popup').style.display = 'none';
 }
-//---------------------------------------------aici
+
 function searchPaintingsByName() {
     const query = document.getElementById('search-input').value.toUpperCase();
     const searchResults = document.getElementById('search-results');
