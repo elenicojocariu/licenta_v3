@@ -11,29 +11,13 @@ let userId = null;
 // Inițializez pagina când documentul este gata
 document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
-    await fetchFavorites(); //favoritele
     await fetchPaintings();
     displayArtworks();
     updatePaginationControls();
 });
 
 
-async function fetchFavorites() {
-    const token = localStorage.getItem('token');
-    if (!userId) return;
 
-    try {
-        const response = await fetch(`/favorite/getFavorites/${userId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        favoritePaintings = await response.json();  // Salvează picturile favorite
-    } catch (error) {
-        console.error('Error fetching favorite artworks:', error);
-    }
-}
 
 // Funcția pentru autentificarea utilizatorului
 async function authenticateUser() {
@@ -115,10 +99,19 @@ function extractArtworks(data) {
 function displayArtworks() {
     sortByPaintingName();
     artGrid.innerHTML = '';
+
+    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
     const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
     artworks.forEach(art => {
         const artItem = createArtItem(art);
         artGrid.appendChild(artItem);
+
+        const heartIcon = artItem.querySelector('.favorite-btn i');
+        if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
+            heartIcon.classList.add('favorited'); // Adaug stilul de inimă favorită
+        }
+
     });
     updatePaginationControls();
 }
@@ -179,13 +172,20 @@ function toggleFavorite(button, paintingId, painting_img, painting_name) {
     event.stopPropagation();
     const heartIcon = button.querySelector('i');
 
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
     if (heartIcon.classList.contains('favorited')) {
         heartIcon.classList.remove('favorited');
+
+        favorites = favorites.filter(fav => fav.paintingId !== paintingId)
         removeFavorite(userId, paintingId);
     } else {
         heartIcon.classList.add('favorited');
+
+        favorites.push({paintingId,painting_img,painting_name});
         addToFavorite(userId, paintingId, painting_img, painting_name);
     }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
 function showSearchPopup() {

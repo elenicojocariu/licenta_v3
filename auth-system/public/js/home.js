@@ -100,18 +100,32 @@ function displayRandomPaintings() {
     const slider = document.getElementById('art-slider');
     slider.innerHTML = '';
 
+    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
+
     const randomPaintings = getRandomPaintings(5);
     randomPaintings.forEach(painting => {
         const artElement = document.createElement('div');
         artElement.classList.add('art-item');
 
+        artElement.setAttribute('data-painting-id', painting.paintingId);
+
+
         artElement.innerHTML = `
             <img src="${painting.image}" alt="${painting.title}">
             <h3 style="margin-top: 2rem">${painting.title}</h3>
             <p class="clickable-artist" style="margin-top: 1rem" >${painting.name}</p>
-            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')"><i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i></button>
+            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')">
+                <i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i>
+            </button>
 
         `;
+
+        const heartIcon = artElement.querySelector('.favorite-btn i');
+        if (favoritePaintings.some(fav => fav.paintingId === painting.paintingId)) {
+            heartIcon.classList.add('favorited'); // Adaug clasa `favorited` dacă este în favorite
+        }
+
         artElement.querySelector('.clickable-artist').addEventListener('click', () => {
             window.location.href = `artist.html?name=${encodeURIComponent(painting.name)}`;
         });
@@ -158,20 +172,23 @@ function showPaintingDetails(art) {
     const paintingArtist = document.getElementById('painting-artist');
     const paintingPeriod = document.getElementById('painting-period');
     const favoriteBtn = document.getElementById('modal-favorite-btn');
+    const heartIcon = favoriteBtn.querySelector('i');
 
     paintingImage.src = art.image || 'placeholder.jpg';
     paintingTitle.textContent = art.title || 'Untitled';
     paintingArtist.textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     paintingPeriod.textContent = `Period: ${art.period}`;
 
-    // Reset favorite button state
-    const heartIcon = favoriteBtn.querySelector('i');
-    heartIcon.classList.remove('favorited');
+    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+    if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
+        heartIcon.classList.add('favorited'); // Marchez butonul dacă este favorită
+    } else {
+        heartIcon.classList.remove('favorited'); // Elimin stilul dacă nu este favorită
+    }
 
     favoriteBtn.onclick = function (event) {
         event.stopPropagation();
-        console.log("hfjdoifsjdi", paintingImage.src, paintingTitle.textContent);
-        toggleFavorite(favoriteBtn, art.paintingId, paintingImage.src, paintingTitle.textContent);
+        toggleFavorite(favoriteBtn, art.paintingId, art.image, art.title);
     };
 
 
@@ -181,17 +198,34 @@ function showPaintingDetails(art) {
 
 function toggleFavorite(button, paintingId, painting_img, painting_name) {
     event.stopPropagation();
-    console.log(painting_name, painting_img, "os")
     const heartIcon = button.querySelector('i');
+
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
 
     if (heartIcon.classList.contains('favorited')) {
         heartIcon.classList.remove('favorited');
+        favorites = favorites.filter(fav => fav.paintingId !== paintingId);
         removeFavorite(userId, paintingId);
 
     } else {
         heartIcon.classList.add('favorited');
+        favorites.push({ paintingId, painting_img, painting_name });
+
         addToFavorite(userId, paintingId, painting_img, painting_name);
     }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+    const homepagePainting = document.querySelector(`[data-painting-id='${paintingId}']`);
+    if (homepagePainting) {
+        const homepageHeartIcon = homepagePainting.querySelector('.favorite-btn i');
+        if (favorites.some(fav => fav.paintingId === paintingId)) {
+            homepageHeartIcon.classList.add('favorited');
+        } else {
+            homepageHeartIcon.classList.remove('favorited');
+        }
+    }
+
 }
 
 function closePaintingDetails() {
