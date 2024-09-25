@@ -107,6 +107,8 @@ function displayArtworks() {
         const artItem = createArtItem(art);
         artGrid.appendChild(artItem);
 
+        artItem.setAttribute('data-painting-id', art.paintingId);
+
         const heartIcon = artItem.querySelector('.favorite-btn i');
         if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
             heartIcon.classList.add('favorited'); // Adaug stilul de inimă favorită
@@ -176,16 +178,24 @@ function toggleFavorite(button, paintingId, painting_img, painting_name) {
 
     if (heartIcon.classList.contains('favorited')) {
         heartIcon.classList.remove('favorited');
-
         favorites = favorites.filter(fav => fav.paintingId !== paintingId)
         removeFavorite(userId, paintingId);
     } else {
         heartIcon.classList.add('favorited');
-
         favorites.push({paintingId,painting_img,painting_name});
         addToFavorite(userId, paintingId, painting_img, painting_name);
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
+    //actualize picture din homepage daca trb
+    const homepageArtItem = document.querySelector(`[data-painting-id="${paintingId}"]`);
+    if (homepageArtItem) {
+        const homepageHeartIcon = homepageArtItem.querySelector('.favorite-btn i');
+        if (favorites.some(fav => fav.paintingId === paintingId)) {
+            homepageHeartIcon.classList.add('favorited');
+        } else {
+            homepageHeartIcon.classList.remove('favorited');
+        }
+    }
 }
 
 function showSearchPopup() {
@@ -199,27 +209,46 @@ function hideSearchPopup() {
 function searchPaintingsByName() {
     const query = document.getElementById('search-input').value.toUpperCase();
     const searchResults = document.getElementById('search-results');
-
     searchResults.innerHTML = '';
+
+    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
     const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
     if (filteredPaintings.length > 0) {
         filteredPaintings.forEach(painting => {
-            const artElement = createArtItem(painting);
+            const artElement = document.createElement('div');
+            artElement.classList.add('art-item');
+
+            // Creează elementul de artă
+            artElement.innerHTML = `
+                <img src="${painting.image}" alt="${painting.title}">
+                <h3 style="margin-top: 2rem">${painting.title}</h3>
+                <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
+                <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')">
+                    <i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i>
+                </button>
+            `;
+
+        const heartIcon = artElement.querySelector('.favorite-btn i');
+        if (favoritePaintings.some(fav => fav.paintingId === painting.paintingId)) {
+            heartIcon.classList.add('favorited');
+        }
+        else {
+            heartIcon.classList.remove('favorited');
+        }
+
+            // Afișează detaliile picturii la click
+            artElement.addEventListener('click', () => {
+                showPaintingDetails(painting);
+            });
+
             searchResults.appendChild(artElement);
         });
-        //if (heartIcon.classList.contains('favorited')) {
-            //heartIcon.classList.remove('favorited');
-            //removeFavorite(userId, paintingId);
-       // } else {
-            //searchResults.innerHTML = '<p>No paintings found</p>';
-            //heartIcon.classList.add('favorited');
-            //addToFavorite(userId, paintingId, painting_img, painting_name);
-       // }
+    } else {
+        searchResults.innerHTML = '<p>No paintings found</p>';
     }
+
 }
-//------------------mai sus
-
-
 
 // Funcțiile pentru afișarea detaliilor picturii și gestionarea modalului
 function showPaintingDetails(art) {
@@ -231,15 +260,53 @@ function showPaintingDetails(art) {
     document.getElementById('painting-artist').textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     document.getElementById('painting-period').textContent = `Period: ${art.period}`;
 
+    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
     const favoriteBtn = document.getElementById('modal-favorite-btn');
+    const heartIcon = favoriteBtn.querySelector('i');
+
+    if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
+        heartIcon.classList.add('favorited'); // Marchez butonul dacă este favorită
+    } else {
+        heartIcon.classList.remove('favorited'); // Elimin stilul dacă nu este favorită
+    }
+
+
     favoriteBtn.onclick = function (event) {
         event.stopPropagation();
         toggleFavorite(favoriteBtn, art.paintingId, art.image, art.title);
+        updateSearchFavorites();
+
+        if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
+            heartIcon.classList.add('favorited');
+        } else {
+            heartIcon.classList.remove('favorited');
+        }
     };
 
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
+
+function updateSearchFavorites() {
+    const searchResults = document.getElementById('search-results');
+    const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // Actualizează fiecare pictură din search results
+    const artItems = searchResults.querySelectorAll('.art-item');
+    artItems.forEach(artItem => {
+        const paintingId = artItem.querySelector('button').getAttribute('onclick').match(/'([^']+)'/)[1]; // Extrage paintingId din onclick
+        const heartIcon = artItem.querySelector('.favorite-btn i');
+
+        if (favoritePaintings.some(fav => fav.paintingId === paintingId)) {
+            heartIcon.classList.add('favorited');
+        } else {
+            heartIcon.classList.remove('favorited');
+        }
+    });
+}
+
+
 
 function closePaintingDetails() {
     document.getElementById('painting-details-modal').style.display = 'none';
