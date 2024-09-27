@@ -218,21 +218,25 @@ function hideSearchPopup() {
     document.getElementById('search-popup').style.display = 'none';
 }
 
-function searchPaintingsByName() {
-    const query = document.getElementById('search-input').value.toUpperCase();
-    const searchResults = document.getElementById('search-results');
-    searchResults.innerHTML = '';
+let debounceTimeout;
+ function searchPaintingsByName() {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(async () => {
+        const query = document.getElementById('search-input').value.toUpperCase();
+        const searchResults = document.getElementById('search-results');
 
-    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+        searchResults.innerHTML = '';
 
-    const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
-    if (filteredPaintings.length > 0) {
-        filteredPaintings.forEach(painting => {
-            const artElement = document.createElement('div');
-            artElement.classList.add('art-item');
+        let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
 
-            // Creează elementul de artă
-            artElement.innerHTML = `
+        const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
+        if (filteredPaintings.length > 0) {
+            filteredPaintings.forEach(painting => {
+                const artElement = document.createElement('div');
+                artElement.classList.add('art-item');
+
+                // Creează elementul de artă
+                artElement.innerHTML = `
                 <img src="${painting.image}" alt="${painting.title}">
                 <h3 style="margin-top: 2rem">${painting.title}</h3>
                 <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
@@ -241,26 +245,29 @@ function searchPaintingsByName() {
                 </button>
             `;
 
-        const heartIcon = artElement.querySelector('.favorite-btn i');
-        if (favoritePaintings.some(fav => fav.paintingId === painting.paintingId)) {
-            heartIcon.classList.add('favorited');
-        }
-        else {
-            heartIcon.classList.remove('favorited');
-        }
+                const heartIcon = artElement.querySelector('.favorite-btn i');
+                if (favoritePaintings.some(fav => fav.paintingId === painting.paintingId)) {
+                    heartIcon.classList.add('favorited');
+                }
+                else {
+                    heartIcon.classList.remove('favorited');
+                }
 
-            // Afișează detaliile picturii la click
-            artElement.addEventListener('click', () => {
-                showPaintingDetails(painting);
+                // Afișează detaliile picturii la click
+                artElement.addEventListener('click', () => {
+                    showPaintingDetails(painting);
+                });
+
+                searchResults.appendChild(artElement);
             });
+        } else {
+            searchResults.innerHTML = '<p>No paintings found</p>';
+        }
 
-            searchResults.appendChild(artElement);
-        });
-    } else {
-        searchResults.innerHTML = '<p>No paintings found</p>';
-    }
-
+    }, 300);
 }
+
+
 
 // Funcțiile pentru afișarea detaliilor picturii și gestionarea modalului
 function showPaintingDetails(art) {
