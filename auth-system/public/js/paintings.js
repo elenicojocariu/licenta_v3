@@ -1,5 +1,4 @@
 let paintings = [];
-let currentIndex = 0;
 let currentPage = 1;
 const limit = 20;
 const artGrid = document.getElementById('art-grid');
@@ -8,10 +7,15 @@ const nextBtn = document.getElementById('next-btn');
 const pageNumberDisplay = document.getElementById('page-number');
 let userId = null;
 
+let favorites = []; //goala
+
 // Inițializez pagina când documentul este gata
 document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
+
+    await  fetchFavorites();//preia fav dupa autentif
     await fetchPaintings();
+
     displayArtworks();
     updatePaginationControls();
 });
@@ -39,6 +43,7 @@ async function authenticateUser() {
         if (response.ok) {
             const data = await response.json();
             userId = data.userId;
+            //await fetchFavorites();
         } else {
             throw new Error('Token invalid');
         }
@@ -48,6 +53,40 @@ async function authenticateUser() {
         window.location.href = 'http://localhost:5000/login';
     }
 }
+
+async function fetchFavorites() {
+    const token = localStorage.getItem('token'); // Asigură-te că token-ul este stocat în localStorage
+
+    if (!token) {
+        console.error('Token not found. Please authenticate.');
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:5000/favorite/getFavorites/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`, // Trimite token-ul în header-ul Authorization
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error fetching favorites: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Favorites are:', data);
+        // Salvează favoritele în localStorage sau într-o variabilă globală
+        localStorage.setItem('favorites', JSON.stringify(data));
+        console.log('Favorites stored in localStorage:', localStorage.getItem('favorites')); // Verify if stored correctly
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 
 // Funcția pentru preluarea picturilor din API
 async function fetchPaintings() {
@@ -101,6 +140,8 @@ function displayArtworks() {
     artGrid.innerHTML = '';
 
     let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+    console.log('Displayingggg artworks with these favorites:', favoritePaintings); // Log to check
+
 
     const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
     artworks.forEach(art => {
@@ -111,7 +152,13 @@ function displayArtworks() {
 
         const heartIcon = artItem.querySelector('.favorite-btn i');
         if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
-            heartIcon.classList.add('favorited'); // Adaug stilul de inimă favorită
+            heartIcon.classList.add('favorited');  // Adaug stilul de inimă favorită
+            console.log('Heart icon nnn', heartIcon.classList);
+
+        } else {
+            heartIcon.classList.remove('favorited');  // Elimin stilul dacă nu este favorită
+            console.log('Hearttt', heartIcon.classList);
+
         }
 
     });
@@ -208,6 +255,7 @@ function toggleFavorite(button, paintingId, painting_img, painting_name) {
         }
     }
     updateSearchFavorites();
+    //displayArtworks();
 }
 
 function showSearchPopup() {

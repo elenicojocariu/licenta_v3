@@ -20,7 +20,10 @@ async function getFavorites(userId) {
     });
     if (response.ok) {
         const favoritePaintings = await response.json();
+
+        localStorage.setItem('favorites', JSON.stringify(favoritePaintings))
         displayFavoriteArtworks(favoritePaintings, userId);
+
     } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
