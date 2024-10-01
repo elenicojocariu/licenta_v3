@@ -153,9 +153,6 @@ function checkIfFavorite(paintingId) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return favorites.some(favorite => favorite.painting_id === paintingId);
 }
-
-
-
 async function toggleFavorite(event, art) {
     const heartIcon = event.target;
     const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
@@ -164,6 +161,7 @@ async function toggleFavorite(event, art) {
         alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
         return;
     }
+
     try {
         if (isFavorite) {
             await removeFavorite(userId, art.paintingId);
@@ -179,7 +177,7 @@ async function toggleFavorite(event, art) {
             heartIcon.setAttribute('data-favorite', 'true');
         }
 
-        // Actualizează pictura în grila principală
+        // **Actualizează pictura în grila principală**
         const artGridItem = artGrid.querySelector(`[data-painting-id="${art.paintingId}"]`);
         if (artGridItem) {
             const gridHeartIcon = artGridItem.querySelector('.heart-icon');
@@ -188,11 +186,13 @@ async function toggleFavorite(event, art) {
             gridHeartIcon.classList.toggle('far', isFavorite); // Goală dacă a fost eliminată
             gridHeartIcon.setAttribute('data-favorite', !isFavorite);
         }
+
     } catch (error) {
         console.error('Eroare la actualizarea favoritei:', error);
         alert('A apărut o eroare. Te rugăm să încerci din nou.');
     }
 }
+
 
 
 
@@ -265,6 +265,8 @@ function searchPaintingsByName() {
     }, 300);
 }
 
+
+
 // Funcțiile pentru afișarea detaliilor picturii și gestionarea modalului
 function showPaintingDetails(art) {
     const modal = document.getElementById('painting-details-modal');
@@ -275,23 +277,26 @@ function showPaintingDetails(art) {
     document.getElementById('painting-artist').textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     document.getElementById('painting-period').textContent = `Period: ${art.period}`;
 
-    // Setează iconița de inimă
+    // **Actualizează iconița de inimă corect în modal**
     const heartIconModal = document.getElementById('modal-heart-icon');
-    const isFavorite = checkIfFavorite(art.paintingId);
+    const isFavorite = checkIfFavorite(art.paintingId); // Verifică dacă pictura este încă favorită
+
+    // Actualizează clasa iconiței în modal pentru a reflecta starea curentă
     heartIconModal.classList.toggle('favorite', isFavorite);
     heartIconModal.classList.toggle('fas', isFavorite); // Iconiță plină dacă este în favorite
     heartIconModal.classList.toggle('far', !isFavorite); // Iconiță goală dacă nu este în favorite
     heartIconModal.setAttribute('data-favorite', isFavorite);
 
-    // Adaugă funcționalitatea de click pentru inima din modal
-    heartIconModal.addEventListener('click', (event) => {
+    // **Asigură-te că evenimentul click funcționează corect în modal**
+    heartIconModal.onclick = (event) => {
         event.stopPropagation();
-        toggleFavorite(event, art);
-    });
+        toggleFavorite(event, art);  // Folosește `toggleFavorite` pentru a adăuga sau elimina din favorite
+    };
 
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
+
 
 function closePaintingDetails() {
     document.getElementById('painting-details-modal').style.display = 'none';
