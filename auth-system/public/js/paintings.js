@@ -7,20 +7,16 @@ const nextBtn = document.getElementById('next-btn');
 const pageNumberDisplay = document.getElementById('page-number');
 let userId = null;
 
-let favorites = []; //goala
 
 // Inițializez pagina când documentul este gata
 document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
 
-    await  fetchFavorites();//preia fav dupa autentif
     await fetchPaintings();
 
     displayArtworks();
     updatePaginationControls();
 });
-
-
 
 
 // Funcția pentru autentificarea utilizatorului
@@ -43,7 +39,6 @@ async function authenticateUser() {
         if (response.ok) {
             const data = await response.json();
             userId = data.userId;
-            //await fetchFavorites();
         } else {
             throw new Error('Token invalid');
         }
@@ -53,40 +48,6 @@ async function authenticateUser() {
         window.location.href = 'http://localhost:5000/login';
     }
 }
-
-async function fetchFavorites() {
-    const token = localStorage.getItem('token'); // Asigură-te că token-ul este stocat în localStorage
-
-    if (!token) {
-        console.error('Token not found. Please authenticate.');
-        return;
-    }
-
-    try {
-        const response = await fetch(`http://localhost:5000/favorite/getFavorites/${userId}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`, // Trimite token-ul în header-ul Authorization
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Error fetching favorites: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log('Favorites are:', data);
-        // Salvează favoritele în localStorage sau într-o variabilă globală
-        localStorage.setItem('favorites', JSON.stringify(data));
-        console.log('Favorites stored in localStorage:', localStorage.getItem('favorites')); // Verify if stored correctly
-
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-
 
 // Funcția pentru preluarea picturilor din API
 async function fetchPaintings() {
@@ -139,10 +100,6 @@ function displayArtworks() {
     sortByPaintingName();
     artGrid.innerHTML = '';
 
-    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
-    console.log('Displayingggg artworks with these favorites:', favoritePaintings); // Log to check
-
-
     const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
     artworks.forEach(art => {
         const artItem = createArtItem(art);
@@ -150,16 +107,6 @@ function displayArtworks() {
 
         artItem.setAttribute('data-painting-id', art.paintingId);
 
-        const heartIcon = artItem.querySelector('.favorite-btn i');
-        if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
-            heartIcon.classList.add('favorited');  // Adaug stilul de inimă favorită
-            console.log('Heart icon nnn', heartIcon.classList);
-
-        } else {
-            heartIcon.classList.remove('favorited');  // Elimin stilul dacă nu este favorită
-            console.log('Hearttt', heartIcon.classList);
-
-        }
 
     });
     updatePaginationControls();
@@ -170,17 +117,20 @@ function sortByPaintingName() {
     paintings.sort((a, b) => a.title.toUpperCase().localeCompare(b.title.toUpperCase()));
 }
 
-
-
 // Funcția pentru crearea elementului de pictură
 function createArtItem(art) {
     const artItem = document.createElement('div');
     artItem.classList.add('grid-art-item');
+    const isFavorite = checkIfFavorite(art.paintingId); // Verifică dacă pictura este în favorite
+
     artItem.innerHTML = `
-        <img src="${art.image}" alt="${art.title}">
+        <div class="art-wrapper">
+            <img src="${art.image}" alt="${art.title}">
+            <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i> <!-- Iconița de inimă -->
+        </div>
+        
         <h3>${art.title}</h3>
         <p class="clickable-artist">${art.name}</p>
-        <button class="favorite-btn" onclick="toggleFavorite(this, '${art.paintingId}', '${art.image}', '${art.title}')"><i class="far fa-heart"></i></button>
     `;
 
     artItem.querySelector('.clickable-artist').addEventListener('click', () => {
@@ -191,8 +141,61 @@ function createArtItem(art) {
         showPaintingDetails(art);
     });
 
+    // Eveniment click pentru iconița de inimă
+    artItem.querySelector('.heart-icon').addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevenim ca evenimentul să declanșeze showPaintingDetails
+        toggleFavorite(event, art); // Transmit întregul obiect art
+    });
+
     return artItem;
 }
+function checkIfFavorite(paintingId) {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return favorites.some(favorite => favorite.painting_id === paintingId);
+}
+
+
+
+async function toggleFavorite(event, art) {
+    const heartIcon = event.target;
+    const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
+
+    if (!userId) {
+        alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
+        return;
+    }
+    try {
+        if (isFavorite) {
+            await removeFavorite(userId, art.paintingId);
+            heartIcon.classList.remove('favorite');
+            heartIcon.classList.remove('fas');
+            heartIcon.classList.add('far');
+            heartIcon.setAttribute('data-favorite', 'false');
+        } else {
+            await addToFavorite(userId, art.paintingId, art.image, art.title);
+            heartIcon.classList.add('favorite');
+            heartIcon.classList.remove('far');
+            heartIcon.classList.add('fas');
+            heartIcon.setAttribute('data-favorite', 'true');
+        }
+
+        // Actualizează pictura în grila principală
+        const artGridItem = artGrid.querySelector(`[data-painting-id="${art.paintingId}"]`);
+        if (artGridItem) {
+            const gridHeartIcon = artGridItem.querySelector('.heart-icon');
+            gridHeartIcon.classList.toggle('favorite', !isFavorite);
+            gridHeartIcon.classList.toggle('fas', !isFavorite); // Plină dacă a fost adăugată
+            gridHeartIcon.classList.toggle('far', isFavorite); // Goală dacă a fost eliminată
+            gridHeartIcon.setAttribute('data-favorite', !isFavorite);
+        }
+    } catch (error) {
+        console.error('Eroare la actualizarea favoritei:', error);
+        alert('A apărut o eroare. Te rugăm să încerci din nou.');
+    }
+}
+
+
+
 
 // Funcția pentru actualizarea controalelor de paginare
 function updatePaginationControls() {
@@ -216,58 +219,16 @@ function loadNextPage() {
     }
 }
 
-// Funcția pentru adăugarea la favorite
-function toggleFavorite(button, paintingId, painting_img, painting_name) {
-    event.stopPropagation();
-    const heartIcon = button.querySelector('i');
-
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-    if (heartIcon.classList.contains('favorited')) {
-        heartIcon.classList.remove('favorited');
-        favorites = favorites.filter(fav => fav.paintingId !== paintingId)
-        removeFavorite(userId, paintingId);
-    } else {
-        heartIcon.classList.add('favorited');
-        favorites.push({paintingId,painting_img,painting_name});
-        addToFavorite(userId, paintingId, painting_img, painting_name);
-    }
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    //actualize iconita din homepage daca trb
-    const paintingArtItem = document.querySelector(`[data-painting-id="${paintingId}"]`);
-    if (paintingArtItem) {
-        const homepageHeartIcon = paintingArtItem.querySelector('.favorite-btn i');
-        if (favorites.some(fav => fav.paintingId === paintingId)) {
-            homepageHeartIcon.classList.add('favorited');
-        } else {
-            homepageHeartIcon.classList.remove('favorited');
-        }
-    }
-
-    const modal = document.getElementById('painting-details-modal');
-    if (modal.style.display === 'block') {
-        const modalFavoriteBtn = document.getElementById('modal-favorite-btn');
-        const modalHeartIcon = modalFavoriteBtn.querySelector('i');
-        if (favorites.some(fav => fav.paintingId === paintingId)) {
-            modalHeartIcon.classList.add('favorited');
-        } else {
-            modalHeartIcon.classList.remove('favorited');
-        }
-    }
-    updateSearchFavorites();
-    //displayArtworks();
-}
-
 function showSearchPopup() {
     document.getElementById('search-popup').style.display = 'block';
 }
-// Function to hide the search popup
+
 function hideSearchPopup() {
     document.getElementById('search-popup').style.display = 'none';
 }
 
 let debounceTimeout;
- function searchPaintingsByName() {
+function searchPaintingsByName() {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(async () => {
         const query = document.getElementById('search-input').value.toUpperCase();
@@ -275,7 +236,6 @@ let debounceTimeout;
 
         searchResults.innerHTML = '';
 
-        let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
 
         const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
         if (filteredPaintings.length > 0) {
@@ -288,18 +248,8 @@ let debounceTimeout;
                 <img src="${painting.image}" alt="${painting.title}">
                 <h3 style="margin-top: 2rem">${painting.title}</h3>
                 <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
-                <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')">
-                    <i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i>
-                </button>
+                
             `;
-
-                const heartIcon = artElement.querySelector('.favorite-btn i');
-                if (favoritePaintings.some(fav => fav.paintingId === painting.paintingId)) {
-                    heartIcon.classList.add('favorited');
-                }
-                else {
-                    heartIcon.classList.remove('favorited');
-                }
 
                 // Afișează detaliile picturii la click
                 artElement.addEventListener('click', () => {
@@ -315,8 +265,6 @@ let debounceTimeout;
     }, 300);
 }
 
-
-
 // Funcțiile pentru afișarea detaliilor picturii și gestionarea modalului
 function showPaintingDetails(art) {
     const modal = document.getElementById('painting-details-modal');
@@ -327,58 +275,30 @@ function showPaintingDetails(art) {
     document.getElementById('painting-artist').textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     document.getElementById('painting-period').textContent = `Period: ${art.period}`;
 
-    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+    // Setează iconița de inimă
+    const heartIconModal = document.getElementById('modal-heart-icon');
+    const isFavorite = checkIfFavorite(art.paintingId);
+    heartIconModal.classList.toggle('favorite', isFavorite);
+    heartIconModal.classList.toggle('fas', isFavorite); // Iconiță plină dacă este în favorite
+    heartIconModal.classList.toggle('far', !isFavorite); // Iconiță goală dacă nu este în favorite
+    heartIconModal.setAttribute('data-favorite', isFavorite);
 
-    const favoriteBtn = document.getElementById('modal-favorite-btn');
-    const heartIcon = favoriteBtn.querySelector('i');
-
-    if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
-        heartIcon.classList.add('favorited'); // Marchez butonul dacă este favorită
-    } else {
-        heartIcon.classList.remove('favorited'); // Elimin stilul dacă nu este favorită
-    }
-
-
-    favoriteBtn.onclick = function (event) {
+    // Adaugă funcționalitatea de click pentru inima din modal
+    heartIconModal.addEventListener('click', (event) => {
         event.stopPropagation();
-        toggleFavorite(favoriteBtn, art.paintingId, art.image, art.title);
-        updateSearchFavorites();
-
-        if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
-            heartIcon.classList.add('favorited');
-        } else {
-            heartIcon.classList.remove('favorited');
-        }
-    };
+        toggleFavorite(event, art);
+    });
 
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
 
-function updateSearchFavorites() {
-    const searchResults = document.getElementById('search-results');
-    const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
-
-    // Actualizează fiecare pictură din search results
-    const artItems = searchResults.querySelectorAll('.art-item');
-    artItems.forEach(artItem => {
-        const paintingId = artItem.querySelector('button').getAttribute('onclick').match(/'([^']+)'/)[1]; // Extrage paintingId din onclick
-        const heartIcon = artItem.querySelector('.favorite-btn i');
-
-        if (favoritePaintings.some(fav => fav.paintingId === paintingId)) {
-            heartIcon.classList.add('favorited');
-        } else {
-            heartIcon.classList.remove('favorited');
-        }
-    });
-}
-
-
-
 function closePaintingDetails() {
     document.getElementById('painting-details-modal').style.display = 'none';
     document.body.style.overflow = 'auto';
-}
+
+// Actualizează doar inima picturii selectate în grilă
+    }
 
 // Închid modalul la click pe fundal
 window.addEventListener('click', (event) => {
@@ -388,5 +308,4 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Asigur că funcția toggleFavorite este disponibilă global
-window.toggleFavorite = toggleFavorite;
+

@@ -32,6 +32,10 @@ async function getFavorites(userId) {
 
 function displayFavoriteArtworks(artworks, userId) {
     const favoritesList = document.getElementById('favorites-list');
+    if (!favoritesList) {
+        console.log('Elementul "favorites-list" nu se foloseste in aceasta pagina.');
+        return;
+    }
     favoritesList.innerHTML = '';
     artworks.forEach(artwork => {
         const artworkDiv = document.createElement('div');

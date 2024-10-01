@@ -64,7 +64,7 @@ async function removeFavorite(userId, paintingId) {
 
     if (response.ok) {
         alert('Pictura a fost ștearsă din favorite cu succes!');
-        location.reload();
+        //location.reload();
     } else {
         const errorData = await response.json();
         alert(`Eroare: ${errorData.message}`);
