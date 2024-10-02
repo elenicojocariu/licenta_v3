@@ -103,7 +103,7 @@ function displayArtists() {
             artistDiv.classList.add('artist');
             artistDiv.innerHTML = `
                 <a href="artist.html?name=${encodeURIComponent(artist.name)}">
-                    <img src="${artist.image}" alt="${artist.name}">
+                    <img src="${artist.image}" alt="${artist.name}" loading="lazy">
                     <p>${artist.name}</p>
                 </a>
             `;
@@ -113,6 +113,7 @@ function displayArtists() {
 
     pageNumberElement.textContent = currentPage;
 }
+
 
 function filterArtistsByArtmovement(artists) {
     if (selectedArtmovements.size === 0) {
@@ -250,6 +251,32 @@ function displayAlphabetFilter() {
     });
 }
 
+// Lazy load images using Intersection Observer API
+document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = document.querySelectorAll('img.lazy-image');
+
+    if ('IntersectionObserver' in window) {
+        const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src; // Set real image source
+                    lazyImage.classList.remove('lazy-image');
+                    lazyImageObserver.unobserve(lazyImage); // Stop observing the image
+                }
+            });
+        });
+
+        lazyImages.forEach(lazyImage => {
+            lazyImageObserver.observe(lazyImage);
+        });
+    } else {
+        // Fallback for browsers that don't support Intersection Observer
+        lazyImages.forEach(lazyImage => {
+            lazyImage.src = lazyImage.dataset.src;
+        });
+    }
+});
 
 
 

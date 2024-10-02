@@ -242,17 +242,19 @@ function searchPaintingsByName() {
 
         searchResults.innerHTML = '';
 
+
         const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
         if (filteredPaintings.length > 0) {
             filteredPaintings.forEach(painting => {
                 const artElement = document.createElement('div');
                 artElement.classList.add('art-item');
 
-                // Creează elementul de artă cu lazy loading
+                // Creează elementul de artă
                 artElement.innerHTML = `
-                <img src="${painting.image}" alt="${painting.title}" loading="lazy"> <!-- Lazy loading pentru imagine -->
+                <img src="${painting.image}" alt="${painting.title}">
                 <h3 style="margin-top: 2rem">${painting.title}</h3>
                 <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
+                
             `;
 
                 // Afișează detaliile picturii la click
@@ -265,6 +267,7 @@ function searchPaintingsByName() {
         } else {
             searchResults.innerHTML = '<p>No paintings found</p>';
         }
+
     }, 300);
 }
 
