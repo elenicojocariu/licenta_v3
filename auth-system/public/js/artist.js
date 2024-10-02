@@ -3,6 +3,44 @@ const artistImageElement = document.getElementById('artist-image');
 const artworksList = document.getElementById('artworks-list');
 const paginationControls = document.querySelector('.pagination-controls');
 
+document.addEventListener('DOMContentLoaded', async () => {
+    await authenticateUser();
+    const artistName = getArtistNameFromURL();
+    if (artistName) {
+        fetchArtworksByArtist(artistName);
+    } else {
+        displayArtistInfo(null, 'Unknown Artist');
+    }
+});
+
+async function authenticateUser() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Nu ești autentificat!');
+        window.location.href = 'http://localhost:5000/login';
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:5000/auth/verifyToken', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            userId = data.userId;
+        } else {
+            throw new Error('Token invalid');
+        }
+    } catch (error) {
+        alert('Autentificarea a eșuat, te rugăm să te autentifici din nou.');
+        localStorage.removeItem('token');
+        window.location.href = 'http://localhost:5000/login';
+    }
+}
 function getArtistNameFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('name');
@@ -66,23 +104,70 @@ function displayArtistInfo(artistImage, artistName) {
 }
 
 function displayArtworks(artworks) {
-    artworksList.innerHTML = ''; // Clear the previous artworks
+    artworksList.innerHTML = ''; // Golește lista de picturi existente
+
     artworks.forEach(artwork => {
+        const isFavorite = checkIfFavorite(artwork.paintingId); // Verifică dacă pictura este favorită
         const artworkDiv = document.createElement('div');
         artworkDiv.classList.add('grid-art-item');
+
         artworkDiv.innerHTML = `
-            <img src="${artwork.image}" alt="${artwork.title}">
+            <div class="art-wrapper">
+                <img src="${artwork.image}" alt="${artwork.title}" loading="lazy">
+                <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i> <!-- Iconița de inimă -->
+            </div>
             <p>${artwork.title}</p>
         `;
+
+        // Adaugă evenimentul de click pentru iconița de inimă
+        artworkDiv.querySelector('.heart-icon').addEventListener('click', (event) => {
+            event.stopPropagation(); // Previne declanșarea altor evenimente
+            toggleFavorite(event, artwork); // Transmite obiectul artwork
+        });
+
         artworksList.appendChild(artworkDiv);
     });
+
     if (artworks.length <= 20) {
         paginationControls.style.display = 'none';
     } else {
         paginationControls.style.display = 'flex';
     }
 }
+function checkIfFavorite(paintingId) {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    return favorites.some(favorite => favorite.painting_id === paintingId);
+}
 
+// Funcția de toggle pentru favorite
+async function toggleFavorite(event, art) {
+    const heartIcon = event.target;
+    const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
+
+    if (!userId) {
+        alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
+        return;
+    }
+
+    try {
+        if (isFavorite) {
+            await removeFavorite(userId, art.paintingId);
+            heartIcon.classList.remove('favorite');
+            heartIcon.classList.remove('fas');
+            heartIcon.classList.add('far');
+            heartIcon.setAttribute('data-favorite', 'false');
+        } else {
+            await addToFavorite(userId, art.paintingId, art.image, art.title);
+            heartIcon.classList.add('favorite');
+            heartIcon.classList.remove('far');
+            heartIcon.classList.add('fas');
+            heartIcon.setAttribute('data-favorite', 'true');
+        }
+    } catch (error) {
+        console.error('Eroare la actualizarea favoritei:', error);
+        alert('A apărut o eroare. Te rugăm să încerci din nou.');
+    }
+}
 const artistName = getArtistNameFromURL();
 if (artistName) {
     fetchArtworksByArtist(artistName);
