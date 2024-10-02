@@ -13,47 +13,56 @@ document.addEventListener('DOMContentLoaded', () => {
         searchResults.style.display = 'none';
     });
 });
-
+let debounceTimeoutt;
 function handleSearchInput(event) {
-    const query = event.target.value.toUpperCase();
-    const searchResults = document.getElementById('nav-search-results');
-    searchResults.innerHTML = '';  // Clear previous results
+    clearTimeout(debounceTimeoutt);
+    debounceTimeoutt = setTimeout(() => {
+        const query = event.target.value.toUpperCase();
+        const searchResults = document.getElementById('nav-search-results');
+        searchResults.innerHTML = '';
 
-    if (query.length === 0) {
-        searchResults.style.display = 'none'; // Hide search results if query is empty
-        return;
-    }
+        if (query.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+        }
 
-    const filteredPaintings = paintings.filter(painting =>
-        painting.title.toUpperCase().includes(query) || painting.name.toUpperCase().includes(query)
-    );
+        const filteredPaintings = paintings.filter(painting =>
+            painting.title.toUpperCase().includes(query) ||
+            painting.name.toUpperCase().includes(query)
+        );
 
-    if (filteredPaintings.length > 0) {
-        filteredPaintings.forEach(painting => {
-            const highlightedTitle = highlightMatch(painting.title, query);
-            const highlightedName = highlightMatch(painting.name, query);
+        if (filteredPaintings.length > 0) {
+            const fragment = document.createDocumentFragment(); // Creează un fragment de document
 
-            const artElement = document.createElement('div');
-            artElement.classList.add('nav-search-result-item');
-            artElement.innerHTML = `
-                <img src="${painting.image}" alt="${painting.title}" />
-                <div>
-                    <h3>${highlightedTitle}</h3>
-                    <p>${highlightedName}</p>
-                </div>
-            `;
-            artElement.addEventListener('click', () => {
-                showPaintingDetails(painting);
-                searchResults.innerHTML = '';  // Clear search results after selection
-                searchResults.style.display = 'none'; // Hide search results after selection
+            filteredPaintings.forEach(painting => {
+                const highlightedTitle = highlightMatch(painting.title, query);
+                const highlightedName = highlightMatch(painting.name, query);
+
+                const artElement = document.createElement('div');
+                artElement.classList.add('nav-search-result-item');
+                artElement.innerHTML = `
+        <img src="${painting.image}" alt="${painting.title}" />
+        <div>
+            <h3>${highlightedTitle}</h3>
+            <p>${highlightedName}</p>
+        </div>
+    `;
+                artElement.addEventListener('click', () => {
+                    showPaintingDetails(painting);
+                    searchResults.innerHTML = '';  // Curăță rezultatele după selecție
+                    searchResults.style.display = 'none'; // Ascunde rezultatele după selecție
+                });
+                fragment.appendChild(artElement); // Adaugă fiecare element în fragment, nu direct în DOM
             });
-            searchResults.appendChild(artElement);
-        });
-        searchResults.style.display = 'block'; // Show search results
-    } else {
-        searchResults.innerHTML = '<p>No paintings found</p>';
-        searchResults.style.display = 'block'; // Show "No paintings found"
-    }
+
+            searchResults.appendChild(fragment); // Adaugă fragmentul în DOM odată ce toate elementele au fost create
+
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.innerHTML = '<p>No paintings found</p>';
+            searchResults.style.display = 'block';
+        }
+    }, 300); // Așteaptă 300ms după ultima tastare
 }
 
 function highlightMatch(text, query) {

@@ -125,7 +125,7 @@ function createArtItem(art) {
 
     artItem.innerHTML = `
         <div class="art-wrapper">
-            <img src="${art.image}" alt="${art.title}">
+            <img src="${art.image}" alt="${art.title}" loading="lazy"> <!-- Lazy loading pentru imagine -->
             <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i> <!-- Iconița de inimă -->
         </div>
         
@@ -133,6 +133,7 @@ function createArtItem(art) {
         <p class="clickable-artist">${art.name}</p>
     `;
 
+    // Adaugă restul codului pentru evenimente
     artItem.querySelector('.clickable-artist').addEventListener('click', () => {
         window.location.href = `artist.html?name=${encodeURIComponent(art.name)}`;
     });
@@ -149,6 +150,7 @@ function createArtItem(art) {
 
     return artItem;
 }
+
 function checkIfFavorite(paintingId) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return favorites.some(favorite => favorite.painting_id === paintingId);
@@ -240,19 +242,17 @@ function searchPaintingsByName() {
 
         searchResults.innerHTML = '';
 
-
         const filteredPaintings = paintings.filter(painting => painting.title.toUpperCase().includes(query));
         if (filteredPaintings.length > 0) {
             filteredPaintings.forEach(painting => {
                 const artElement = document.createElement('div');
                 artElement.classList.add('art-item');
 
-                // Creează elementul de artă
+                // Creează elementul de artă cu lazy loading
                 artElement.innerHTML = `
-                <img src="${painting.image}" alt="${painting.title}">
+                <img src="${painting.image}" alt="${painting.title}" loading="lazy"> <!-- Lazy loading pentru imagine -->
                 <h3 style="margin-top: 2rem">${painting.title}</h3>
                 <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
-                
             `;
 
                 // Afișează detaliile picturii la click
@@ -265,7 +265,6 @@ function searchPaintingsByName() {
         } else {
             searchResults.innerHTML = '<p>No paintings found</p>';
         }
-
     }, 300);
 }
 
