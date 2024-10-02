@@ -11,6 +11,7 @@ let selectedArtmovements = new Set();
 let artworksData = [];
 let selectedLetter = '';
 
+
 async function fetchArtists() {
     try {
         const response = await fetch('/api/artworks');
@@ -18,6 +19,9 @@ async function fetchArtists() {
         artworksData = data;
         artists = extractArtists(data);
         artmovements = extractArtmovements(data);
+
+        paintings = extractArtworks(data);
+
         displayArtmovements();
         displayAlphabetFilter();
         artists.sort((a, b) => a.name.localeCompare(b.name)); // Sort artists alphabetically by name
@@ -26,7 +30,37 @@ async function fetchArtists() {
         console.error('Error fetching artworks:', error);
     }
 }
+function extractArtworks(data) {
+    let artworks = [];
+    let artworkImages = new Set();
 
+    data.forEach(periodData => {
+        Object.keys(periodData).forEach(periodKey => {
+            const period = periodData[periodKey];
+            if (Array.isArray(period)) {
+                period.forEach(item => {
+                    const artistName = item.name || 'Unknown Artist';
+                    if (item.artworks && Array.isArray(item.artworks)) {
+                        item.artworks.forEach(artwork => {
+                            if (!artworkImages.has(artwork.image)) {
+                                artworkImages.add(artwork.image);
+                                artworks.push({
+                                    image: artwork.image || 'placeholder.jpg',
+                                    title: artwork.title || 'Untitled',
+                                    name: artistName,
+                                    period: periodKey,
+                                    paintingId: artwork.paintingId,
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    return artworks;
+}
 function extractArtists(data) {
     let artists = [];
     let artistNames = new Set();

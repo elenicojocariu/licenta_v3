@@ -66,7 +66,9 @@ function handleSearchInput(event) {
 }
 
 function highlightMatch(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
     return text.replace(regex, '<strong class="highlight">$1</strong>');
 }
 
