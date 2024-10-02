@@ -1,6 +1,4 @@
 const connection = require('../config/db');
-const { connectToDatabase } = require('../../config-mongodb/mongodb');
-
 
 exports.addFavorite = async (req, res) => {
     const { userId, paintingId, painting_img, painting_name} = req.body;
@@ -27,40 +25,9 @@ exports.addFavorite = async (req, res) => {
 };
 
 
-
-
-// cand bagi o pictura in baza de date la fav, impreuna cu id pune si titlu, imagine, artist si perioada
-
-/*function extractArtworks(data) {
-    let artworks = [];
-    data.forEach(periodData => {
-        Object.keys(periodData).forEach(periodKey => {
-            const period = periodData[periodKey];
-            if (Array.isArray(period)) {
-                period.forEach(item => {
-                    const artistName = item.name || 'Unknown Artist';
-                    if (item.artworks && Array.isArray(item.artworks)) {
-                        item.artworks.forEach(artwork => {
-                            let artworkItem = {
-                                image: artwork.image || 'placeholder.jpg',
-                                title: artwork.title || 'Untitled',
-                                name: artistName,
-                                period: periodKey,
-                                paintingId: artwork.paintingId
-                            };
-                            artworks.push(artworkItem);
-                        });
-                    }
-                });
-            }
-        });
-    });
-    return artworks;
-}*/
-
 exports.getFavorites = async (req, res) => {
     const userId = req.params.userId;
-    console.log(`Fetching favorites for userId: ${userId}`);
+    //console.log(`Fetching favorites for userId: ${userId}`);
 
     connection.query('SELECT painting_id, painting_img, painting_name FROM favorite WHERE user_id = ?', [userId], async (err, results) => {
         if (err) {
@@ -68,7 +35,7 @@ exports.getFavorites = async (req, res) => {
             return res.status(500).json({ message: 'Error querying MySQL', error: err });
         }
 
-        console.log('MySQL paintingIds:', results);
+        //console.log('MySQL paintingIds:', results);
         res.status(200).json(results);
     });
 };

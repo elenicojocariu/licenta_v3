@@ -63,6 +63,10 @@ async function removeFavorite(userId, paintingId) {
     });
 
     if (response.ok) {
+        const artworkElement = document.querySelector(`.grid-art-item[data-painting-id="${paintingId}"]`);
+        if (artworkElement) {
+            artworkElement.remove(); // Elimină pictura din UI
+        }
         alert('Pictura a fost ștearsă din favorite cu succes!');
         //location.reload();
     } else {

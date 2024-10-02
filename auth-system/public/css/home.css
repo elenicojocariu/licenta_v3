@@ -229,7 +229,7 @@ body {
     max-width: 300px;
     transition: transform 0.4s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
+
 }
 .grid-art-item:hover {
     transform: scale(1.05);

@@ -1,7 +1,9 @@
 .artworks-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr); /* 6 paintings per row */
     gap: 20px;
+    max-width: 1800px; /* Set a max-width to control total width */
+    margin: 0 auto;
     padding: 20px;
 }
 
@@ -10,21 +12,26 @@
     text-align: center;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     background-color: #f9f9f9;
-    transition: transform 0.3s;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .grid-art-item:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .grid-art-item img {
     width: 100%;
-    height: auto;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    height: 15rem;
+    display: block;
+    transition: filter 0.3s;
+}
+
+.grid-art-item img:hover {
+    filter: brightness(0.9);
 }
 
 .grid-art-item p {
