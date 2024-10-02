@@ -100,42 +100,59 @@ function displayRandomPaintings() {
     const slider = document.getElementById('art-slider');
     slider.innerHTML = '';
 
-    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
-
-
     const randomPaintings = getRandomPaintings(5);
+    const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
     randomPaintings.forEach(painting => {
         const artElement = document.createElement('div');
         artElement.classList.add('art-item');
 
-        artElement.setAttribute('data-painting-id', painting.paintingId);
-
+        // Verificăm dacă pictura este deja în favorite
+        const isFavorite = favoritePaintings.some(fav => fav.painting_id === painting.paintingId);
 
         artElement.innerHTML = `
-            <img src="${painting.image}" alt="${painting.title}">
+            <div class="art-wrapper">
+                <img src="${painting.image}" alt="${painting.title}">
+                <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}" data-painting-id="${painting.paintingId}"></i>
+            </div>
             <h3 style="margin-top: 2rem">${painting.title}</h3>
-            <p class="clickable-artist" style="margin-top: 1rem" >${painting.name}</p>
-            <button class="favorite-btn" onclick="toggleFavorite(this, '${painting.paintingId}', '${painting.image}', '${painting.title}')">
-                <i class="far fa-heart" style="margin-top: 1rem; align-items: end"></i>
-            </button>
-
+            <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
         `;
 
-        const heartIcon = artElement.querySelector('.favorite-btn i');
-        if (favoritePaintings.some(fav => fav.paintingId === painting.paintingId)) {
-            heartIcon.classList.add('favorited'); // Adaug clasa `favorited` dacă este în favorite
-        }
-
-        artElement.querySelector('.clickable-artist').addEventListener('click', () => {
-            window.location.href = `artist.html?name=${encodeURIComponent(painting.name)}`;
-        });
-
-        artElement.addEventListener('click', () => {
-            showPaintingDetails(painting);
+        // Eveniment click pentru iconița de inimă
+        artElement.querySelector('.heart-icon').addEventListener('click', (event) => {
+            toggleFavorite(event, painting);
         });
 
         slider.appendChild(artElement);
     });
+}
+
+async function toggleFavorite(event, painting) {
+    const heartIcon = event.target;
+    const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
+    const paintingId = painting.paintingId;
+    if (!userId) {
+        alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
+        return;
+    }
+    if (isFavorite) {
+        // Dacă pictura este deja în favorite, o eliminăm
+        await removeFavorite(userId, paintingId);
+        heartIcon.classList.remove('favorite');
+        heartIcon.classList.remove('fas'); // Schimbăm la inima goală
+        heartIcon.classList.add('far'); // Adăugăm clasa de inimă goală
+
+        heartIcon.setAttribute('data-favorite', 'false');
+    } else {
+        // Dacă pictura nu este în favorite, o adăugăm
+        await addToFavorite(userId, paintingId, painting.image, painting.title);
+        heartIcon.classList.add('favorite');
+        heartIcon.classList.remove('far'); // Schimbăm la inima plină
+        heartIcon.classList.add('fas'); // Adăugăm clasa de inimă plină
+
+        heartIcon.setAttribute('data-favorite', 'true');
+    }
 }
 
 
@@ -171,62 +188,16 @@ function showPaintingDetails(art) {
     const paintingTitle = document.getElementById('painting-title');
     const paintingArtist = document.getElementById('painting-artist');
     const paintingPeriod = document.getElementById('painting-period');
-    const favoriteBtn = document.getElementById('modal-favorite-btn');
-    const heartIcon = favoriteBtn.querySelector('i');
 
     paintingImage.src = art.image || 'placeholder.jpg';
     paintingTitle.textContent = art.title || 'Untitled';
     paintingArtist.textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     paintingPeriod.textContent = `Period: ${art.period}`;
 
-    let favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
-    if (favoritePaintings.some(fav => fav.paintingId === art.paintingId)) {
-        heartIcon.classList.add('favorited'); // Marchez butonul dacă este favorită
-    } else {
-        heartIcon.classList.remove('favorited'); // Elimin stilul dacă nu este favorită
-    }
-
-    favoriteBtn.onclick = function (event) {
-        event.stopPropagation();
-        toggleFavorite(favoriteBtn, art.paintingId, art.image, art.title);
-    };
-
-
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
-function toggleFavorite(button, paintingId, painting_img, painting_name) {
-    event.stopPropagation();
-    const heartIcon = button.querySelector('i');
-
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-
-    if (heartIcon.classList.contains('favorited')) {
-        heartIcon.classList.remove('favorited');
-        favorites = favorites.filter(fav => fav.paintingId !== paintingId);
-        removeFavorite(userId, paintingId);
-
-    } else {
-        heartIcon.classList.add('favorited');
-        favorites.push({ paintingId, painting_img, painting_name });
-
-        addToFavorite(userId, paintingId, painting_img, painting_name);
-    }
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-
-    const homepagePainting = document.querySelector(`[data-painting-id='${paintingId}']`);
-    if (homepagePainting) {
-        const homepageHeartIcon = homepagePainting.querySelector('.favorite-btn i');
-        if (favorites.some(fav => fav.paintingId === paintingId)) {
-            homepageHeartIcon.classList.add('favorited');
-        } else {
-            homepageHeartIcon.classList.remove('favorited');
-        }
-    }
-
-}
 
 function closePaintingDetails() {
     const modal = document.getElementById('painting-details-modal');
@@ -243,6 +214,6 @@ window.addEventListener('click', (event) => {
 });
 
 
-window.toggleFavorite = toggleFavorite;
+
 
 
