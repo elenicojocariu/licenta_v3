@@ -9,8 +9,7 @@ let artists = [];
 let artmovements = [];
 let selectedArtmovements = new Set();
 let artworksData = [];
-let selectedLetter = '';
-
+let selectedLetters = new Set();
 
 async function fetchArtists() {
     try {
@@ -19,9 +18,6 @@ async function fetchArtists() {
         artworksData = data;
         artists = extractArtists(data);
         artmovements = extractArtmovements(data);
-
-        paintings = extractArtworks(data);
-
         displayArtmovements();
         displayAlphabetFilter();
         artists.sort((a, b) => a.name.localeCompare(b.name)); // Sort artists alphabetically by name
@@ -30,37 +26,7 @@ async function fetchArtists() {
         console.error('Error fetching artworks:', error);
     }
 }
-function extractArtworks(data) {
-    let artworks = [];
-    let artworkImages = new Set();
 
-    data.forEach(periodData => {
-        Object.keys(periodData).forEach(periodKey => {
-            const period = periodData[periodKey];
-            if (Array.isArray(period)) {
-                period.forEach(item => {
-                    const artistName = item.name || 'Unknown Artist';
-                    if (item.artworks && Array.isArray(item.artworks)) {
-                        item.artworks.forEach(artwork => {
-                            if (!artworkImages.has(artwork.image)) {
-                                artworkImages.add(artwork.image);
-                                artworks.push({
-                                    image: artwork.image || 'placeholder.jpg',
-                                    title: artwork.title || 'Untitled',
-                                    name: artistName,
-                                    period: periodKey,
-                                    paintingId: artwork.paintingId,
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    });
-
-    return artworks;
-}
 function extractArtists(data) {
     let artists = [];
     let artistNames = new Set();
@@ -91,7 +57,9 @@ function extractArtmovements(data) {
 
     data.forEach(periodData => {
         Object.keys(periodData).forEach(period => {
-            artmovementsSet.add(period);
+            if (period !== '_id') {
+                artmovementsSet.add(period);
+            }
         });
     });
 
@@ -155,16 +123,19 @@ function filterArtistsByArtmovement(artists) {
     artworksData.forEach(periodData => {
         Object.keys(periodData).forEach(period => {
             if (selectedArtmovements.has(period)) {
-                periodData[period].forEach(item => {
-                    let artistName = item.name || 'Unknown Artist';
-                    if (!filteredArtists.some(artist => artist.name === artistName)) {
-                        let artist = {
-                            name: artistName,
-                            image: item.image || 'placeholder.jpg'
-                        };
-                        filteredArtists.push(artist);
-                    }
-                });
+                // Verifică dacă periodData[period] este un array înainte de a aplica forEach
+                if (Array.isArray(periodData[period])) {
+                    periodData[period].forEach(item => {
+                        let artistName = item.name || 'Unknown Artist';
+                        if (!filteredArtists.some(artist => artist.name === artistName)) {
+                            let artist = {
+                                name: artistName,
+                                image: item.image || 'placeholder.jpg'
+                            };
+                            filteredArtists.push(artist);
+                        }
+                    });
+                }
             }
         });
     });
@@ -172,12 +143,14 @@ function filterArtistsByArtmovement(artists) {
     return filteredArtists;
 }
 
+
 function filterArtistsByAlphabet(artists) {
-    if (!selectedLetter) {
+    if (selectedLetters.size === 0) {
         return artists;
     }
-    return artists.filter(artist => artist.name.charAt(0).toUpperCase() === selectedLetter);
+    return artists.filter(artist => selectedLetters.has(artist.name.charAt(0).toUpperCase()));
 }
+
 
 function nextPage() {
     if (currentPage * itemsPerPage < filterArtistsByAlphabet(filterArtistsByArtmovement(artists)).length) {
@@ -213,13 +186,33 @@ function applyFilter() {
 }
 function updateSelectedArtmovementsDisplay() {
     const selectedArtmovementsList = document.getElementById('selected-artmovements-list');
-    selectedArtmovementsList.innerHTML = ''; // Clear previous list
+    selectedArtmovementsList.innerHTML = ''; // Curăță lista precedentă
+
     selectedArtmovements.forEach(artmovement => {
         const li = document.createElement('li');
-        li.textContent = artmovement;
-        selectedArtmovementsList.appendChild(li);
+        li.classList.add('selected-artmovement-item'); // Adaugă o clasă pentru styling
+
+        // Creează un span pentru numele mișcării de artă
+        const artmovementName = document.createElement('span');
+        artmovementName.textContent = artmovement;
+
+        // Creează butonul mic de "X" pentru eliminare
+        const removeButton = document.createElement('button-remove');
+        removeButton.textContent = '✖'; // Folosește simbolul de "X"
+        removeButton.classList.add('remove-artmovement-button'); // Adaugă o clasă pentru styling
+        removeButton.onclick = () => {
+            selectedArtmovements.delete(artmovement); // Elimină mișcarea de artă din selecție
+            currentPage = 1; // Resetează pagina curentă
+            displayArtists(); // Reafișează artiștii
+            updateSelectedArtmovementsDisplay(); // Actualizează lista de mișcări selectate
+        };
+
+        li.appendChild(artmovementName);
+        li.appendChild(removeButton);
+        selectedArtmovementsList.appendChild(li); // Adaugă elementul la listă
     });
 }
+
 
 window.onclick = function(event) {
     if (event.target == filterModal) {
@@ -233,13 +226,31 @@ function displayAlphabetFilter() {
         const letterButton = document.createElement('button');
         letterButton.textContent = letter;
         letterButton.classList.add('alphabet-button');
+
+        // Check if the letter is currently selected and apply the active class
+        if (selectedLetters.has(letter)) {
+            letterButton.classList.add('active'); // Add active class if selected
+        }
+
         letterButton.addEventListener('click', () => {
-            selectedLetter = letter;
-            currentPage = 1;
-            displayArtists();
+            if (selectedLetters.has(letter)) {
+                // If the letter is already selected, deselect it
+                selectedLetters.delete(letter); // Remove from selected letters
+                letterButton.classList.remove('active'); // Remove active class
+            } else {
+                // Select the letter
+                selectedLetters.add(letter); // Add to selected letters
+                letterButton.classList.add('active'); // Add active class
+            }
+            currentPage = 1; // Reset to the first page
+            displayArtists(); // Refresh the artist list
         });
+
         alphabetFilter.appendChild(letterButton);
     });
 }
+
+
+
 
 fetchArtists();

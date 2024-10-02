@@ -9,13 +9,17 @@
     text-align: center;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 10px;
+    padding: 15px;
     background-color: #f9f9f9;
-    transition: transform 0.3s;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
 }
 
 .artist:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
 }
 
 .artist img {
@@ -24,6 +28,11 @@
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    transition: filter 0.3s;
+}
+
+.artist img:hover {
+    filter: brightness(0.9);
 }
 
 .artist p {
@@ -88,8 +97,8 @@
     padding: 20px;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 95%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 90%;
     max-width: 700px;
     height: 85%;
     max-height: 600px;
@@ -140,7 +149,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .artmovements-grid div:hover {
@@ -150,7 +159,9 @@
 .artmovements-grid label {
     margin-left: 10px;
     font-size: 14px;
-    color: #666;
+    color: #495057;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 button {
     margin-top: 20px;
@@ -160,12 +171,22 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
     font-size: 1.2em;
     cursor: pointer;
 
 }
+button-remove{
+    margin-top: 20px;
+    text-decoration: none;
+    padding: 15px 30px;
+    color: white;
+    border: none;
+    border-radius: 5px;
 
+    font-size: 1.2em;
+    cursor: pointer;
+}
 button:hover {
     background-color: #555;
 }
@@ -214,6 +235,7 @@ button:hover {
 
 #selected-artmovements {
     text-align: center;
+    margin-top: 20px;
 
 }
 
@@ -225,6 +247,30 @@ button:hover {
     gap: 10px;
 
 }
+.selected-artmovement-item {
+    background-color: #e5cfb3;
+    border: 1.5px solid #7e6e6e;
+    border-radius: 20px;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+
+}
+
+
+.remove-artmovement-button {
+
+    border: none;
+    color: #555;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.3s ease;
+
+}
+
 
 #selected-artmovements-list li {
     background-color: #e9ecef;
@@ -241,3 +287,25 @@ button:hover {
 .highlight {
     background-color: #FFD700 !important;
 }
+
+.alphabet-button {
+    background-color: rgba(117, 111, 111, 0.82);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition for transform */
+}
+
+.alphabet-button:hover {
+    background-color: #555;
+}
+
+.alphabet-button.active {
+    background-color: #333; /* Darker background for selected state */
+    transform: translateY(-2px); /* Raise the button slightly */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for elevation effect */
+}
+
