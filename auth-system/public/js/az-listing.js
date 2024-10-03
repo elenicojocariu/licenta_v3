@@ -95,6 +95,14 @@ function displayArtists() {
     const alphabetFilteredArtists = filterArtistsByAlphabet(filteredArtists);
     const paginatedArtists = alphabetFilteredArtists.slice(start, end);
 
+    const previousBtn = document.getElementById('previous-btn');
+    if (currentPage === 1) {
+        previousBtn.style.display = 'none'; // Ascunde butonul
+    } else {
+        previousBtn.style.display = 'block'; // Afișează butonul
+    }
+
+
     if (paginatedArtists.length === 0) {
         artistsList.innerHTML = '<p>No artists found.</p>';
     } else {
@@ -152,7 +160,12 @@ function filterArtistsByAlphabet(artists) {
     return artists.filter(artist => selectedLetters.has(artist.name.charAt(0).toUpperCase()));
 }
 
-
+function previousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayArtists();
+    }
+}
 function nextPage() {
     if (currentPage * itemsPerPage < filterArtistsByAlphabet(filterArtistsByArtmovement(artists)).length) {
         currentPage++;
@@ -160,12 +173,6 @@ function nextPage() {
     }
 }
 
-function previousPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        displayArtists();
-    }
-}
 
 function openFilterModal() {
     filterModal.style.display = 'block';

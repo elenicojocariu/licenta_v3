@@ -3,6 +3,11 @@ const artistImageElement = document.getElementById('artist-image');
 const artworksList = document.getElementById('artworks-list');
 const paginationControls = document.querySelector('.pagination-controls');
 
+let currentPage = 1;
+const artworksPerPage=20;
+let totalArtworks = 0;
+let totalPages = 1;
+
 document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
     const artistName = getArtistNameFromURL();
@@ -58,7 +63,7 @@ function extractArtworksByArtist(data, artistName) {
     });
 
     if (artworks.length > 0) {
-        return { artistImage, artworks };
+        return {artistImage, artworks};
     } else {
         return null;
     }
@@ -106,6 +111,7 @@ function displayArtworks(artworks) {
         paginationControls.style.display = 'flex';
     }
 }
+
 function checkIfFavorite(paintingId) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return favorites.some(favorite => favorite.painting_id === paintingId);
@@ -140,6 +146,7 @@ async function toggleFavorite(event, art) {
         alert('A apărut o eroare. Te rugăm să încerci din nou.');
     }
 }
+
 const artistName = getArtistNameFromURL();
 if (artistName) {
     fetchArtworksByArtist(artistName);
