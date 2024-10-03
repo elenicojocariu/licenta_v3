@@ -72,3 +72,33 @@ async function removeFavorite(userId, paintingId) {
     }
 }
 
+async function removeFavoriteFromFavoritesPage(userId, paintingId) {
+    const token = localStorage.getItem('token');
+    console.log(userId, paintingId);
+
+    // Trimiterea cererii la API pentru a șterge favoritul
+    const response = await fetch('/favorite/removeFavorite', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ userId, paintingId })
+    });
+
+    if (response.ok) {
+        const artworkElement = document.querySelector(`.grid-art-item[data-painting-id="${paintingId}"]`);
+        if (artworkElement) {
+            artworkElement.remove(); // Elimină pictura din UI
+        }
+        // Sterge pictura din localStorage
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        favorites = favorites.filter(painting => painting.painting_id !== paintingId);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        console.log('Pictura a fost ștearsă din favorite cu succes!');
+    } else {
+        const errorData = await response.json();
+        alert(`Eroare: ${errorData.message}`);
+    }
+}
+
