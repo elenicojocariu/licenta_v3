@@ -1,6 +1,7 @@
 let paintings = [];
 let currentIndex = 0;
-
+let currentPage=1;
+const limit = 20;
 
 let userId = null;
 document.addEventListener('DOMContentLoaded', async () => {
@@ -28,7 +29,7 @@ async function authenticateUser() {
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Token verified successfully:', data);
+            //console.log('Token verified successfully:', data);
             userId = data.userId;
         } else {
             const errorData = await response.json();
@@ -45,19 +46,10 @@ async function authenticateUser() {
 
 async function fetchPaintings() {
     try {
-        const response = await fetch('/api/artworks');
+        const response = await fetch(`/api/artworks?page=${currentPage}&limit=${limit}`);
         const data = await response.json();
         paintings = extractArtworks(data);
-        // Sort paintings by title alphabetically by default
-        paintings.sort((a, b) => {
-            const titleA = a.title.toUpperCase();
-            const titleB = b.title.toUpperCase();
-            if (titleA < titleB) return -1;
-            if (titleA > titleB) return 1;
-            return 0;
-        });
-        console.log('Fetched and sorted paintings:', paintings);
-
+        paintings.sort((a, b) => a.title.toUpperCase().localeCompare(b.title.toUpperCase()));
     } catch (error) {
         console.error('Error fetching artworks:', error);
     }
@@ -180,29 +172,24 @@ function showPaintingDetails(art) {
     const modal = document.getElementById('painting-details-modal');
     if (!modal) return;
 
-    // Actualizează informațiile despre pictură în modal
     document.getElementById('painting-image').src = art.image || 'placeholder.jpg';
     document.getElementById('painting-title').textContent = art.title || 'Untitled';
     document.getElementById('painting-artist').textContent = `Artist: ${art.name || 'Unknown Artist'}`;
     document.getElementById('painting-period').textContent = `Period: ${art.period}`;
 
-    // **Setează un atribut pe modal pentru a păstra ID-ul picturii deschise**
     modal.setAttribute('data-painting-id', art.paintingId);
 
-    // **Verifică dacă pictura este favorită din localStorage**
     const isFavorite = checkIfFavorite(art.paintingId);
     const heartIconModal = document.getElementById('modal-heart-icon');
 
-    // **Actualizează starea iconiței de inimă în modal**
     heartIconModal.classList.toggle('favorite', isFavorite);
-    heartIconModal.classList.toggle('fas', isFavorite); // Iconiță plină dacă este favorită
-    heartIconModal.classList.toggle('far', !isFavorite); // Iconiță goală dacă nu este favorită
+    heartIconModal.classList.toggle('fas', isFavorite);
+    heartIconModal.classList.toggle('far', !isFavorite);
     heartIconModal.setAttribute('data-favorite', isFavorite);
 
-    // **Asigură-te că evenimentul click funcționează corect în modal**
     heartIconModal.onclick = (event) => {
-        event.stopPropagation(); // Previne închiderea modalului la click pe iconiță
-        toggleFavorite(event, art);  // Folosește `toggleFavorite` pentru a adăuga sau elimina din favorite
+        event.stopPropagation();
+        toggleFavorite(event, art);
     };
 
     modal.style.display = 'block';

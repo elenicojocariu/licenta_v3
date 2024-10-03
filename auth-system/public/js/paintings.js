@@ -72,13 +72,14 @@ function extractArtworks(data) {
                         item.artworks.forEach(artwork => {
                             if (!artworkImages.has(artwork.image)) {
                                 artworkImages.add(artwork.image);
-                                artworks.push({
-                                    image: artwork.image || 'placeholder.jpg',
+                                let artworkItem = {
+                                    image: artwork.image || 'placeholder.jpg', // Fallback image
                                     title: artwork.title || 'Untitled',
                                     name: artistName,
                                     period: periodKey,
-                                    paintingId: artwork.paintingId,
-                                });
+                                    paintingId: artwork.paintingId, // Ensure paintingId is included
+                                };
+                                artworks.push(artworkItem);
                             }
                         });
                     }
@@ -115,14 +116,15 @@ function sortByPaintingName() {
 function createArtItem(art) {
     const artItem = document.createElement('div');
     artItem.classList.add('grid-art-item');
+    artItem.setAttribute('data-painting-id', art.paintingId); // Atribuie un ID unic
+
     const isFavorite = checkIfFavorite(art.paintingId); // Verifică dacă pictura este în favorite
 
     artItem.innerHTML = `
         <div class="art-wrapper">
             <img src="${art.image}" alt="${art.title}" loading="lazy">
-            <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i> <!-- Iconița de inimă -->
+            <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i>
         </div>
-        
         <h3>${art.title}</h3>
         <p class="clickable-artist">${art.name}</p>
     `;
@@ -142,6 +144,7 @@ function createArtItem(art) {
 
     return artItem;
 }
+
 function checkIfFavorite(paintingId) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return favorites.some(favorite => favorite.painting_id === paintingId);
@@ -170,9 +173,9 @@ async function toggleFavorite(event, art) {
             heartIcon.setAttribute('data-favorite', 'true');
         }
 
-        const artGridItem = artGrid.querySelector(`[data-painting-id="${art.paintingId}"]`);
-        if (artGridItem) {
-            const gridHeartIcon = artGridItem.querySelector('.heart-icon');
+        // Actualizează iconița corespunzătoare din grid (dacă există)
+        const gridHeartIcon = document.querySelector(`.grid-art-item[data-painting-id="${art.paintingId}"] .heart-icon`);
+        if (gridHeartIcon) {
             gridHeartIcon.classList.toggle('favorite', !isFavorite);
             gridHeartIcon.classList.toggle('fas', !isFavorite);
             gridHeartIcon.classList.toggle('far', isFavorite);
@@ -184,6 +187,7 @@ async function toggleFavorite(event, art) {
         alert('A apărut o eroare. Te rugăm să încerci din nou.');
     }
 }
+
 function updatePaginationControls() {
     pageNumberDisplay.textContent = `Page ${currentPage}`;
     previousBtn.style.display = currentPage === 1 ? 'none' : 'inline-block';

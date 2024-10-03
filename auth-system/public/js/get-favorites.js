@@ -40,7 +40,7 @@ function displayFavoriteArtworks(artworks, userId) {
     artworks.forEach(artwork => {
         const artworkDiv = document.createElement('div');
         artworkDiv.classList.add('grid-art-item');
-        artworkDiv.setAttribute('data-painting-id', artwork.painting_id); // Atribui id-ul picturii
+        //artworkDiv.setAttribute('data-painting-id', artwork.painting_id); // Atribui id-ul picturii
         artworkDiv.innerHTML = `
             <img src="${artwork.painting_img}" alt="${artwork.painting_name}">
             <p>${artwork.painting_name}</p>
