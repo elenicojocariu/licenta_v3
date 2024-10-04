@@ -96,12 +96,13 @@ function displayArtists() {
     const paginatedArtists = alphabetFilteredArtists.slice(start, end);
 
     const previousBtn = document.getElementById('previous-btn');
-    if (currentPage === 1) {
-        previousBtn.style.display = 'none'; // Ascunde butonul
-    } else {
-        previousBtn.style.display = 'block'; // Afișează butonul
-    }
+    const nextBtn = document.getElementById('next-btn'); // Adăugat pentru a manipula butonul "Next"
 
+    if (currentPage === 1) {
+        previousBtn.style.display = 'none'; // Ascunde butonul "Previous"
+    } else {
+        previousBtn.style.display = 'block'; // Afișează butonul "Previous"
+    }
 
     if (paginatedArtists.length === 0) {
         artistsList.innerHTML = '<p>No artists found.</p>';
@@ -119,8 +120,16 @@ function displayArtists() {
         });
     }
 
+    // Verificare dacă este ultima pagină
+    if (currentPage * itemsPerPage >= alphabetFilteredArtists.length) {
+        nextBtn.style.display = 'none'; // Ascunde butonul "Next" dacă este ultima pagină
+    } else {
+        nextBtn.style.display = 'block'; // Afișează butonul "Next"
+    }
+
     pageNumberElement.textContent = currentPage;
 }
+
 
 
 function filterArtistsByArtmovement(artists) {

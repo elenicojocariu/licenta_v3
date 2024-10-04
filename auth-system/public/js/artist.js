@@ -3,10 +3,11 @@ const artistImageElement = document.getElementById('artist-image');
 const artworksList = document.getElementById('artworks-list');
 const paginationControls = document.querySelector('.pagination-controls');
 
+const itemsPerPage = 20;
 let currentPage = 1;
-const artworksPerPage=20;
-let totalArtworks = 0;
 let totalPages = 1;
+let currentArtworks = []; // Picturile curente pentru artistul selectat
+
 
 document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
@@ -83,7 +84,17 @@ function displayArtistInfo(artistImage, artistName) {
 function displayArtworks(artworks) {
     artworksList.innerHTML = ''; // Golește lista de picturi existente
 
-    artworks.forEach(artwork => {
+    // Stocăm picturile și calculăm numărul de pagini
+    currentArtworks = artworks;
+    totalPages = Math.ceil(artworks.length / itemsPerPage);
+
+    // Calculăm indexul de început și de sfârșit pentru pagina curentă
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    const paginatedArtworks = artworks.slice(start, end);
+
+    paginatedArtworks.forEach(artwork => {
         const isFavorite = checkIfFavorite(artwork.paintingId); // Verifică dacă pictura este favorită
         const artworkDiv = document.createElement('div');
         artworkDiv.classList.add('grid-art-item');
@@ -91,24 +102,56 @@ function displayArtworks(artworks) {
         artworkDiv.innerHTML = `
             <div class="art-wrapper">
                 <img src="${artwork.image}" alt="${artwork.title}" loading="lazy">
-                <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i> <!-- Iconița de inimă -->
+                <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i>
             </div>
             <p>${artwork.title}</p>
         `;
 
-        // Adaugă evenimentul de click pentru iconița de inimă
         artworkDiv.querySelector('.heart-icon').addEventListener('click', (event) => {
-            event.stopPropagation(); // Previne declanșarea altor evenimente
-            toggleFavorite(event, artwork); // Transmite obiectul artwork
+            event.stopPropagation();
+            toggleFavorite(event, artwork);
         });
 
         artworksList.appendChild(artworkDiv);
     });
 
-    if (artworks.length <= 20) {
-        paginationControls.style.display = 'none';
+    updatePaginationControls();
+}
+
+function previousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayArtworks(currentArtworks);
+    }
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayArtworks(currentArtworks);
+    }
+}
+
+function updatePaginationControls() {
+    const previousBtn = document.getElementById('previous-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const pageNumberElement = document.getElementById('page-number');
+
+    // Actualizează numărul paginii
+    pageNumberElement.textContent = currentPage;
+
+    // Ascunde butonul "Previous" dacă suntem pe prima pagină
+    if (currentPage === 1) {
+        previousBtn.style.display = 'none';
     } else {
-        paginationControls.style.display = 'flex';
+        previousBtn.style.display = 'block';
+    }
+
+    // Ascunde butonul "Next" dacă suntem pe ultima pagină
+    if (currentPage >= totalPages || totalPages <= 1) {
+        nextBtn.style.display = 'none';
+    } else {
+        nextBtn.style.display = 'block';
     }
 }
 
