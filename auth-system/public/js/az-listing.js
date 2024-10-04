@@ -232,7 +232,7 @@ function updateSelectedArtmovementsDisplay() {
 
 
 window.onclick = function(event) {
-    if (event.target == filterModal) {
+    if (event.target === filterModal) {
         filterModal.style.display = 'none';
     }
 }
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lazyImages = document.querySelectorAll('img.lazy-image');
 
     if ('IntersectionObserver' in window) {
-        const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+        const lazyImageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const lazyImage = entry.target;
