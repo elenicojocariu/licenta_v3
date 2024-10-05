@@ -544,7 +544,7 @@ body.modal-open {
 
 
 .logo-container {
-    position: absolute;
+    position: fixed;
     top: 1rem;
     left: 20px;
     z-index: 1000;
