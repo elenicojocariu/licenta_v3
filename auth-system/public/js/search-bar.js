@@ -73,10 +73,36 @@ function highlightMatch(text, query) {
 }
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const closeButton = document.getElementById('nav-search-close');
+
+    // Adaugă un eveniment de click pe butonul de închidere
+    closeButton.addEventListener('click', () => {
+        const searchContainer = document.getElementById('nav-search-container');
+        const logoContainer = document.querySelector('.logo-container');
+
+        searchContainer.style.display = 'none'; // Ascunde bara de căutare
+        logoContainer.classList.remove('hidden'); // Reapare logo-ul
+    });
+});
+
 function toggleSearchBar() {
     const searchContainer = document.getElementById('nav-search-container');
-    searchContainer.style.display = searchContainer.style.display === 'block' ? 'none' : 'block';
+    const logoContainer = document.querySelector('.logo-container'); // Selectează logo-ul
+
+    // Verifică dacă bara de căutare este vizibilă
+    if (searchContainer.style.display === 'none' || !searchContainer.style.display) {
+        searchContainer.style.display = 'block'; // Afișează bara de căutare
+        logoContainer.classList.add('hidden'); // Ascunde logo-ul
+        document.getElementById('nav-search-input').focus(); // Focus pe input
+    } else {
+        searchContainer.style.display = 'none'; // Ascunde bara de căutare
+        logoContainer.classList.remove('hidden'); // Afișează logo-ul
+    }
 }
+
+
+
 
 window.handleSearchInput = handleSearchInput;
 window.Search = handleSearchInput;
