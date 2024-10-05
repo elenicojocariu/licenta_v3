@@ -171,7 +171,7 @@ body {
 .art-item img {
     display: block;
     width: 100%;
-    height: 20rem;
+    height: 19rem;
     align-items: center;
 }
 
@@ -185,11 +185,13 @@ body {
     text-align: center;
     justify-content: center;
 
+
 }
 
 .art-item {
     max-width: 300px;
     margin-right: 10px;
+    transform: scale(0.95);
 }
 
 .grid-art-item {
@@ -580,19 +582,19 @@ body.modal-open {
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding: 20px 0;
-    padding-bottom: 0px;
+    padding: 20px 0 0px;
+    margin-top: -25px;
 }
 
 .slider-track {
     display: flex;
-    animation: scrollLeft 52s linear infinite;
+    animation: scrollLeft 50s linear infinite;
 }
 
 .slider-track.reverse {
     display: flex;
-    animation: scrollRight 52s linear infinite;
-
+    animation: scrollRight 50s linear infinite;
+    margin-top: -10px;
 }
 
 .art-item {
