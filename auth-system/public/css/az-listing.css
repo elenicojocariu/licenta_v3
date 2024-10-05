@@ -2,29 +2,36 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    padding: 20px;
+    padding: 0 10px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .artist {
     text-align: center;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 15px;
+    padding: 5px;
     background-color: #f9f9f9;
     transition: transform 0.4s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
 }
+.container{
+    display: flex;
+    justify-content: center;
+}
 
 .artist:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 
 }
 
 .artist img {
     width: 100%;
-    height: auto;
+    height: 20rem;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -36,10 +43,15 @@
 }
 
 .artist p {
-    font-size: 16px;
+    font-size: 1.1em;
     font-weight: bold;
     color: #333;
 }
+
+#filter-btn{
+    margin-top: -20px;
+}
+
 
 .pagination-controls {
     display: flex;
