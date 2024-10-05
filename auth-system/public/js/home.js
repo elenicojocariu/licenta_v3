@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await authenticateUser();
     await fetchPaintings(currentPage, limit);
     displayRandomPaintings();
+    displayRandomPaintingsReverse();
 });
 
 
@@ -14,23 +15,26 @@ function displayRandomPaintings() {
     const slider = document.getElementById('art-slider');
     slider.innerHTML = '';
 
-    const randomPaintings = getRandomPaintings(5);
+    const randomPaintings = getRandomPaintings(15); // Selectăm 10 picturi random
     const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    randomPaintings.forEach(painting => {
+    const loopPaintings = [...randomPaintings, ...randomPaintings];
+
+
+    loopPaintings.forEach(painting => {
         const artElement = document.createElement('div');
         artElement.classList.add('art-item');
 
-        // Verificăm dacă pictura este deja în favorite
+        // Verificăm dacă pictura este în favorite
         const isFavorite = favoritePaintings.some(fav => fav.painting_id === painting.paintingId);
 
         artElement.innerHTML = `
             <div class="art-wrapper">
-                <img src="${painting.image}" alt="${painting.title}">
+                <img class="lazy-image" data-src="${painting.image}" alt="${painting.title}" loading="lazy">
                 <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}" data-painting-id="${painting.paintingId}"></i>
             </div>
-            <h3 style="margin-top: 2rem">${painting.title}</h3>
-            <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
+            <h3>${painting.title}</h3>
+            <p class="clickable-artist">${painting.name}</p>
         `;
 
         // Eveniment click pentru iconița de inimă
@@ -40,6 +44,44 @@ function displayRandomPaintings() {
 
         slider.appendChild(artElement);
     });
+
+    lazyLoadImages(); // Apelăm funcția pentru a încărca imaginile la scroll
+}
+function displayRandomPaintingsReverse() {
+    const slider = document.getElementById('art-slider-reverse');
+    slider.innerHTML = '';
+
+    const randomPaintings = getRandomPaintings(15); // Selectăm picturile random
+    const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // Dublăm picturile pentru a crea efectul de loop infinit
+    const loopPaintings = [...randomPaintings, ...randomPaintings];
+
+    loopPaintings.forEach(painting => {
+        const artElement = document.createElement('div');
+        artElement.classList.add('art-item');
+
+        // Verificăm dacă pictura este în favorite
+        const isFavorite = favoritePaintings.some(fav => fav.painting_id === painting.paintingId);
+
+        artElement.innerHTML = `
+            <div class="art-wrapper">
+                <img class="lazy-image" data-src="${painting.image}" alt="${painting.title}" loading="lazy">
+                <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}" data-painting-id="${painting.paintingId}"></i>
+            </div>
+            <h3>${painting.title}</h3>
+            <p class="clickable-artist">${painting.name}</p>
+        `;
+
+        // Eveniment click pentru iconița de inimă
+        artElement.querySelector('.heart-icon').addEventListener('click', (event) => {
+            toggleFavorite(event, painting);
+        });
+
+        slider.appendChild(artElement);
+    });
+
+    lazyLoadImages(); // Apelăm funcția pentru a încărca imaginile la scroll
 }
 
 async function toggleFavorite(event, painting) {
@@ -108,6 +150,33 @@ window.addEventListener('click', (event) => {
         closePaintingDetails();
     }
 });
+function lazyLoadImages() {
+    const lazyImages = document.querySelectorAll('img.lazy-image');
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy-image');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => {
+            observer.observe(img);
+        });
+    } else {
+        // Fallback pentru browserele care nu suportă IntersectionObserver
+        lazyImages.forEach(img => {
+            img.src = img.dataset.src;
+        });
+    }
+}
+
+
 
 
 

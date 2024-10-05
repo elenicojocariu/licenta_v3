@@ -17,9 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-
-
-
 function displayArtworks() {
     sortByPaintingName();
     artGrid.innerHTML = ''; // Curăță grid-ul
@@ -36,7 +33,6 @@ function displayArtworks() {
 
     updatePaginationControls();
 }
-
 
 function sortByPaintingName() {
     paintings.sort((a, b) => a.title.toUpperCase().localeCompare(b.title.toUpperCase()));
@@ -118,7 +114,7 @@ async function toggleFavorite(event, art) {
 }
 
 function updatePaginationControls() {
-    pageNumberDisplay.textContent = `Page ${currentPage}`;
+    pageNumberDisplay.textContent = `${currentPage}`;
     previousBtn.style.display = currentPage === 1 ? 'none' : 'inline-block';
     nextBtn.style.display = (currentPage * limit >= paintings.length) ? 'none' : 'inline-block';
 }
@@ -180,8 +176,6 @@ function searchPaintingsByName() {
 
     }, 300);
 }
-
-
 
 
 function closePaintingDetails() {

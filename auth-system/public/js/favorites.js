@@ -29,7 +29,7 @@ async function addToFavorite(userId, paintingId, painting_img, painting_name) {
         });
 
         if (response.ok) {
-            alert('Pictura adăugată la favorite cu succes!');
+            //alert('Pictura adăugată la favorite cu succes!');
             //getFavorites(userId);
         } else {
             // Try to parse JSON response
@@ -64,7 +64,7 @@ async function removeFavorite(userId, paintingId) {
 
     if (response.ok) {
 
-        alert('Pictura a fost ștearsă din favorite cu succes!');
+        //alert('Pictura a fost ștearsă din favorite cu succes!');
         //location.reload();
     } else {
         const errorData = await response.json();
