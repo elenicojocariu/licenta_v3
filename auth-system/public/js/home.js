@@ -34,8 +34,13 @@ function displayRandomPaintings() {
                 <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}" data-painting-id="${painting.paintingId}"></i>
             </div>
             <h3>${painting.title}</h3>
-            <p class="clickable-artist">${painting.name}</p>
+                <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
         `;
+
+        artElement.querySelector('.clickable-artist').addEventListener('click', () =>{
+            window.location.href = `artist.html?name=${encodeURIComponent(painting.name)}`;
+        })
+
 
         // Eveniment click pentru iconița de inimă
         artElement.querySelector('.heart-icon').addEventListener('click', (event) => {

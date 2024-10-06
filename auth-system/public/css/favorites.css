@@ -103,6 +103,7 @@
 .delete-btn:hover {
     background-color: #555;
 }
+
 .modal {
     display: flex;
     position: fixed;
@@ -125,14 +126,27 @@
     text-align: center;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, opacity 0.3s ease;
+    animation-name: slide-in;
+    animation-duration: 0.5s;
 }
 
-
+@keyframes slide-in {
+    from {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
 .modal img {
     max-width: 90%;
     max-height: 70vh;
     border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
 }
 
 .close-button {
