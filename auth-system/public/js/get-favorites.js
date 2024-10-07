@@ -45,6 +45,7 @@ function displayFavoriteArtworks(artworks, userId) {
         artworkDiv.innerHTML = `
             <img src="${artwork.painting_img}" alt="${artwork.painting_name}" class="favorite-image" data-title="${artwork.painting_name}" data-img="${artwork.painting_img}">
             <p>${artwork.painting_name}</p>
+            
             <button class="delete-btn" onclick="removeFavoriteFromFavoritesPage('${userId}', '${artwork.painting_id}')"> 
                 <i class="fas fa-trash"></i> 
             </button>
@@ -80,5 +81,85 @@ function displayFavoriteArtworks(artworks, userId) {
         }
     });
 }
+
+// Adaugă un event listener pentru imaginea din modal pentru a face zoom in/out
+document.addEventListener('DOMContentLoaded', () => {
+    const modalImage = document.getElementById('modal-image');
+
+    modalImage.addEventListener('click', () => {
+        if (!modalImage.classList.contains('zoomed')) {
+            modalImage.classList.add('zoomed'); // Adaugă clasa de zoom
+        } else {
+            modalImage.classList.remove('zoomed'); // Scoate clasa de zoom pentru a reveni la dimensiunea originală
+        }
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modalImage = document.getElementById('modal-image');
+    const modalImageContainer = modalImage.parentElement;
+
+    const zoomResult = document.createElement('div');
+    zoomResult.classList.add('zoom-result');
+    modalImageContainer.appendChild(zoomResult);
+
+    let isZoomed = false;
+    let zoomScaleX, zoomScaleY;
+    const zoomFactor = 1.1;
+
+    modalImage.addEventListener('click', () => {
+        if (!isZoomed) {
+            modalImage.classList.add('zoomed');
+
+            const rect = modalImage.getBoundingClientRect();
+            zoomScaleX = modalImage.naturalWidth / rect.width;
+            zoomScaleY = modalImage.naturalHeight / rect.height;
+
+            isZoomed = true;
+        } else {
+            modalImage.classList.remove('zoomed');
+            zoomResult.style.display = 'none';
+            isZoomed = false;
+        }
+    });
+
+    modalImage.addEventListener('mousemove', (e) => {
+        if (isZoomed) {
+            zoomResult.style.display = 'block';
+
+            const rect = modalImage.getBoundingClientRect();
+
+            let x = (e.clientX - rect.left) * zoomScaleX;
+            let y = (e.clientY - rect.top) * zoomScaleY;
+
+            x = Math.max(0, Math.min(x, modalImage.naturalWidth));
+            y = Math.max(0, Math.min(y, modalImage.naturalHeight));
+
+            // Ajustează poziția imaginii mărite în funcție de cursor
+            const backgroundPosX = x - (zoomResult.offsetWidth / 2);
+            const backgroundPosY = y - (zoomResult.offsetHeight / 2);
+
+            // Setează imaginea de fundal cu factor de zoom suplimentar
+            zoomResult.style.backgroundImage = `url(${modalImage.src})`;
+            zoomResult.style.backgroundPosition = `-${backgroundPosX}px -${backgroundPosY}px`;
+            zoomResult.style.backgroundSize = `${modalImage.naturalWidth * zoomFactor}px ${modalImage.naturalHeight * zoomFactor}px`;
+        }
+    });
+
+    modalImage.addEventListener('mouseleave', () => {
+        zoomResult.style.display = 'none';
+    });
+});
+
+
+
+
+
+
+
+
+
+
 
 

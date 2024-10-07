@@ -141,6 +141,37 @@
     }
 }
 
+#modal-image {
+    width: 100%; /* Sau o altă dimensiune care se potrivește */
+    cursor: zoom-in; /* Cursorul se transformă în lupă */
+    transition: transform 0.3s ease;
+}
+
+#modal-image.zoomed {
+    transform: scale(2); /* Se mărește imaginea */
+}
+
+.zoom-result {
+    border: 1px solid #d4d4d4;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 140%; /* Apare lângă imagine */
+    background-size: 300% 300%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    display: none; /* Ascuns implicit */
+}
+
+#modal-image-container{
+    position: relative;
+}
+
+
+
+
+
 .modal img {
     max-width: 90%;
     max-height: 70vh;
