@@ -101,11 +101,15 @@ function displayArtworks(artworks) {
 
         artworkDiv.innerHTML = `
             <div class="art-wrapper">
-                <img src="${artwork.image}" alt="${artwork.title}" loading="lazy">
+                <img data-src="${artwork.image}" alt="${artwork.title}" class="lazy-image">
                 <i class="far fa-heart heart-icon ${isFavorite ? 'fas favorite' : 'far'}" data-favorite="${isFavorite}"></i>
             </div>
             <p>${artwork.title}</p>
         `;
+
+        artworkDiv.addEventListener('click', () =>{
+            openModal(artwork.image, artwork.title);
+        })
 
         artworkDiv.querySelector('.heart-icon').addEventListener('click', (event) => {
             event.stopPropagation();
@@ -116,7 +120,53 @@ function displayArtworks(artworks) {
     });
 
     updatePaginationControls();
+    lazyLoadImages()
 }
+function lazyLoadImages() {
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.getAttribute('data-src'); // Încarcă imaginea
+                img.removeAttribute('data-src'); // Elimină atributul după încărcare
+                observer.unobserve(img); // Oprim observarea imaginii încărcate
+            }
+        });
+    });
+
+    lazyImages.forEach(img => {
+        observer.observe(img); // Începem observarea fiecărei imagini
+    });
+}
+function openModal(imageUrl, title){
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalTitle = document.getElementById('modal-title');
+
+    modalImage.src = imageUrl;
+    modalTitle.textContent = title;
+
+    modal.style.display = 'block';
+}
+function closeModal(){
+    const modal = document.getElementById('image-modal');
+    modal.style.display = 'none';
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('image-modal');
+    const closeButton = document.querySelector('.close-button');
+
+    // Închide modalul când se apasă pe butonul 'x'
+    closeButton.addEventListener('click', closeModal);
+
+    // Închide modalul când utilizatorul face click în afara conținutului modalului
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+});
 
 function previousPage() {
     if (currentPage > 1) {
