@@ -157,12 +157,20 @@ function searchPaintingsByName() {
                 const artElement = document.createElement('div');
                 artElement.classList.add('art-item');
 
+                const highlightedTitle = highlightMatchingText(painting.title, query);
+
+
                 artElement.innerHTML = `
                 <img src="${painting.image}" alt="${painting.title}" loading="lazy">
-                <h3 style="margin-top: 2rem">${painting.title}</h3>
+                <h3 style="margin-top: 2rem">${highlightedTitle}</h3>
                 <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
                 
             `;
+
+                artElement.querySelector('.clickable-artist').addEventListener('click', () => {
+                    event.stopPropagation();
+                    window.location.href = `artist.html?name=${encodeURIComponent(painting.name)}`;
+                });
 
                 artElement.addEventListener('click', () => {
                     showPaintingDetails(painting);
@@ -177,6 +185,12 @@ function searchPaintingsByName() {
     }, 300);
 }
 
+function highlightMatchingText(text, query){
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    return text.replace(regex, '<strong class="highlight">$1</strong>');
+}
 
 function closePaintingDetails() {
     document.getElementById('painting-details-modal').style.display = 'none';

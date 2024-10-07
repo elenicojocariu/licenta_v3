@@ -81,7 +81,9 @@ body {
     }
 }
 
-
+#painting-details-modal{
+    display: none;
+}
 #search-painting {
     color: #fff;
     text-decoration: none;
@@ -385,7 +387,7 @@ body {
 
 .search-popup-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
