@@ -1,4 +1,4 @@
-// profile.js
+
 document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('token');
 

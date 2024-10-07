@@ -4,17 +4,22 @@ body {
     align-items: center;
     height: 100vh;
     font-family: 'Roboto', sans-serif;
-    background: url('../img/login_.jpg');
     background-size: cover;
-    background-position: center;
+    background: url('../img/login_.jpg') center;
+    margin: 0;
 }
 
 .profile-container {
     background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+.profile-container:hover {
+    transform: scale(1.02);
 }
 
 .profile-pic {
@@ -23,12 +28,16 @@ body {
 }
 
 .profile-pic img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
-
+.profile-pic img:hover {
+    transform: scale(1.05);
+}
 .profile-pic input {
     display: block;
     margin: 10px auto;
@@ -36,28 +45,46 @@ body {
 
 .form-group {
     margin-bottom: 15px;
+    text-align: left;
 }
 
 label {
+    font-weight: 600;
     display: block;
     margin-bottom: 5px;
+    font-size: 1em;
 }
 
-input[type="text"], input[type="email"] {
+input[type="text"],
+input[type="email"],
+input[type="password"]{
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
 }
-
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 0 8px rgba(118, 116, 246, 0.67);
+}
 button {
     width: 100%;
-    padding: 10px;
-    background: rgba(117, 111, 111, 0.82);
+    padding: 12px;
+    background: rgba(117, 111, 111, 0.92);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background 0.3s ease-in-out;
+    margin-bottom: 10px;
 }
 
 button#change-password {
@@ -66,7 +93,7 @@ button#change-password {
 }
 
 button.delete-btn {
-    background: #dc3545;
+    background: rgba(227, 82, 69, 0.92);
     margin-top: 10px;
 }
 
@@ -92,7 +119,43 @@ button.delete-btn:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1000;
+    border-radius: 10px;
+    width: 300px;
+    max-width: 90%;
+    transition: transform 0.3s ease-in-out;
 }
+.popup.show {
+    display: block;
+    animation: slide-down 0.5s ease forwards;
+}
+@keyframes slide-down {
+    0% {
+        transform: translate(-50%, -60%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+.popup .form-group {
+    margin-bottom: 15px;
+}
+.popup .form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.popup .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+
 
 .popup-content {
     background-color: #fefefe;
@@ -112,24 +175,6 @@ button.delete-btn:hover {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
-}
-
-.popup .form-group {
-    margin-bottom: 15px;
-}
-
-
-.popup .form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.popup .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
 }
 
 .popup button {
