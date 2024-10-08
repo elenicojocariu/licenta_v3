@@ -34,50 +34,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const container = document.getElementById('auctions-container');
             auctions.forEach(auction => {
-                //console.log('Processing auction:', auction); // Log each auction object
-
                 const auctionElement = document.createElement('div');
                 auctionElement.classList.add('auction');
 
-                if (auction.painting_pic) {
-                    console.log('Painting Pic:', auction.painting_pic);
-                } else {
-                    console.error('Painting Pic is undefined');
-                }
                 const img = document.createElement('img');
-                img.src = `/uploads-paintings/${auction.painting_pic}`;
-                img.alt = auction.painting_name;
+                img.src = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
+                img.alt = auction.painting_name || 'Untitled';
 
-                if (auction.painting_name) {
-                    console.log('Painting Name:', auction.painting_name);
-                } else {
-                    console.error('Painting Name is undefined');
-                }
                 const name = document.createElement('h2');
-                name.textContent = auction.painting_name;
+                name.textContent = auction.painting_name || 'Untitled';
 
-                if (auction.artist_name) {
-                    console.log('Artist Name:', auction.artist_name);
-                } else {
-                    console.error('Artist Name is undefined');
-                }
                 const artist = document.createElement('p');
-                artist.textContent = `Artist: ${auction.artist_name}`;
+                artist.textContent = `Artist: ${auction.artist_name || 'Unknown'}`;
 
-                if (auction.start_date) {
-                    console.log('Start Date:', auction.start_date);
-                } else {
-                    console.error('Start Date is undefined');
-                }
                 const startDate = new Date(auction.start_date);
-
-                if (auction.end_date) {
-                    console.log('End Date:', auction.end_date);
-                } else {
-                    console.error('End Date is undefined');
-                }
                 const endDate = new Date(auction.end_date);
-
                 const now = new Date();
 
                 let statusText = '';
@@ -86,23 +57,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else if (now >= startDate && now <= endDate) {
                     statusText = `Auction started on: ${startDate.toLocaleDateString()}, ends on: ${endDate.toLocaleDateString()}`;
                 } else {
-                    statusText = `Auction ends on: ${endDate.toLocaleDateString()}`;
+                    statusText = `Auction ended on: ${endDate.toLocaleDateString()}`;
                 }
 
                 const status = document.createElement('p');
                 status.textContent = statusText;
 
-                var button = document.createElement('button');
-                button.textContent = 'Make an offer!';
-                button.addEventListener('click', function () {
-                    displayAuctionPopup(img, name, auction.id_painting)
-                });
-
                 auctionElement.appendChild(img);
                 auctionElement.appendChild(name);
                 auctionElement.appendChild(artist);
                 auctionElement.appendChild(status);
-                auctionElement.appendChild(button);
+
+                // Check if auction has ended and conditionally add the "Make an offer" button
+                if (now <= endDate) {
+                    const button = document.createElement('button');
+                    button.textContent = 'Make an offer!';
+                    button.addEventListener('click', function () {
+                        displayAuctionPopup(img, name, auction.id_painting);
+                    });
+                    auctionElement.appendChild(button);
+                }
+
                 container.appendChild(auctionElement);
             });
         })
@@ -110,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching auctions:', error);
         });
 });
+
 
 async function getUserId() {
     const token = localStorage.getItem('token');
