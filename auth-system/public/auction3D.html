@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction 3D Gallery</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+<div id="loading">Loading...</div>
+
+<a-scene>
+
+
+
+    <a-assets>
+        <!-- Image assets for the paintings will be dynamically added here -->
+    </a-assets>
+
+    <!-- Camera and controls -->
+    <a-entity camera look-controls wasd-controls position="0 1.6 5"></a-entity>
+
+    <!-- Lighting -->
+    <a-light type="ambient" color="#888"></a-light>
+    <a-light type="directional" position="1 2 1" intensity="1.5"></a-light>
+
+    <!-- Ground and walls -->
+    <a-plane position="0 0 -10" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+
+    <!-- Paintings will be dynamically added here -->
+    <a-entity id="paintings"></a-entity>
+
+</a-scene>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hide the loading screen when the scene is fully loaded
+        const loadingScreen = document.getElementById('loading');
+        document.querySelector('a-scene').addEventListener('loaded', function () {
+            loadingScreen.style.display = 'none';
+        });
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('You need to log in to view the 3D auctions.');
+            window.location.href = '/login.html'; // Redirect to login page
+            return;
+        }
+
+
+        // Fetch auction paintings and add them to the scene
+        fetch('/auction/auctions', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    alert('Unauthorized. Please log in.');
+                    window.location.href = '/login.html'; // Redirect to login page
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                return response.json();
+            })
+            .then(auctions => {
+                console.log('Auctions data:', auctions); // Log the entire auctions array
+
+                if (!Array.isArray(auctions)) {
+                    throw new TypeError('Expected an array of auctions');
+                }
+
+                const assets = document.querySelector('a-assets');
+                const paintingsEntity = document.getElementById('paintings');
+
+                let xPosition = -5; // Starting position for paintings
+
+                auctions.forEach(auction => {
+                    const paintingUrl = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
+
+                    // Add image to assets
+                    const img = document.createElement('img');
+                    img.setAttribute('id', `painting-${auction.id_painting}`);
+                    img.setAttribute('src', paintingUrl);
+                    assets.appendChild(img);
+
+                    // Create a plane to display the painting
+                    const paintingEntity = document.createElement('a-plane');
+                    paintingEntity.setAttribute('src', `#painting-${auction.id_painting}`);
+                    paintingEntity.setAttribute('position', `${xPosition} 1.5 -5`);
+                    paintingEntity.setAttribute('rotation', '0 0 0');
+                    paintingEntity.setAttribute('width', '3');
+                    paintingEntity.setAttribute('height', '3');
+
+                    // Add painting title and artist name below the painting
+                    const textEntity = document.createElement('a-text');
+                    textEntity.setAttribute('value', `${auction.painting_name || 'Untitled'} by ${auction.artist_name || 'Unknown'}`);
+                    textEntity.setAttribute('align', 'center');
+                    textEntity.setAttribute('position', `${xPosition} 0.5 -5`);
+                    textEntity.setAttribute('width', '4');
+
+                    // Append painting and text to the scene
+                    paintingsEntity.appendChild(paintingEntity);
+                    paintingsEntity.appendChild(textEntity);
+
+                    // Adjust position for the next painting
+                    xPosition += 4;
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching auctions:', error);
+            });
+    });
+</script>
+</body>
+</html>
