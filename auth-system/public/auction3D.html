@@ -31,13 +31,17 @@
     <a-assets>
         <!-- Image assets for the paintings will be dynamically added here -->
     <img id = "woodTexture" src = "img/wood.jpg">
-        <img id="skyTexture" src="img/sky.jpg">
+        <img id="skyTexture" src="img/skyy.jpg">
 
 
     </a-assets>
 
     <!-- Camera and controls -->
-    <a-entity camera look-controls wasd-controls position="0 1.6 5"></a-entity>
+    <a-entity camera look-controls wasd-controls position="0 1.6 5">
+
+
+
+    </a-entity>
 
     <!-- Lighting -->
     <a-light type="ambient" color="#888"></a-light>
@@ -121,6 +125,11 @@
                     paintingEntity.setAttribute('shadow', 'cast: true');
                     paintingEntity.setAttribute('material', 'roughness: 0.7; metalness: 0.3');
 
+
+
+
+
+
                     // Add painting title and artist name below the painting
                     const textEntity = document.createElement('a-text');
                     textEntity.setAttribute('value', `${auction.painting_name || 'Untitled'} by ${auction.artist_name || 'Unknown'}`);
@@ -174,6 +183,7 @@
                     backingPlate.setAttribute('depth', '0.1');  // Grosime mică
                     backingPlate.setAttribute('color', '#888');
                     backingPlate.setAttribute('src', '#woodTexture');
+                    backingPlate.setAttribute('material', 'opacity: 0.5; roughness: 0.7; metalness: 0.3');
 
 
                     // Append painting and text to the scene
