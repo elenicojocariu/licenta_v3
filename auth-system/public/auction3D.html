@@ -24,12 +24,16 @@
 <body>
 <div id="loading">Loading...</div>
 
-<a-scene>
+<a-scene shadow = "true">
 
 
 
     <a-assets>
         <!-- Image assets for the paintings will be dynamically added here -->
+    <img id = "woodTexture" src = "img/wood.jpg">
+        <img id="skyTexture" src="img/sky.jpg">
+
+
     </a-assets>
 
     <!-- Camera and controls -->
@@ -37,10 +41,14 @@
 
     <!-- Lighting -->
     <a-light type="ambient" color="#888"></a-light>
-    <a-light type="directional" position="1 2 1" intensity="1.5"></a-light>
+    <a-light type="directional" position="1 2 1" intensity="1.5" castShadow="true"></a-light>
+    <a-light type="point" position="2 4 5" intensity="0.7" color="#fff" castShadow="true"></a-light>
 
     <!-- Ground and walls -->
     <a-plane position="0 0 -10" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+
+    <a-sky src="#skyTexture"></a-sky>
+
 
     <!-- Paintings will be dynamically added here -->
     <a-entity id="paintings"></a-entity>
@@ -110,20 +118,87 @@
                     paintingEntity.setAttribute('rotation', '0 0 0');
                     paintingEntity.setAttribute('width', '3');
                     paintingEntity.setAttribute('height', '3');
+                    paintingEntity.setAttribute('shadow', 'cast: true');
+                    paintingEntity.setAttribute('material', 'roughness: 0.7; metalness: 0.3');
 
                     // Add painting title and artist name below the painting
                     const textEntity = document.createElement('a-text');
                     textEntity.setAttribute('value', `${auction.painting_name || 'Untitled'} by ${auction.artist_name || 'Unknown'}`);
                     textEntity.setAttribute('align', 'center');
-                    textEntity.setAttribute('position', `${xPosition} 0.5 -5`);
+                    textEntity.setAttribute('position', `${xPosition} 0.5 -4.5`);
                     textEntity.setAttribute('width', '4');
+                    textEntity.setAttribute('color', '#eac31d');
+                    textEntity.setAttribute('font', 'https://cdn.aframe.io/fonts/Roboto-msdf.json');
+
+
+                    const frameTop = document.createElement('a-box');
+                    frameTop.setAttribute('position', `${xPosition} 3.1 -5`);  // Deasupra picturii
+                    frameTop.setAttribute('width', '3.2');
+                    frameTop.setAttribute('height', '0.2');
+                    frameTop.setAttribute('depth', '0.2');  // Grosimea 3D
+                    frameTop.setAttribute('color', '#8B4513');
+                    frameTop.setAttribute('src', '#woodTexture');
+                    frameTop.setAttribute('shadow', 'cast: true');
+
+                    const frameBottom = document.createElement('a-box');
+                    frameBottom.setAttribute('position', `${xPosition} -0.1 -5`);  // Sub pictură
+                    frameBottom.setAttribute('width', '3.4');
+                    frameBottom.setAttribute('height', '0.2');
+                    frameTop.setAttribute('depth', '0.2');  // Grosimea 3D
+                    frameBottom.setAttribute('color', '#8B4513');
+                    frameBottom.setAttribute('src', '#woodTexture');
+                    frameBottom.setAttribute('shadow', 'cast: true');
+
+                    const frameLeft = document.createElement('a-box');
+                    frameLeft.setAttribute('position', `${xPosition - 1.55} 1.5 -5`);  // Stânga picturii
+                    frameLeft.setAttribute('width', '0.1');
+                    frameLeft.setAttribute('height', '3.4');
+                    frameTop.setAttribute('depth', '0.1');  // Grosimea 3D
+                    frameLeft.setAttribute('color', '#8B4513');
+                    frameLeft.setAttribute('src', '#woodTexture');
+                    frameLeft.setAttribute('shadow', 'cast: true');
+
+                    const frameRight = document.createElement('a-box');
+                    frameRight.setAttribute('position', `${xPosition + 1.55} 1.5 -5`);  // Dreapta picturii
+                    frameRight.setAttribute('width', '0.1');
+                    frameRight.setAttribute('height', '3.4');
+                    frameTop.setAttribute('depth', '0.01');  // Grosimea 3D
+                    frameRight.setAttribute('color', '#8B4513');
+                    frameRight.setAttribute('src', '#woodTexture');
+                    frameRight.setAttribute('shadow', 'cast: true');
+
+                    const backingPlate = document.createElement('a-box');
+                    backingPlate.setAttribute('position', `0 0 -0.1`);
+                    backingPlate.setAttribute('width', '3.1');  // Lățimea este puțin mai mare decât pictura
+                    backingPlate.setAttribute('height', '3.2');
+                    backingPlate.setAttribute('depth', '0.1');  // Grosime mică
+                    backingPlate.setAttribute('color', '#888');
+                    backingPlate.setAttribute('src', '#woodTexture');
+
 
                     // Append painting and text to the scene
+                    paintingEntity.appendChild(backingPlate);
                     paintingsEntity.appendChild(paintingEntity);
                     paintingsEntity.appendChild(textEntity);
+                    paintingsEntity.appendChild(frameTop);
+                    paintingsEntity.appendChild(frameBottom);
+                    paintingsEntity.appendChild(frameLeft);
+                    paintingsEntity.appendChild(frameRight);
 
                     // Adjust position for the next painting
                     xPosition += 4;
+
+
+
+
+                    const modelEntity = document.createElement('a-entity');
+                    modelEntity.setAttribute('obj-model', 'obj: #myObj; mtl: #texture');
+                    modelEntity.setAttribute('position', '0 1 -4.5'); // Poziția față de tablouri
+                    modelEntity.setAttribute('rotation', '0 0 0');
+                    modelEntity.setAttribute('scale', '1 1 1');
+
+                    paintingsEntity.appendChild(modelEntity);
+
                 });
             })
             .catch(error => {
