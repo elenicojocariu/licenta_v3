@@ -13,7 +13,7 @@
             position: fixed;
             width: 100%;
             height: 100%;
-            background-color: #fff;
+            background-color: #d7a4a4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -121,16 +121,16 @@
 
                     // Creează un grup pentru fiecare pictură (pictură + ramă + text)
                     const paintingGroup = document.createElement('a-entity');
-                    paintingGroup.setAttribute('position', `${x} 2.5 ${z}`);
+                    paintingGroup.setAttribute('position', `${x} 2 ${z}`);
                     paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 180} 0`); // Rotește spre centru
 
                     // Creează o plană pentru a afișa pictura
                     const paintingEntity = document.createElement('a-plane');
                     paintingEntity.setAttribute('src', `#painting-${auction.id_painting}`);
-                    paintingEntity.setAttribute('position', `0 0 0`);
-                    paintingEntity.setAttribute('rotation', `0 0 0`);
-                    paintingEntity.setAttribute('width', '3');
-                    paintingEntity.setAttribute('height', '3');
+                    //paintingEntity.setAttribute('position', `0 0 0`);
+                    //paintingEntity.setAttribute('rotation', `0 0 0`);
+                    paintingEntity.setAttribute('width', '2');
+                    paintingEntity.setAttribute('height', '2');
                     paintingEntity.setAttribute('shadow', 'cast: true');
                     paintingEntity.setAttribute('material', 'roughness: 0.7; metalness: 0.3');
                     paintingEntity.setAttribute('look-at', '[camera]'); // Folosește componenta look-at
@@ -139,8 +139,8 @@
                     const textEntity = document.createElement('a-text');
                     textEntity.setAttribute('value', `${auction.painting_name || 'Untitled'} by ${auction.artist_name || 'Unknown'}`);
                     textEntity.setAttribute('align', 'center');
-                    textEntity.setAttribute('position', `0 -1 0.5`); // Relativ la pictură
-                    textEntity.setAttribute('width', '4');
+                    textEntity.setAttribute('position', `0 -0.7 0.5`); // Relativ la pictură
+                    textEntity.setAttribute('width', '3');
                     textEntity.setAttribute('color', '#eac31d');
                     textEntity.setAttribute('font', 'https://cdn.aframe.io/fonts/Roboto-msdf.json');
 
@@ -148,8 +148,8 @@
                     const backingPlate = document.createElement('a-box');
 
                     backingPlate.setAttribute('position', `0 0 -0.05`); // Poziționează-l foarte aproape în spate
-                    backingPlate.setAttribute('width', '3.1'); // Dimensiuni puțin mai mari decât tabloul
-                    backingPlate.setAttribute('height', '3.1');
+                    backingPlate.setAttribute('width', '2.1'); // Dimensiuni puțin mai mari decât tabloul
+                    backingPlate.setAttribute('height', '2.1');
                     backingPlate.setAttribute('depth', '0.01'); // Grosime mică pentru backing plate
                     backingPlate.setAttribute('color', '#703b15'); // Culoarea "backing plate"-ului
 
@@ -158,8 +158,8 @@
 
                     // Top Frame
                     const frameTop = document.createElement('a-box');
-                    frameTop.setAttribute('position', `0 1.6 0`);  // Deasupra picturii
-                    frameTop.setAttribute('width', '3.2');
+                    frameTop.setAttribute('position', `0 1.1 0`);  // Deasupra picturii
+                    frameTop.setAttribute('width', '2.2');
                     frameTop.setAttribute('height', '0.2');
                     frameTop.setAttribute('depth', '0.2');
                     frameTop.setAttribute('color', '#8B4513');
@@ -168,8 +168,8 @@
 
                     // Bottom Frame
                     const frameBottom = document.createElement('a-box');
-                    frameBottom.setAttribute('position', `0 -1.5 0`);  // Sub pictură
-                    frameBottom.setAttribute('width', '3.4');
+                    frameBottom.setAttribute('position', `0 -1 0`);  // Sub pictură
+                    frameBottom.setAttribute('width', '2.4');
                     frameBottom.setAttribute('height', '0.2');
                     frameBottom.setAttribute('depth', '0.2'); // Corectat: depth set pe frameBottom
                     frameBottom.setAttribute('color', '#8B4513');
@@ -178,9 +178,9 @@
 
                     // Left Frame
                     const frameLeft = document.createElement('a-box');
-                    frameLeft.setAttribute('position', `-1.60 0 0`);  // Stânga picturii
+                    frameLeft.setAttribute('position', `-1.1 0 0`);  // Stânga picturii
                     frameLeft.setAttribute('width', '0.2');
-                    frameLeft.setAttribute('height', '3.4');
+                    frameLeft.setAttribute('height', '2.4');
                     frameLeft.setAttribute('depth', '0.2'); // Corectat: depth set pe frameLeft
                     frameLeft.setAttribute('color', '#8B4513');
                     frameLeft.setAttribute('src', '#woodTexture');
@@ -188,9 +188,9 @@
 
                     // Right Frame
                     const frameRight = document.createElement('a-box');
-                    frameRight.setAttribute('position', `1.60 0 0`);  // Dreapta picturii
+                    frameRight.setAttribute('position', `1.1 0 0`);  // Dreapta picturii
                     frameRight.setAttribute('width', '0.2');
-                    frameRight.setAttribute('height', '3.4');
+                    frameRight.setAttribute('height', '2.4');
                     frameRight.setAttribute('depth', '0.2'); // Corectat: depth set pe frameRight
                     frameRight.setAttribute('color', '#8B4513');
                     frameRight.setAttribute('src', '#woodTexture');
@@ -202,10 +202,23 @@
                     frameGroup.appendChild(frameLeft);
                     frameGroup.appendChild(frameRight);
 
+                    // Poziționarea coloanei dorice între picturi
+                    const nextIndex = (index + 1) % totalPaintings;  // Ne asigurăm că după ultima pictură trecem la prima
+                    const nextAngle = nextIndex * angleStep;
+                    const nextX = radius * Math.sin(nextAngle);
+                    const nextZ = radius * Math.cos(nextAngle);
+
+                    const middleAngle = (angle + nextAngle) / 2;
+                    const columnX = radius * Math.sin(middleAngle);  // Poziționează coloana la mijloc
+                    const columnZ = radius * Math.cos(middleAngle);
+
+                    // Adăugarea coloanei dorice între picturi
+                    const columnEntity = document.createElement('a-entity');
+                    columnEntity.setAttribute('gltf-model', '/3d/doric_column.glb');
+                    columnEntity.setAttribute('position', `${columnX} -1.5 ${columnZ}`);  // Setăm Y la -1.5 pentru a fi pe podea
+                    columnEntity.setAttribute('scale', '0.2 0.5 0.2'); // Ajustăm dimensiunea, dacă e necesar
 
 
-                    // Adaugă platforma la grupul de pictură
-                    //paintingGroup.appendChild(platform);
                     paintingGroup.appendChild(backingPlate);
 
                     // Adaugă componentele la grupul de pictură
@@ -215,6 +228,8 @@
 
                     // Adaugă grupul de pictură la entity-ul principal
                     paintingsEntity.appendChild(paintingGroup);
+
+                    paintingEntity.appendChild(columnEntity);
                 });
             })
             .catch(error => {
