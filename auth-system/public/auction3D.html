@@ -29,6 +29,9 @@
         <!-- Image assets for the paintings will be dynamically added here -->
         <img id="woodTexture" src="img/wood.jpg">
         <img id="skyTexture" src="img/skyy.jpg">
+        <img id="columnTexture" src="img/marble.jpg">
+
+
     </a-assets>
 
     <!-- Camera and controls -->
@@ -36,15 +39,17 @@
 
     <!-- Lighting -->
     <a-light type="ambient" color="#888"></a-light>
-    <a-light type="directional" position="1 2 1" intensity="1.5" castShadow="true"></a-light>
+    <a-light type="directional" position="1 2 1" intensity="0.7" castShadow="true"></a-light>
     <a-light type="point" position="-2 4 -5" intensity="0.7" color="#fff" castShadow="true"></a-light>
 
     <!-- Ground and sky -->
-    <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4"></a-plane>
+    <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" color="#874741" material="roughness: 1 "></a-plane>
     <a-sky src="#skyTexture"></a-sky>
+
 
     <!-- Paintings will be dynamically added here -->
     <a-entity id="paintings"></a-entity>
+
 </a-scene>
 
 <script>
@@ -103,6 +108,7 @@
                     console.warn('No paintings available to display.');
                     return;
                 }
+
                 const angleStep = (2 * Math.PI) / totalPaintings; // Pasul unghiular
 
                 auctions.forEach((auction, index) => {
@@ -123,6 +129,7 @@
                     const paintingGroup = document.createElement('a-entity');
                     paintingGroup.setAttribute('position', `${x} 2 ${z}`);
                     paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 180} 0`); // Rotește spre centru
+                    paintingsEntity.appendChild(paintingGroup);
 
                     // Creează o plană pentru a afișa pictura
                     const paintingEntity = document.createElement('a-plane');
@@ -205,18 +212,20 @@
                     // Poziționarea coloanei dorice între picturi
                     const nextIndex = (index + 1) % totalPaintings;  // Ne asigurăm că după ultima pictură trecem la prima
                     const nextAngle = nextIndex * angleStep;
-                    const nextX = radius * Math.sin(nextAngle);
-                    const nextZ = radius * Math.cos(nextAngle);
 
-                    const middleAngle = (angle + nextAngle) / 2;
-                    const columnX = radius * Math.sin(middleAngle);  // Poziționează coloana la mijloc
-                    const columnZ = radius * Math.cos(middleAngle);
+                    const midAngle = (angle + nextAngle) / 2;
 
                     // Adăugarea coloanei dorice între picturi
+
                     const columnEntity = document.createElement('a-entity');
                     columnEntity.setAttribute('gltf-model', '/3d/doric_column.glb');
-                    columnEntity.setAttribute('position', `${columnX} -1.5 ${columnZ}`);  // Setăm Y la -1.5 pentru a fi pe podea
-                    columnEntity.setAttribute('scale', '0.2 0.5 0.2'); // Ajustăm dimensiunea, dacă e necesar
+                    columnEntity.setAttribute('scale', '0.3 0.5 0.3');
+                    columnEntity.setAttribute('rotation', `0 ${radToDeg(midAngle) + 180} 0`); // Alinierea estetică
+                    columnEntity.setAttribute('position', `3 -1 1`);
+                    columnEntity.setAttribute('rotation', `0 0 0`);
+                    columnEntity.setAttribute('material', 'src: #columnTexture; roughness: 0.8');
+
+                    paintingEntity.appendChild(columnEntity);
 
 
                     paintingGroup.appendChild(backingPlate);
@@ -226,10 +235,6 @@
                     paintingEntity.appendChild(frameGroup);
                     paintingGroup.appendChild(textEntity);
 
-                    // Adaugă grupul de pictură la entity-ul principal
-                    paintingsEntity.appendChild(paintingGroup);
-
-                    paintingEntity.appendChild(columnEntity);
                 });
             })
             .catch(error => {
