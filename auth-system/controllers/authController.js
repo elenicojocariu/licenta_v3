@@ -28,59 +28,75 @@ exports.register = async (req, res) => {
     });
 
 };
-
+// Confirmation route - /auth/confirm/:confirmationCode
 exports.confirm = (req, res) => {
     const {confirmationCode} = req.params;
 
     const query = `SELECT * FROM users WHERE confirmation_code = ?`;
     db.query(query, [confirmationCode], (err, results) => {
         if (err) {
-            res.status(500).send({message: err.message});
-            return;
+            return res.status(500).send({message: err.message});
         }
 
         if (results.length === 0) {
-            res.status(404).send({message: 'User not found.'});
-            return;
+            return res.status(404).send({message: 'Invalid confirmation code or user not found.'});
         }
 
         const user = results[0];
+
+        // Check if the user is already confirmed
+        if (user.is_confirmed) {
+            return res.status(400).send({message: 'Account is already confirmed.'});
+        }
+
+        // Update the user to confirm the account
         const updateQuery = `UPDATE users SET is_confirmed = ?, confirmation_code = ? WHERE id = ?`;
-        db.query(updateQuery, [true, '', user.id], (err, results) => {
+        db.query(updateQuery, [true, '', user.id], (err, updateResults) => {
             if (err) {
-                res.status(500).send({message: err.message});
-                return;
+                return res.status(500).send({message: err.message});
             }
-            res.status(200).send({message: 'Account confirmed successfully!'});
+
+            // After updating the account status, redirect to login page
+            res.status(200).send({message: 'Account confirmed successfully! Please log in.'});
+
+            // OR redirect to frontend login page (client side)
+            // res.redirect('/login.html'); // if login.html is the login page in your app
         });
     });
-    res.redirect('/login.html'); // Redirecționează către pagina de login
-
 };
-
 // Login user
 exports.login = (req, res) => {
     const {email, password} = req.body;
+
     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
         if (err) throw err;
+
         if (results.length === 0) {
             return res.status(400).json({message: 'Email or password is incorrect'});
+        }
+
+        const user = results[0];
+
+        // Check if the user has confirmed their account
+        if (!user.is_confirmed) {
+            return res.status(400).json({message: 'Please confirm your email before logging in.'});
+        }
+
+        const isMatch = bcrypt.compareSync(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({message: 'Email or password is incorrect'});
         } else {
-            const user = results[0];
-            const isMatch = bcrypt.compareSync(password, user.password);
-            if (!isMatch) {
-                return res.status(400).json({message: 'Email or password is incorrect'});
-            } else {
-                const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
-                res.status(200).json({
-                    message: 'Login successfulllll',
-                    token,
-                    userId: user.id //trim si userid in rasp
-                });
-            }
+            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            res.status(200).json({
+                message: 'Login successful',
+                token,
+                userId: user.id
+            });
         }
     });
 };
+
 
 //vf parola curenta
 exports.verifyPassword = async (req, res) => {
@@ -135,7 +151,7 @@ let transporter = nodemailer.createTransport({
 });
 
 function sendConfirmationEmail(email, confirmationCode) {
-    //const confirmUrl = `http://localhost:5000/auth/confirm/${confirmationCode}`;
+    const confirmUrl = `http://localhost:5000/login`;
 
     let mailOptions = {
         from: senderEmail,
@@ -145,7 +161,8 @@ function sendConfirmationEmail(email, confirmationCode) {
             <h3>Hello!</h3>
             <p>Your account has been created. Please click the button below to activate it:</p>
             
-          
+            <a href="${confirmUrl}" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Confirm Account</a>
+            <p>If the button doesn't work, click the following link: <a href="${confirmUrl}">${confirmUrl}</a></p>
         `
 
     };
