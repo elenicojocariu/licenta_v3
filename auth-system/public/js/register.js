@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const token = result.token;
                 console.log('Token:', token);
                 localStorage.setItem('token', token);
-                window.location.href = 'home.html';
+                window.location.href = 'http://localhost:5000/login';
             } else {
                 alert(result.message);
             }

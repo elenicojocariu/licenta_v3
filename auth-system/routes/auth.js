@@ -5,7 +5,6 @@ const router = express.Router();
 
 require('dotenv').config();
 const authController = require('../controllers/authController');
-//const { confirm} = require('../controllers/authController');
 //const { register} = require('../controllers/authController');
 
 router.post('/register', authController.register);

@@ -5,12 +5,9 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 
-//const { sendConfirmationEmail } = require('../services/emailService');
-
-// Register user
 // Register user
 exports.register = async (req, res) => {
-    const { first_name, last_name, email, password } = req.body;
+    const {first_name, last_name, email, password} = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     const confirmationCode = crypto.randomBytes(20).toString('hex');
@@ -20,30 +17,32 @@ exports.register = async (req, res) => {
 
     db.query(query, values, (err, results) => {
         if (err) {
-            res.status(500).send({ message: err.message });
+            res.status(500).send({message: err.message});
             return;
         }
 
         // Pass first_name, last_name, email, and confirmationCode to the email function
         sendConfirmationEmail(first_name, last_name, email, confirmationCode);
-        res.status(200).send({ message: 'User registered successfully! Please check your email to confirm your account.' });
+        res.status(200).json({
+            message: 'User registered successfully! Please check your email to confirm your account.'
+        });
     });
 };
 
 // Confirmation route - /auth/confirm/:confirmationCode
 exports.confirm = (req, res) => {
-    const { confirmationCode } = req.params;
+    const {confirmationCode} = req.params;
 
     // Look up the user by confirmation code
     const query = `SELECT * FROM users WHERE confirmation_code = ?`;
     db.query(query, [confirmationCode], (err, results) => {
         if (err) {
-            res.status(500).send({ message: err.message });
+            res.status(500).send({message: err.message});
             return;
         }
 
         if (results.length === 0) {
-            res.status(404).send({ message: 'User not found.' });
+            res.status(404).send({message: 'User not found.'});
             return;
         }
 
@@ -53,7 +52,7 @@ exports.confirm = (req, res) => {
         const updateQuery = `UPDATE users SET is_confirmed = ?, confirmation_code = ? WHERE id = ?`;
         db.query(updateQuery, [true, '', user.id], (err, results) => {
             if (err) {
-                res.status(500).send({ message: err.message });
+                res.status(500).send({message: err.message});
                 return;
             }
 
@@ -68,24 +67,24 @@ exports.confirm = (req, res) => {
 
 // Login user
 exports.login = (req, res) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
         if (err) throw err;
         if (results.length === 0) {
-            return res.status(400).json({ message: 'Email or password is incorrect' });
+            return res.status(400).json({message: 'Email or password is incorrect'});
         } else {
             const user = results[0];
 
             // Check if the user has confirmed their email
-            if (user.is_confirmed===0) { //----------------------------------------------atentie aici ca trb ==1
-                return res.status(400).json({ message: 'Please confirm your email before logging in.' });
+            if (user.is_confirmed === 0) { //----------------------------------------------atentie aici ca trb ==1
+                return res.status(400).json({message: 'Please confirm your email before logging in.'});
             }
 
             const isMatch = bcrypt.compareSync(password, user.password);
             if (!isMatch) {
-                return res.status(400).json({ message: 'Email or password is incorrect' });
+                return res.status(400).json({message: 'Email or password is incorrect'});
             } else {
-                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
                 res.status(200).json({
                     message: 'Login successful',
                     token,
@@ -135,7 +134,7 @@ exports.changePassword = async (req, res) => {
 //doar pentru implementare favorite
 exports.verifyToken = (req, res) => {
     const userId = req.user.id;
-    res.status(200).json({ userId });
+    res.status(200).json({userId});
 };
 
 const senderEmail = "cojocariu.eleni24@gmail.com";
