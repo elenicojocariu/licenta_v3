@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .message {
+            font-size: 24px;
+            color: #28a745;
+        }
+        .redirecting {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+    <script>
+        // Redirectionează automat după 3 secunde
+        setTimeout(function() {
+            window.location.href = "/login.html"; // Redirecționează la pagina de login
+        }, 3000);
+    </script>
+</head>
+<body>
+<h1 class="message">Account confirmed successfully!</h1>
+<p class="redirecting">Redirecting to login page in 3 seconds...</p>
+</body>
+</html>

@@ -8,91 +8,90 @@ const nodemailer = require('nodemailer');
 //const { sendConfirmationEmail } = require('../services/emailService');
 
 // Register user
+// Register user
 exports.register = async (req, res) => {
-    const {first_name, last_name, email, password} = req.body;
+    const { first_name, last_name, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     const confirmationCode = crypto.randomBytes(20).toString('hex');
-
 
     const query = `INSERT INTO users (first_name, last_name, email, password, confirmation_code, is_confirmed) VALUES (?, ?, ?, ?, ?, ?)`;
     const values = [first_name, last_name, email, hashedPassword, confirmationCode, false];
 
     db.query(query, values, (err, results) => {
         if (err) {
-            res.status(500).send({message: err.message});
+            res.status(500).send({ message: err.message });
             return;
         }
-        sendConfirmationEmail(email, confirmationCode); // trimite și codul de confirmare
-        res.status(200).send({message: 'User registered successfully! Please check your email to confirm your account.'});
-    });
 
+        // Pass first_name, last_name, email, and confirmationCode to the email function
+        sendConfirmationEmail(first_name, last_name, email, confirmationCode);
+        res.status(200).send({ message: 'User registered successfully! Please check your email to confirm your account.' });
+    });
 };
+
 // Confirmation route - /auth/confirm/:confirmationCode
 exports.confirm = (req, res) => {
-    const {confirmationCode} = req.params;
+    const { confirmationCode } = req.params;
 
+    // Look up the user by confirmation code
     const query = `SELECT * FROM users WHERE confirmation_code = ?`;
     db.query(query, [confirmationCode], (err, results) => {
         if (err) {
-            return res.status(500).send({message: err.message});
+            res.status(500).send({ message: err.message });
+            return;
         }
 
         if (results.length === 0) {
-            return res.status(404).send({message: 'Invalid confirmation code or user not found.'});
+            res.status(404).send({ message: 'User not found.' });
+            return;
         }
 
         const user = results[0];
 
-        // Check if the user is already confirmed
-        if (user.is_confirmed) {
-            return res.status(400).send({message: 'Account is already confirmed.'});
-        }
-
-        // Update the user to confirm the account
+        // Update the is_confirmed flag and clear the confirmation code
         const updateQuery = `UPDATE users SET is_confirmed = ?, confirmation_code = ? WHERE id = ?`;
-        db.query(updateQuery, [true, '', user.id], (err, updateResults) => {
+        db.query(updateQuery, [true, '', user.id], (err, results) => {
             if (err) {
-                return res.status(500).send({message: err.message});
+                res.status(500).send({ message: err.message });
+                return;
             }
 
-            // After updating the account status, redirect to login page
-            res.status(200).send({message: 'Account confirmed successfully! Please log in.'});
+            // Redirect to login page after confirmation
+            //res.status(200).send({ message: 'Account confirmed successfully!' });
+            //res.redirect('/login.html'); // Ensure this line is placed correctly
+            res.redirect('/confirmation-success.html');
 
-            // OR redirect to frontend login page (client side)
-            // res.redirect('/login.html'); // if login.html is the login page in your app
         });
     });
 };
+
 // Login user
 exports.login = (req, res) => {
-    const {email, password} = req.body;
-
+    const { email, password } = req.body;
     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
         if (err) throw err;
-
         if (results.length === 0) {
-            return res.status(400).json({message: 'Email or password is incorrect'});
-        }
-
-        const user = results[0];
-
-        // Check if the user has confirmed their account
-        if (!user.is_confirmed) {
-            return res.status(400).json({message: 'Please confirm your email before logging in.'});
-        }
-
-        const isMatch = bcrypt.compareSync(password, user.password);
-
-        if (!isMatch) {
-            return res.status(400).json({message: 'Email or password is incorrect'});
+            return res.status(400).json({ message: 'Email or password is incorrect' });
         } else {
-            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
-            res.status(200).json({
-                message: 'Login successful',
-                token,
-                userId: user.id
-            });
+            const user = results[0];
+
+            // Check if the user has confirmed their email
+            if (user.is_confirmed===0) { //----------------------------------------------atentie aici ca trb ==1
+                return res.status(400).json({ message: 'Please confirm your email before logging in.' });
+            }
+
+            const isMatch = bcrypt.compareSync(password, user.password);
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Email or password is incorrect' });
+            } else {
+                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                res.status(200).json({
+                    message: 'Login successful',
+                    token,
+                    userId: user.id // Return user ID
+                });
+            }
         }
     });
 };
@@ -150,21 +149,20 @@ let transporter = nodemailer.createTransport({
     },
 });
 
-function sendConfirmationEmail(email, confirmationCode) {
-    const confirmUrl = `http://localhost:5000/login`;
+function sendConfirmationEmail(first_name, last_name, email, confirmationCode) {
+    const confirmUrl = `http://localhost:5000/auth/confirm/${confirmationCode}`;
 
     let mailOptions = {
         from: senderEmail,
         to: email,
         subject: 'Account created successfully',
         html: `
-            <h3>Hello!</h3>
+            <h3>Hello, ${first_name} ${last_name}!</h3>
             <p>Your account has been created. Please click the button below to activate it:</p>
             
             <a href="${confirmUrl}" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Confirm Account</a>
             <p>If the button doesn't work, click the following link: <a href="${confirmUrl}">${confirmUrl}</a></p>
         `
-
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -174,3 +172,4 @@ function sendConfirmationEmail(email, confirmationCode) {
         console.log('Message sent: %s', info.messageId);
     });
 }
+
