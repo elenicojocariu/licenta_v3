@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const registerData = {first_name: firstName, last_name: lastName, email, password};
+        const registerData = { first_name: firstName, last_name: lastName, email, password };
 
         try {
             const response = await fetch('/auth/register', {
@@ -27,10 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const result = await response.json();
             if (response.ok) {
-                const token = result.token;
-                console.log('Token:', token);
-                localStorage.setItem('token', token);
-                window.location.href = 'http://localhost:5000/login';
+                // Afișează mesajul pentru utilizator
+                alert('User registered successfully! Please check your email to confirm your account.');
+
+                // După câteva secunde, redirecționează la login
+                setTimeout(() => {
+                    window.location.href = 'http://localhost:5000/login';
+                }, 3000); // 3 secunde întârziere înainte de redirecționare
             } else {
                 alert(result.message);
             }

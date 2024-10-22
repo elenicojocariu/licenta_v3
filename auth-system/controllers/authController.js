@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 
 // Register user
 exports.register = async (req, res) => {
-    const {first_name, last_name, email, password} = req.body;
+    const { first_name, last_name, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     const confirmationCode = crypto.randomBytes(20).toString('hex');
@@ -17,17 +17,19 @@ exports.register = async (req, res) => {
 
     db.query(query, values, (err, results) => {
         if (err) {
-            res.status(500).send({message: err.message});
-            return;
+            return res.status(500).send({ message: err.message });
         }
 
-        // Pass first_name, last_name, email, and confirmationCode to the email function
-        sendConfirmationEmail(first_name, last_name, email, confirmationCode);
+        // Trimite emailul de confirmare
+        sendConfirmationEmail(email, confirmationCode);
+
+        // Răspuns către frontend cu mesaj de succes
         res.status(200).json({
             message: 'User registered successfully! Please check your email to confirm your account.'
         });
     });
 };
+
 
 // Confirmation route - /auth/confirm/:confirmationCode
 exports.confirm = (req, res) => {
