@@ -23,9 +23,10 @@ exports.register = async (req, res) => {
             res.status(500).send({message: err.message});
             return;
         }
-        sendConfirmationEmail(email);
+        sendConfirmationEmail(email, confirmationCode); // trimite și codul de confirmare
         res.status(200).send({message: 'User registered successfully! Please check your email to confirm your account.'});
     });
+
 };
 
 exports.confirm = (req, res) => {
@@ -53,6 +54,8 @@ exports.confirm = (req, res) => {
             res.status(200).send({message: 'Account confirmed successfully!'});
         });
     });
+    res.redirect('/login.html'); // Redirecționează către pagina de login
+
 };
 
 // Login user
@@ -121,7 +124,7 @@ exports.verifyToken = (req, res) => {
 };
 
 const senderEmail = "cojocariu.eleni24@gmail.com";
-const password = "jwla mvkh bshz wlnh";
+const password = "idkv egdf cxej tpgr";
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -131,14 +134,20 @@ let transporter = nodemailer.createTransport({
     },
 });
 
-function sendConfirmationEmail(email)
-{
-    // Setup email data
+function sendConfirmationEmail(email, confirmationCode) {
+    //const confirmUrl = `http://localhost:5000/auth/confirm/${confirmationCode}`;
+
     let mailOptions = {
         from: senderEmail,
         to: email,
         subject: 'Account created successfully',
-        text: 'Hello! Your account has been created. Please enter on the following link to activate it:',
+        html: `
+            <h3>Hello!</h3>
+            <p>Your account has been created. Please click the button below to activate it:</p>
+            
+          
+        `
+
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
