@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
         }
 
         // Trimite emailul de confirmare
-        sendConfirmationEmail(email, confirmationCode);
+        sendConfirmationEmail(first_name,last_name,email, confirmationCode);
 
         // Răspuns către frontend cu mesaj de succes
         res.status(200).json({
