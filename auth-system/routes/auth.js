@@ -18,5 +18,5 @@ router.post('/verify-password', authMiddleware.authenticate, authController.veri
 router.post('/change-password', authMiddleware.authenticate, authController.changePassword);
 
 router.get('/verifyToken', authMiddleware.authenticate, authController.verifyToken); //doar pt favorite
-
+router.post('/forgot-password', authController.forgotPassword);
 module.exports = router;

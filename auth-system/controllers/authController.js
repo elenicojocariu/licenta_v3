@@ -174,3 +174,50 @@ function sendConfirmationEmail(first_name, last_name, email, confirmationCode) {
     });
 }
 
+exports.forgotPassword = (req, res) => {
+    const { email } = req.body;
+    console.log("emaill: ", email);
+
+    // Găsește utilizatorul după email
+    db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err); // Add this line for more debugging
+
+            return res.status(500).send({ message: 'Database error' });
+        }
+        if (results.length === 0) {
+            return res.status(404).send({ message: 'No user found with that email' });
+        }
+
+        const user = results[0];
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        console.log('Generated reset token:', resetToken); // Log pentru tokenul generat
+
+        // Salvează tokenul în baza de date (de exemplu, într-un câmp `reset_password_token`)
+        db.query('UPDATE users SET reset_password_token = ? WHERE id = ?', [resetToken, user.id], (err) => {
+            if (err) {
+                return res.status(500).send({ message: 'Database error' });
+            }
+
+            // Trimite emailul cu linkul de resetare
+            const resetUrl = `http://localhost:5000/reset-password?token=${resetToken}`;
+            const mailOptions = {
+                from: 'cojocariu.eleni24@gmail.com',
+                to: email,
+                subject: 'Password Reset',
+                html: `
+                    <p>You requested a password reset.</p>
+                    <p>Click <a href="${resetUrl}">here</a> to reset your password.</p>
+                `
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return res.status(500).send({ message: 'Failed to send email' });
+                }
+                res.status(200).send({ message: 'Password reset email sent' });
+            });
+        });
+    });
+};
+

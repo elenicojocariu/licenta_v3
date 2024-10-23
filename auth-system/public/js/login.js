@@ -55,4 +55,63 @@ document.addEventListener('DOMContentLoaded', function () {
             toggleIcon.classList.add('fa-eye');
         }
     });
+
+    const forgotPasswordBtn = document.querySelector('.forgot-password-btn');
+    const forgotPasswordModal = document.getElementById('forgot-password-modal');
+    const emailSentModal = document.getElementById('email-sent-modal');
+    const closeModal = document.querySelector('.close');
+    const emailSentOkBtn = document.getElementById('email-sent-ok-btn');
+    const forgotPasswordForm = document.getElementById('forgot-password-form');
+    const emailSentMsg = document.getElementById('email-sent-msg');
+
+    // Deschide fereastra modală pentru forgot password
+    forgotPasswordBtn.addEventListener('click', function () {
+        forgotPasswordModal.style.display = 'block';
+    });
+
+    // Închide fereastra modală
+    closeModal.addEventListener('click', function () {
+        forgotPasswordModal.style.display = 'none';
+    });
+
+    // Închide modalul de confirmare email trimis
+    emailSentOkBtn.addEventListener('click', function () {
+        emailSentModal.style.display = 'none';
+    });
+
+    // Trimite cererea pentru resetare parolă
+    forgotPasswordForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const email = document.getElementById('forgot-email').value;
+
+        try {
+            const response = await fetch('http://localhost:5000/auth/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            });
+
+            if (response.ok) {
+                const maskedEmail = maskEmail(email);
+                emailSentMsg.textContent = `We sent an email to ${maskedEmail} with a link to get back into your account.`;
+                forgotPasswordModal.style.display = 'none';
+                emailSentModal.style.display = 'block';
+            } else {
+                alert('There was a problem sending the email. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('There was a problem sending the email. Please try again.');
+        }
+    });
+
+    // Funcție pentru a masca emailul
+    function maskEmail(email) {
+        const [localPart, domain] = email.split('@');
+        return `${localPart[0]}*******${localPart.slice(-1)}@${domain}`;
+    }
+
+
 });

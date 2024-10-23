@@ -26,13 +26,35 @@
                    style="opacity: 1;">
             <i class="fas fa-eye" id="toggle-password"></i>
         </div>
-        <button type="button" class="forgot-password-btn" onclick="forgotPassword()">Forgot Password?</button>
+        <button type="button" class="forgot-password-btn" >Forgot Password?</button>
 
         <button type="submit" class="submit-btn">Log In</button>
     </form>
     <a href="register.html" class="link">Don't have an account? Register one</a>
+
+</div>
+<!-- Modal for Forgot Password -->
+<div id="forgot-password-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Trouble logging in?</h2>
+        <p>Enter your email and we’ll send you a link to get back into your account.</p>
+        <form id="forgot-password-form">
+            <input type="email" id="forgot-email" placeholder="email" autocomplete="off" required>
+            <button type="submit" class="submit-btn-send">Send login link</button>
+        </form>
+    </div>
 </div>
 
+
+<!-- Modal for Email Sent -->
+<div id="email-sent-modal" class="modal">
+    <div class="modal-content">
+        <h2>Email Sent</h2>
+        <p id="email-sent-msg"></p>
+        <button id="email-sent-ok-btn" class="submit-btn">OK</button>
+    </div>
+</div>
 <script src="js/login.js"></script>
 </body>
 </html>

@@ -48,9 +48,9 @@ body {
 }
 
 .input-container input {
-    width: calc(100% - 22px); /* Lățimea va fi egală pentru toate câmpurile */
-    padding: 8px; /* Păstrăm padding-ul */
-    margin-bottom: 10px; /* Păstrăm margin-bottom */
+    width: calc(100% - 22px);
+    padding: 8px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     display: block;
@@ -226,6 +226,68 @@ button.toggle-btn:hover {
 
 .forgot-password-btn:hover {
     background-color: #FAEBD7;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    background-color: rgba(254, 254, 254, 0.74);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(232, 151, 80, 0.91);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.submit-btn-send{
+    background-color: rgba(117, 111, 111, 0.84);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.submit-btn-send:hover{
+    background-color: #555;
+    transform: translateY(-2px);
+}
+.submit-btn-send:focus{
+    outline: none;
+    background-color: rgba(117, 111, 111, 0.82);
+
+}
+.submit-btn-send:active{
+    background-color: #5556;
+    transform: translateY(1px);
 }
 
 @media only screen and (max-width: 900px) {
