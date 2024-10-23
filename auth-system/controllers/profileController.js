@@ -62,6 +62,11 @@ exports.deleteAccount = async (req, res) => {
     const userId = req.user.id;
 
     try {
+        // Șterge favoritele utilizatorului
+        const deleteFavoritesQuery = `DELETE FROM favorite WHERE user_id = ?`;
+        await db.promise().query(deleteFavoritesQuery, [userId]);
+
+
         const query = `DELETE FROM users WHERE id = ?`;
         await db.promise().query(query, [userId]);
         res.status(200).json({success: true, message: 'Account deleted successfully'});
