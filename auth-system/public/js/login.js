@@ -2,14 +2,14 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
+    const unconfirmedEmailModal = document.getElementById('unconfirmed-email-modal');
+    const closeUnconfirmedEmailBtn = document.getElementById('close-unconfirmed-email');
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        //console.log('Sending request with:', { email, password });
-        //console.log("token:", token);
         try {
             const response = await fetch('/auth/login', {
                 method: 'POST',
@@ -36,11 +36,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'home.html'; // Sau pagina către care vrei să redirecționezi utilizatorul după login
             } else {
                 console.log(result.message);
+                if (result.message === 'Please confirm your email before logging in.') {
+                    // Show the modal for unconfirmed email
+                    unconfirmedEmailModal.style.display = 'block';
+                } else {
+                    console.log(result.message); // Handle other error messages
+                }
+
             }
         } catch (error) {
             console.error('An error occurred:', error.message);
         }
     });
+
+    closeUnconfirmedEmailBtn.addEventListener('click', function () {
+        unconfirmedEmailModal.style.display = 'none';
+    });
+
+    window.onclick = function (event){
+        if(event.target == unconfirmedEmailModal){
+            unconfirmedEmailModal.style.display = 'none';
+        }
+    }
 
     document.getElementById('toggle-password').addEventListener('click', function () {
         const passwordField = document.getElementById('password');
