@@ -221,3 +221,29 @@ exports.forgotPassword = (req, res) => {
     });
 };
 
+exports.resetPassword = (req, res) => {
+    const { token, newPassword } = req.body;
+
+    db.query('SELECT * FROM users WHERE reset_password_token = ?', [token], (err, results) => {
+        if (err) {
+            return res.status(500).send({ message: 'Database error' });
+        }
+        if (results.length === 0) {
+            return res.status(400).send({ message: 'Invalid or expired token' });
+        }
+
+        const user = results[0];
+        const hashedPassword = bcrypt.hashSync(newPassword, 8);
+
+        // Actualizează parola și elimină tokenul de resetare
+        db.query('UPDATE users SET password = ?, reset_password_token = NULL WHERE id = ?', [hashedPassword, user.id], (err) => {
+            if (err) {
+                return res.status(500).send({ message: 'Database error' });
+            }
+
+            res.status(200).send({ message: 'Password updated successfully' });
+        });
+    });
+};
+
+

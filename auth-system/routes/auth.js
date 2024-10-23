@@ -5,6 +5,7 @@ const router = express.Router();
 
 require('dotenv').config();
 const authController = require('../controllers/authController');
+const path = require("path");
 //const { register} = require('../controllers/authController');
 
 router.post('/register', authController.register);
@@ -19,4 +20,6 @@ router.post('/change-password', authMiddleware.authenticate, authController.chan
 
 router.get('/verifyToken', authMiddleware.authenticate, authController.verifyToken); //doar pt favorite
 router.post('/forgot-password', authController.forgotPassword);
+router.post('/reset-password', authController.resetPassword);
+
 module.exports = router;

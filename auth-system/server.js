@@ -54,7 +54,10 @@ app.get('/login', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
-
+app.get('/reset-password', (req, res) => {
+    // Servește fișierul HTML pentru resetare parolă
+    res.sendFile(path.join(__dirname, 'public/reset-password.html'));
+});
 app.get('/api/artworks', async (req, res) => {
     try {
         const db = await connectToDatabase();
