@@ -1,6 +1,6 @@
 let paintings = [];
 let currentIndex = 0;
-let currentPage=1;
+let currentPage = 1;
 const limit = 20;
 let userId = null;
 document.addEventListener('DOMContentLoaded', async () => {
@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function displayRandomPaintings() {
     const slider = document.getElementById('art-slider');
+    if (!slider) {
+        console.warn('Elementul art-slider nu a fost găsit.');
+        return;
+    }
     slider.innerHTML = '';
 
     const randomPaintings = getRandomPaintings(15); // Selectăm 10 picturi random
@@ -37,7 +41,7 @@ function displayRandomPaintings() {
                 <p class="clickable-artist" style="margin-top: 1rem">${painting.name}</p>
         `;
 
-        artElement.querySelector('.clickable-artist').addEventListener('click', () =>{
+        artElement.querySelector('.clickable-artist').addEventListener('click', () => {
             window.location.href = `artist.html?name=${encodeURIComponent(painting.name)}`;
         })
 
@@ -52,8 +56,13 @@ function displayRandomPaintings() {
 
     lazyLoadImages(); // Apelăm funcția pentru a încărca imaginile la scroll
 }
+
 function displayRandomPaintingsReverse() {
     const slider = document.getElementById('art-slider-reverse');
+    if (!slider) {
+        console.warn('Elementul art-slider nu a fost găsit.');
+        return;
+    }
     slider.innerHTML = '';
 
     const randomPaintings = getRandomPaintings(15); // Selectăm picturile random
@@ -142,6 +151,7 @@ function checkIfFavorite(paintingId) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     return favorites.some(favorite => favorite.painting_id === paintingId);
 }
+
 function closePaintingDetails() {
     const modal = document.getElementById('painting-details-modal');
     modal.style.display = 'none';
@@ -155,6 +165,7 @@ window.addEventListener('click', (event) => {
         closePaintingDetails();
     }
 });
+
 function lazyLoadImages() {
     const lazyImages = document.querySelectorAll('img.lazy-image');
 
@@ -180,10 +191,4 @@ function lazyLoadImages() {
         });
     }
 }
-
-
-
-
-
-
 

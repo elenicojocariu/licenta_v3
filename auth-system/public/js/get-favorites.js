@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    //const userId = '14';
     const userId = localStorage.getItem('userId');
     if (userId) {
         getFavorites(userId);
@@ -8,7 +7,44 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Eroare: UserId nu este definit.');
 
     }
+    const modalImage = document.getElementById('modal-image');
+    const closeButton = document.querySelector('.close-button');
+
+    // Verificăm dacă elementul `modal-image` există înainte de a adăuga event listener
+    if (modalImage) {
+        modalImage.addEventListener('click', () => {
+            if (!modalImage.classList.contains('zoomed')) {
+                modalImage.classList.add('zoomed'); // Adaugă clasa de zoom
+            } else {
+                modalImage.classList.remove('zoomed'); // Scoate clasa de zoom pentru a reveni la dimensiunea originală
+            }
+        });
+    }
+    else {
+        console.warn('Elementul modalImage nu a fost găsit.');
+    }
+
+    // Verificăm dacă elementul `closeButton` există înainte de a adăuga event listener
+    if (closeButton) {
+        closeButton.addEventListener('click', () => {
+            const modal = document.getElementById('image-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    } else {
+        console.warn('Elementul closeButton nu a fost găsit.');
+    }
+
+    // Închide modalul când utilizatorul face clic în afara modalului
+    window.addEventListener('click', (event) => {
+        const modal = document.getElementById('image-modal');
+        if (modal && event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 });
+
 
 async function getFavorites(userId) {
     const token = localStorage.getItem('token');
@@ -61,10 +97,11 @@ function displayFavoriteArtworks(artworks, userId) {
             const modalImage = document.getElementById('modal-image');
             const modalTitle = document.getElementById('modal-title');
 
-            modalImage.src = image.dataset.img; // Setează sursa imaginii în modal
-            modalTitle.textContent = image.dataset.title; // Setează numele picturii în modal
-            modal.style.display = 'flex'; // Arată modalul
-
+            if (modalImage && modal) {
+                modalImage.src = image.dataset.img; // Setează sursa imaginii în modal
+                modalTitle.textContent = image.dataset.title; // Setează titlul în modal
+                modal.style.display = 'flex'; // Arată modalul
+            }
         });
     });
     // Adaugă event listener pentru a închide modalul când utilizatorul apasă pe butonul de închidere
@@ -85,7 +122,7 @@ function displayFavoriteArtworks(artworks, userId) {
 // Adaugă un event listener pentru imaginea din modal pentru a face zoom in/out
 document.addEventListener('DOMContentLoaded', () => {
     const modalImage = document.getElementById('modal-image');
-
+    if(modalImage){
     modalImage.addEventListener('click', () => {
         if (!modalImage.classList.contains('zoomed')) {
             modalImage.classList.add('zoomed'); // Adaugă clasa de zoom
@@ -93,73 +130,85 @@ document.addEventListener('DOMContentLoaded', () => {
             modalImage.classList.remove('zoomed'); // Scoate clasa de zoom pentru a reveni la dimensiunea originală
         }
     });
+    }
 });
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const modalImage = document.getElementById('modal-image');
-    const modalImageContainer = modalImage.parentElement;
 
-    const zoomResult = document.createElement('div');
-    zoomResult.classList.add('zoom-result');
-    modalImageContainer.appendChild(zoomResult);
+    const initializeZoom = () => {
+        const modalImage = document.getElementById('modal-image');
+        if (!modalImage) return;
 
-    let isZoomed = false;
-    let zoomScaleX, zoomScaleY;
-    const zoomFactor = 1.1;
+        const modalImageContainer = modalImage.parentElement;
 
-    modalImage.addEventListener('click', () => {
-        if (!isZoomed) {
-            modalImage.classList.add('zoomed');
+        const zoomResult = document.createElement('div');
+        zoomResult.classList.add('zoom-result');
+        modalImageContainer.appendChild(zoomResult);
 
-            const rect = modalImage.getBoundingClientRect();
-            zoomScaleX = modalImage.naturalWidth / rect.width;
-            zoomScaleY = modalImage.naturalHeight / rect.height;
+        let isZoomed = false;
+        let zoomScaleX, zoomScaleY;
+        const zoomFactor = 1.1;
 
-            isZoomed = true;
-        } else {
-            modalImage.classList.remove('zoomed');
+        modalImage.addEventListener('click', () => {
+            if (!isZoomed) {
+                modalImage.classList.add('zoomed');
+
+                const rect = modalImage.getBoundingClientRect();
+                zoomScaleX = modalImage.naturalWidth / rect.width;
+                zoomScaleY = modalImage.naturalHeight / rect.height;
+
+                isZoomed = true;
+            } else {
+                modalImage.classList.remove('zoomed');
+                zoomResult.style.display = 'none';
+                isZoomed = false;
+            }
+        });
+
+        modalImage.addEventListener('mousemove', (e) => {
+            if (isZoomed) {
+                zoomResult.style.display = 'block';
+
+                const rect = modalImage.getBoundingClientRect();
+
+                let x = (e.clientX - rect.left) * zoomScaleX;
+                let y = (e.clientY - rect.top) * zoomScaleY;
+
+                x = Math.max(0, Math.min(x, modalImage.naturalWidth));
+                y = Math.max(0, Math.min(y, modalImage.naturalHeight));
+
+                const backgroundPosX = x - (zoomResult.offsetWidth / 2);
+                const backgroundPosY = y - (zoomResult.offsetHeight / 2);
+
+                zoomResult.style.backgroundImage = `url(${modalImage.src})`;
+                zoomResult.style.backgroundPosition = `-${backgroundPosX}px -${backgroundPosY}px`;
+                zoomResult.style.backgroundSize = `${modalImage.naturalWidth * zoomFactor}px ${modalImage.naturalHeight * zoomFactor}px`;
+            }
+        });
+
+        modalImage.addEventListener('mouseleave', () => {
             zoomResult.style.display = 'none';
-            isZoomed = false;
-        }
+        });
+    };
+
+    // Inițializează zoom dacă elementul există deja în DOM
+    initializeZoom();
+
+    // Creează un observer pentru a detecta dacă 'modal-image' apare ulterior în DOM
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.type === 'childList') {
+                const modalImage = document.getElementById('modal-image');
+                if (modalImage) {
+                    initializeZoom();  // Reinițializează zoom-ul dacă imaginea apare în DOM
+                    observer.disconnect(); // Oprește observarea după ce imaginea este găsită
+                }
+            }
+        });
     });
 
-    modalImage.addEventListener('mousemove', (e) => {
-        if (isZoomed) {
-            zoomResult.style.display = 'block';
-
-            const rect = modalImage.getBoundingClientRect();
-
-            let x = (e.clientX - rect.left) * zoomScaleX;
-            let y = (e.clientY - rect.top) * zoomScaleY;
-
-            x = Math.max(0, Math.min(x, modalImage.naturalWidth));
-            y = Math.max(0, Math.min(y, modalImage.naturalHeight));
-
-            // Ajustează poziția imaginii mărite în funcție de cursor
-            const backgroundPosX = x - (zoomResult.offsetWidth / 2);
-            const backgroundPosY = y - (zoomResult.offsetHeight / 2);
-
-            // Setează imaginea de fundal cu factor de zoom suplimentar
-            zoomResult.style.backgroundImage = `url(${modalImage.src})`;
-            zoomResult.style.backgroundPosition = `-${backgroundPosX}px -${backgroundPosY}px`;
-            zoomResult.style.backgroundSize = `${modalImage.naturalWidth * zoomFactor}px ${modalImage.naturalHeight * zoomFactor}px`;
-        }
-    });
-
-    modalImage.addEventListener('mouseleave', () => {
-        zoomResult.style.display = 'none';
-    });
+    // Începe să monitorizezi document.body pentru modificări în lista de copii
+    observer.observe(document.body, { childList: true, subtree: true });
 });
-
-
-
-
-
-
-
-
-
-
-
 
