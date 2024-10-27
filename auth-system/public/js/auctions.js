@@ -1,10 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('You need to log in to view the auctions.');
         window.location.href = '/login.html'; // Redirect to login page
         return;
     }
+
+    const userId = await getUserId();
 
     fetch('/auction/auctions', {
         method: 'GET',
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const now = new Date();
 
                 let statusText = '';
-                if (now < startDate) {
+                if (now < startDate ) {
                     statusText = `Auction starts on: ${startDate.toLocaleDateString()}`;
                 } else if (now >= startDate && now <= endDate) {
                     statusText = `Auction started on: ${startDate.toLocaleDateString()}, ends on: ${endDate.toLocaleDateString()}`;
@@ -69,13 +71,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 auctionElement.appendChild(status);
 
                 // Check if auction has ended and conditionally add the "Make an offer" button
-                if (now <= endDate) {
+                if (now <= endDate && auction.artist_id !== userId) {
                     const button = document.createElement('button');
                     button.textContent = 'Make an offer!';
                     button.addEventListener('click', function () {
                         displayAuctionPopup(img, name, auction.id_painting);
                     });
                     auctionElement.appendChild(button);
+                }else {
+                    console.log(`Skipping offer button for painting ID ${auction.id_painting} (Artist: ${auction.artist_id}, User: ${userId})`);
                 }
 
                 container.appendChild(auctionElement);
@@ -159,9 +163,9 @@ function displayAuctionPopup(img, name, paintingId) {
             })
                 .then(response => {
                     console.log("Response status:", response.status);
-                    return response.json().then(data => ({ status: response.status, data }));
+                    return response.json().then(data => ({status: response.status, data}));
                 })
-                .then(({ status, data }) => {
+                .then(({status, data}) => {
                     if (status >= 400) {
                         console.error('Server responded with an error:', data);
                         alert('Failed to submit offer. Please try again.');

@@ -45,7 +45,7 @@ exports.listPainting = (req, res) => {
 
 exports.getAuctions = (req, res) => {
     const query = `
-        SELECT id_painting, painting_name, artist_name, painting_pic, start_date, end_date 
+        SELECT id_painting, painting_name, artist_name, painting_pic, start_date, end_date, id_user AS artist_id 
         FROM auction_paintings 
         WHERE verified_ok = 1
     `;
