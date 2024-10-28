@@ -44,13 +44,29 @@ exports.listPainting = (req, res) => {
 };
 
 exports.getAuctions = (req, res) => {
+    const userId = req.user.id; // Get the logged-in user's ID
+
     const query = `
-        SELECT id_painting, painting_name, artist_name, painting_pic, start_date, end_date, id_user AS artist_id 
-        FROM auction_paintings 
-        WHERE verified_ok = 1
+        SELECT 
+            p.id_painting, 
+            p.painting_name, 
+            p.artist_name, 
+            p.painting_pic, 
+            p.start_date, 
+            p.end_date, 
+            p.id_user AS artist_id,
+            a.price AS user_bid
+        FROM 
+            auction_paintings p
+        LEFT JOIN 
+            auctioneer a 
+        ON 
+            p.id_painting = a.id_painting AND a.id_auctioneer = ?
+        WHERE 
+            p.verified_ok = 1
     `;
 
-    connection.query(query, (err, results) => {
+    connection.query(query, [userId], (err, results) => {
         if (err) {
             console.error('Failed to fetch auctions:', err);
             return res.status(500).send({ message: 'Failed to fetch auctions.' });
@@ -115,3 +131,18 @@ exports.submitAuction = (req, res) => {
         res.status(200).send({ message: 'Offer submitted successfully', results });
     });
 }
+exports.checkExistingBid = (req, res) => {
+    const { userId, paintingId } = req.body;
+    const query = `
+        SELECT * FROM auctioneer 
+        WHERE id_auctioneer = ? AND id_painting = ?
+    `;
+
+    connection.query(query, [userId, paintingId], (err, results) => {
+        if (err) {
+            console.error('Failed to check existing bid:', err);
+            return res.status(500).send({ message: 'Failed to check existing bid.' });
+        }
+        res.status(200).send({ hasBid: results.length > 0 });
+    });
+};

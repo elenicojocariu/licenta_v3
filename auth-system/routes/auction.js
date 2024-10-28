@@ -23,4 +23,5 @@ router.post('/list', authMiddleware.authenticate, upload.single('paintingPic'), 
 router.get('/auctions',authMiddleware.authenticate, auctionController.getAuctions);
 router.post('/submit-offer', authMiddleware.authenticate, auctionController.submitAuction);
 
+router.post('/check-bid', authMiddleware.authenticate, auctionController.checkExistingBid);
 module.exports = router;

@@ -28,13 +28,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             return response.json();
         })
         .then(auctions => {
-            console.log('Auctions data:', auctions); // Log the entire auctions array
-
-            if (!Array.isArray(auctions)) {
-                throw new TypeError('Expected an array of auctions');
-            }
-
+            console.log('Auctions data:', auctions);
             const container = document.getElementById('auctions-container');
+            if (!container) {
+                console.error("Failed to find 'auctions-container' in the DOM.");
+                return;
+            }
             auctions.forEach(auction => {
                 const auctionElement = document.createElement('div');
                 auctionElement.classList.add('auction');
@@ -49,42 +48,32 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const artist = document.createElement('p');
                 artist.textContent = `Artist: ${auction.artist_name || 'Unknown'}`;
 
-                const startDate = new Date(auction.start_date);
-                const endDate = new Date(auction.end_date);
-                const now = new Date();
-
-                let statusText = '';
-                if (now < startDate ) {
-                    statusText = `Auction starts on: ${startDate.toLocaleDateString()}`;
-                } else if (now >= startDate && now <= endDate) {
-                    statusText = `Auction started on: ${startDate.toLocaleDateString()}, ends on: ${endDate.toLocaleDateString()}`;
-                } else {
-                    statusText = `Auction ended on: ${endDate.toLocaleDateString()}`;
-                }
-
                 const status = document.createElement('p');
-                status.textContent = statusText;
+                const auctionStatus = getAuctionStatus(auction.start_date, auction.end_date);
+                status.textContent = auctionStatus;
 
                 auctionElement.appendChild(img);
                 auctionElement.appendChild(name);
                 auctionElement.appendChild(artist);
                 auctionElement.appendChild(status);
 
-                // Check if auction has ended and conditionally add the "Make an offer" button
-                if (now <= endDate && auction.artist_id !== userId) {
-                    const button = document.createElement('button');
+                const button = document.createElement('button');
+                if (auctionStatus.includes('Auction ended')) {
+                    button.textContent = 'Auction ended';
+                    button.disabled = true;
+                } else if (auction.user_bid) {
+                    button.textContent = 'You\'ve already bid. See details';
+                    button.addEventListener('click', () => showBidDetails(auction.user_bid));
+                } else {
                     button.textContent = 'Make an offer!';
-                    button.addEventListener('click', function () {
-                        displayAuctionPopup(img, name, auction.id_painting);
-                    });
-                    auctionElement.appendChild(button);
-                }else {
-                    console.log(`Skipping offer button for painting ID ${auction.id_painting} (Artist: ${auction.artist_id}, User: ${userId})`);
+                    button.addEventListener('click', () => displayAuctionPopup(img, name, auction.id_painting, button));
                 }
+                auctionElement.appendChild(button);
 
                 container.appendChild(auctionElement);
             });
         })
+
         .catch(error => {
             console.error('Error fetching auctions:', error);
         });
@@ -120,7 +109,7 @@ async function getUserId() {
     }
 }
 
-function displayAuctionPopup(img, name, paintingId) {
+function displayAuctionPopup(img, name, paintingId, button) {
     const modal = document.getElementById('offer-popup');
     const token = localStorage.getItem('token');
 
@@ -151,8 +140,6 @@ function displayAuctionPopup(img, name, paintingId) {
                 paintingId: paintingId
             };
 
-            console.log("Data to submit:", data);
-
             fetch('/auction/submit-offer', {
                 method: 'POST',
                 headers: {
@@ -161,20 +148,13 @@ function displayAuctionPopup(img, name, paintingId) {
                 },
                 body: JSON.stringify(data)
             })
-                .then(response => {
-                    console.log("Response status:", response.status);
-                    return response.json().then(data => ({status: response.status, data}));
-                })
-                .then(({status, data}) => {
-                    if (status >= 400) {
-                        console.error('Server responded with an error:', data);
-                        alert('Failed to submit offer. Please try again.');
-                        return;
+                .then(response => response.json())
+                .then(data => {
+                    if (button) {
+                        button.textContent = "You've already bid. See details";
+                        button.onclick = () => showBidDetails(data.offerAmount);
                     }
-
-                    console.log('Offer submitted successfully:', data);
-                    alert('Offer submitted successfully!');
-                    closeAuction(); // Close the popup
+                    closeAuction();
                 })
                 .catch(error => {
                     console.error('Failed to submit offer:', error);
@@ -186,15 +166,29 @@ function displayAuctionPopup(img, name, paintingId) {
     };
 
     modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
 }
 
 function closeAuction() {
     const modal = document.getElementById('offer-popup');
     modal.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Enable background scrolling
+    document.body.style.overflow = 'auto';
 }
 
+
+function getAuctionStatus(startDate, endDate) {
+    const now = new Date();
+    if (now < new Date(startDate)) {
+        return `Auction starts on: ${new Date(startDate).toLocaleDateString()}`;
+    } else if (now <= new Date(endDate)) {
+        return `Auction ends on: ${new Date(endDate).toLocaleDateString()}`;
+    }
+    return `Auction ended on: ${new Date(endDate).toLocaleDateString()}`;
+}
+
+function showBidDetails(bidAmount) {
+    alert(`You've already placed a bid of ${bidAmount} RON .`);
+}
 
 
 
