@@ -73,7 +73,10 @@ app.get('/api/artworks', async (req, res) => {
     }
 });
 
-
+cron.schedule('0 0 * * *', () => {
+    console.log("Running scheduled auction finalization...");
+    finalizeAuction();
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

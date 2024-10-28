@@ -56,20 +56,21 @@ document.addEventListener('DOMContentLoaded', async function () {
                 auctionElement.appendChild(name);
                 auctionElement.appendChild(artist);
                 auctionElement.appendChild(status);
-
-                const button = document.createElement('button');
-                if (auctionStatus.includes('Auction ended')) {
-                    button.textContent = 'Auction ended';
-                    button.disabled = true;
-                } else if (auction.user_bid) {
-                    button.textContent = 'You\'ve already bid. See details';
-                    button.addEventListener('click', () => showBidDetails(auction.user_bid));
-                } else {
-                    button.textContent = 'Make an offer!';
-                    button.addEventListener('click', () => displayAuctionPopup(img, name, auction.id_painting, button));
+                if (userId !== auction.artist_id) {
+                    const button = document.createElement('button');
+                    if (auctionStatus.includes('Auction ended')) {
+                        button.textContent = 'Auction ended';
+                        button.classList.add('button-ended');
+                        button.disabled = true;
+                    } else if (auction.user_bid) {
+                        button.textContent = 'You\'ve already bid. See details';
+                        button.addEventListener('click', () => showBidDetails(auction.user_bid));
+                    } else {
+                        button.textContent = 'Make an offer!';
+                        button.addEventListener('click', () => displayAuctionPopup(img, name, auction.id_painting, button));
+                    }
+                    auctionElement.appendChild(button);
                 }
-                auctionElement.appendChild(button);
-
                 container.appendChild(auctionElement);
             });
         })
