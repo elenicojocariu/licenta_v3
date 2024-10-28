@@ -1,9 +1,10 @@
-// public/login.js
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
     const unconfirmedEmailModal = document.getElementById('unconfirmed-email-modal');
     const closeUnconfirmedEmailBtn = document.getElementById('close-unconfirmed-email');
+    const errorMessage = document.getElementById('error-message');
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -41,6 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     unconfirmedEmailModal.style.display = 'block';
                 } else {
                     console.log(result.message); // Handle other error messages
+                    errorMessage.textContent = result.message || 'Email or password is incorrect';
+                    errorMessage.style.display = 'block';
                 }
 
             }

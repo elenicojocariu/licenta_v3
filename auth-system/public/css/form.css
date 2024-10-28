@@ -30,21 +30,24 @@ body {
 }
 
 .form {
-    width: 400px;
-    height: auto;
+    width: 450px;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     color: white;
-    font-family: 'roboto', sans-serif;
-    border: 5px solid #fff;
-    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+
 }
 
 .heading {
-    opacity: 1;
-    text-transform: capitalize;
-    text-align: center;
-    font-size: 63px;
-    font-weight: 300;
-    margin-bottom: 50px;
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .input-container input {
@@ -57,35 +60,22 @@ body {
     box-sizing: border-box;
 }
 
-input,
-.submit-btn {
-    opacity: 1;
-    width: 80%;
-    height: 35px;
-    display: block;
+input {
+    width: calc(100% - 40px);
+    height: 45px;
     margin: 20px auto;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
     border: none;
-    color: #ffffff;
     padding: 15px;
-    transition: .5s;
-
-
+    font-size: 1em;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
 }
-
-input::placeholder {
-    color: #ffffff;
-}
-
-input:focus,
-.submit-btn:hover {
-    background: #ffffff;
-    color: black;
-}
-
-input:focus::placeholder {
-    color: black;
+input:hover, input:focus {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-3px);
 }
 
 .submit-btn {
@@ -94,17 +84,44 @@ input:focus::placeholder {
     cursor: pointer;
     margin: 50px auto 0;
     opacity: 1;
+    color: black;
+    opacity: 1;
+    height: 40px;
+    display: block;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-left: 140px;
+    border: none;
 
 }
+
+input::placeholder {
+    color: rgba(50, 50, 50, 0.6);
+}
+
+
+.submit-btn:hover {
+    background: rgba(255, 255, 255, 0.29);
+    color: black;
+}
+
+input:focus::placeholder {
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bolder;
+}
+
 
 .link {
     opacity: 1;
     text-align: center;
     text-transform: capitalize;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.82);
     display: block;
     margin: 30px auto;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .link:hover {
@@ -214,21 +231,27 @@ button.toggle-btn:hover {
 
 .forgot-password-btn {
     background-color: #f0f0f0;
-    color: #333333;
     border: none;
-    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    margin-left: 125px;
     text-decoration: underline;
+    margin-left: 100px;
+    width: auto;
+    padding: 0 20px;
+    color: black;
+    opacity: 1;
+    height: 35px;
+    display: block;
+    font-weight: bold;
+    font-size: 1em;
 }
 
 .forgot-password-btn:hover {
-    background-color: #FAEBD7;
-}
+    background: rgba(255, 255, 255, 0.29);
+    color: black;}
 
-.modal{
+.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -239,6 +262,7 @@ button.toggle-btn:hover {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
 .modal-content {
     background-color: rgba(254, 254, 254, 0.74);
     margin: 15% auto;
@@ -264,7 +288,8 @@ button.toggle-btn:hover {
     text-decoration: none;
     cursor: pointer;
 }
-.submit-btn-send{
+
+.submit-btn-send {
     background-color: rgba(117, 111, 111, 0.84);
     color: white;
     padding: 10px 20px;
@@ -276,21 +301,25 @@ button.toggle-btn:hover {
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.submit-btn-send:hover{
+
+.submit-btn-send:hover {
     background-color: #555;
     transform: translateY(-2px);
 }
-.submit-btn-send:focus{
+
+.submit-btn-send:focus {
     outline: none;
     background-color: rgba(117, 111, 111, 0.82);
 
 }
-.submit-btn-send:active{
+
+.submit-btn-send:active {
     background-color: #5556;
     transform: translateY(1px);
 }
+
 .modal {
-    display: none; /* Hidden by default */
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -322,6 +351,7 @@ button.toggle-btn:hover {
     color: black;
     cursor: pointer;
 }
+
 @media only screen and (max-width: 900px) {
     .logo-container {
         display: none;
