@@ -194,3 +194,8 @@ function closeAuction() {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto'; // Enable background scrolling
 }
+
+
+
+
+

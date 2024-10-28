@@ -62,7 +62,7 @@ exports.getAuctions = (req, res) => {
 
 
 const senderEmail = "cojocariu.eleni24@gmail.com";
-const password = "jwla mvkh bshz wlnh";
+const password = "idkv egdf cxej tpgr";
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',

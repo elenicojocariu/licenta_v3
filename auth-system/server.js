@@ -6,6 +6,9 @@ const cors = require('cors');
 const path = require('path');
 const {connectToDatabase} = require('../config-mongodb/mongodb');
 
+const cron = require('node-cron');
+const finalizeAuction = require('./controllers/auctionProcessor');
+
 dotenv.config();
 
 const app = express();
@@ -13,6 +16,7 @@ const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const favoriteRoutes = require('./routes/favorite');
 const auctionRoutes = require('./routes/auction');
+const connection = require("./config/db");
 
 // Middleware
 app.use(bodyParser.json());
