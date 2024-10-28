@@ -57,7 +57,15 @@
 .auction:hover {
     transform: translateY(-10px);
 }
-
+.button-ended {
+    background-color: red !important;
+    color: white !important;
+    cursor: not-allowed;
+}
+.button-posted-by-you{
+    color: white !important;
+    background-color: #28a745 !important;
+}
 .auction button {
     color: #fff;
     text-decoration: none;
@@ -172,4 +180,15 @@ body.popup-open {
 
 #send-offer button:hover {
     background-color: rgba(73, 72, 72, 0.82);
+}
+
+#bid-details-popup {
+    display: none; /* Ascunde popup-ul implicit */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
+    z-index: 1000; /* Asigură că apare deasupra altor elemente */
 }

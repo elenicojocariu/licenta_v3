@@ -56,21 +56,27 @@ document.addEventListener('DOMContentLoaded', async function () {
                 auctionElement.appendChild(name);
                 auctionElement.appendChild(artist);
                 auctionElement.appendChild(status);
-                if (userId !== auction.artist_id) {
-                    const button = document.createElement('button');
-                    if (auctionStatus.includes('Auction ended')) {
-                        button.textContent = 'Auction ended';
-                        button.classList.add('button-ended');
-                        button.disabled = true;
-                    } else if (auction.user_bid) {
-                        button.textContent = 'You\'ve already bid. See details';
-                        button.addEventListener('click', () => showBidDetails(auction.user_bid));
-                    } else {
+
+                const button = document.createElement('button');
+                if (auctionStatus.includes('Auction ended')) {
+                    button.textContent = 'Auction ended';
+                    button.classList.add('button-ended');
+                    button.disabled = true;
+                } else if (auction.user_bid) {
+                    button.textContent = 'You\'ve already bid. See details';
+                    button.addEventListener('click', () => showBidDetails(auction.user_bid));
+                } else {
+                    if (userId !== auction.artist_id) {
                         button.textContent = 'Make an offer!';
                         button.addEventListener('click', () => displayAuctionPopup(img, name, auction.id_painting, button));
+                    } else {
+                        button.textContent = 'Posted by you';
+                        button.disabled = true;
+                        button.classList.add('button-posted-by-you');
                     }
-                    auctionElement.appendChild(button);
                 }
+                auctionElement.appendChild(button);
+
                 container.appendChild(auctionElement);
             });
         })
@@ -188,9 +194,21 @@ function getAuctionStatus(startDate, endDate) {
 }
 
 function showBidDetails(bidAmount) {
-    alert(`You've already placed a bid of ${bidAmount} RON .`);
+    const bidDetailsPopup = document.getElementById('bid-details-popup');
+    const bidDetailsText = document.getElementById('bid-details-text');
+
+    // Set the text for the popup
+    bidDetailsText.textContent = `You offered ${bidAmount} RON.`;
+
+    // Show the popup
+    bidDetailsPopup.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 }
 
-
+function closeBidDetailsPopup() {
+    const bidDetailsPopup = document.getElementById('bid-details-popup');
+    bidDetailsPopup.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
 
 
