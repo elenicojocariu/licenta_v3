@@ -26,26 +26,20 @@
 
 <a-scene shadow="true">
     <a-assets>
-        <!-- Image assets for the paintings will be dynamically added here -->
+        <!-- img assets for paintings dynamically added  -->
         <img id="woodTexture" src="img/wood.jpg">
         <img id="skyTexture" src="img/skyy.jpg">
         <img id="columnTexture" src="img/marble.jpg">
-
     </a-assets>
 
-    <!-- Camera and controls -->
     <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
-
-    <!-- Lighting -->
     <a-light type="ambient" color="#888"></a-light>
     <a-light type="directional" position="1 2 1" intensity="0.7" castShadow="true"></a-light>
     <a-light type="point" position="-2 4 -5" intensity="0.7" color="#fff" castShadow="true"></a-light>
 
-    <!-- Ground and sky -->
     <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" color="#874741" material="roughness: 1 "></a-plane>
     <a-sky src="#skyTexture"></a-sky>
 
-    <!-- Paintings will be dynamically added here -->
     <a-entity id="paintings"></a-entity>
 
 </a-scene>
