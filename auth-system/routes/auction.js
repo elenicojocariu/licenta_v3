@@ -4,7 +4,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 const auctionController = require('../controllers/auctionController');
 const multer = require('multer');
 const path = require('path');
-const {auth} = require("mysql/lib/protocol/Auth");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

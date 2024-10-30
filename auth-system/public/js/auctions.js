@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         .then(response => {
             if (response.status === 401) {
                 alert('Unauthorized. Please log in.');
-                window.location.href = '/login.html'; // Redirect to login page
+                window.location.href = '/login.html';
                 return;
             }
 
@@ -185,6 +185,8 @@ function closeAuction() {
 
 function getAuctionStatus(startDate, endDate) {
     const now = new Date();
+    console.log('Checkingggggg auctions ending before:', now);
+
     if (now < new Date(startDate)) {
         return `Auction starts on: ${new Date(startDate).toLocaleDateString()}`;
     } else if (now <= new Date(endDate)) {

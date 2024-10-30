@@ -131,6 +131,7 @@ exports.submitAuction = (req, res) => {
         res.status(200).send({ message: 'Offer submitted successfully', results });
     });
 }
+
 exports.checkExistingBid = (req, res) => {
     const { userId, paintingId } = req.body;
     const query = `
@@ -146,3 +147,22 @@ exports.checkExistingBid = (req, res) => {
         res.status(200).send({ hasBid: results.length > 0 });
     });
 };
+/*
+exports.checkWonAuctions = (req, res) => {
+    const userId = req.user.id;
+
+    const query = `
+        SELECT w.painting_id, p.painting_name, p.artist_name
+        FROM winners w
+        JOIN auction_paintings p ON w.painting_id = p.id_painting
+        WHERE w.winning_user_id = ?
+    `;
+
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error('Failed to check won auctions:', err);
+            return res.status(500).send({ message: 'Failed to check won auctions.' });
+        }
+        res.status(200).send(results);
+    });
+};*/
