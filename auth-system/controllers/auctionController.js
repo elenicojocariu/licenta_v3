@@ -147,22 +147,31 @@ exports.checkExistingBid = (req, res) => {
         res.status(200).send({ hasBid: results.length > 0 });
     });
 };
-/*
-exports.checkWonAuctions = (req, res) => {
+
+exports.checkIfUserWon = (req, res) => {
     const userId = req.user.id;
 
     const query = `
-        SELECT w.painting_id, p.painting_name, p.artist_name
-        FROM winners w
-        JOIN auction_paintings p ON w.painting_id = p.id_painting
-        WHERE w.winning_user_id = ?
+        SELECT 
+            w.painting_id,
+            p.painting_name
+        FROM
+            winners w
+        INNER JOIN
+            auction_paintings p 
+        ON 
+            w.painting_id = p.id_painting
+        WHERE 
+            w.winner_id = ?
     `;
 
     connection.query(query, [userId], (err, results) => {
         if (err) {
-            console.error('Failed to check won auctions:', err);
-            return res.status(500).send({ message: 'Failed to check won auctions.' });
+            console.error('Failed to check user wins:', err);
+            return res.status(500).json({ message: 'Failed to check wins.' });
         }
-        res.status(200).send(results);
+
+        res.status(200).json(results);
     });
-};*/
+
+}

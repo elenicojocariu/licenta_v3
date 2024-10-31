@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             return response.json();
         })
         .then(auctions => {
-            console.log('Auctions data:', auctions);
+            console.log('Auctions dataaaa:', auctions);
             const container = document.getElementById('auctions-container');
             if (!container) {
                 console.error("Failed to find 'auctions-container' in the DOM.");
@@ -37,10 +37,18 @@ document.addEventListener('DOMContentLoaded', async function () {
             auctions.forEach(auction => {
                 const auctionElement = document.createElement('div');
                 auctionElement.classList.add('auction');
+                auctionElement.setAttribute('data-painting-id', auction.id_painting); // ID pentru identificare
 
                 const img = document.createElement('img');
                 img.src = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
                 img.alt = auction.painting_name || 'Untitled';
+                /*
+                if (auction.user_won) {
+                    const winnerMessage = document.createElement('div');
+                    winnerMessage.classList.add('winner-message');
+                    winnerMessage.textContent = 'You won this bid! Check your email for details';
+                    auctionElement.appendChild(winnerMessage);
+                } */
 
                 const name = document.createElement('h2');
                 name.textContent = auction.painting_name || 'Untitled';
@@ -84,6 +92,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         .catch(error => {
             console.error('Error fetching auctions:', error);
         });
+    await checkUserWins();
 });
 
 
@@ -185,7 +194,6 @@ function closeAuction() {
 
 function getAuctionStatus(startDate, endDate) {
     const now = new Date();
-    console.log('Checkingggggg auctions ending before:', now);
 
     if (now < new Date(startDate)) {
         return `Auction starts on: ${new Date(startDate).toLocaleDateString()}`;
@@ -213,4 +221,36 @@ function closeBidDetailsPopup() {
     document.body.style.overflow = 'auto';
 }
 
+async function checkUserWins() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    fetch('http://localhost:5000/auction/check-win', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(wins => {
+            if (wins && wins.length > 0) {
+                const container = document.getElementById('auctions-container');
+                wins.forEach(win => {
+                    const wonAuction = container.querySelector(`[data-painting-id="${win.painting_id}"]`);
+                    if (wonAuction) {
+                        const message = document.createElement('p');
+                        message.textContent = "Congrats! You won this bid. Check your email for further details.";
+                        message.classList.add('win-message');
+                        wonAuction.appendChild(message);
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error checking user wins: ', error);
+        });
+}
 

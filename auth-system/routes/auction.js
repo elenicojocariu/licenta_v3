@@ -23,4 +23,7 @@ router.get('/auctions',authMiddleware.authenticate, auctionController.getAuction
 router.post('/submit-offer', authMiddleware.authenticate, auctionController.submitAuction);
 
 router.post('/check-bid', authMiddleware.authenticate, auctionController.checkExistingBid);
+
+router.get('/check-win', authMiddleware.authenticate, auctionController.checkIfUserWon);
+
 module.exports = router;
