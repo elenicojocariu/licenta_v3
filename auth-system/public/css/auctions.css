@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin-top: 5rem; /* Ajustează margin-top pentru a reduce spațiul deasupra titlului */
+    margin-top: 5rem;
     margin-bottom: 2rem;
 }
 
@@ -85,7 +85,7 @@
     background-color: rgba(73, 72, 72, 0.82);
 }
 
-/* Modal styles */
+/* Modal  */
 .popup {
     display: none;
     position: fixed;
@@ -95,8 +95,8 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
-    backdrop-filter: blur(5px); /* Blur the background */
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
 }
 
 .popup-content {
@@ -144,7 +144,7 @@
 
 body.popup-open {
     filter: blur(5px);
-    overflow: hidden; /* Prevent background scrolling */
+    overflow: hidden;
 }
 
 .popup input {
@@ -185,16 +185,25 @@ body.popup-open {
 }
 
 #bid-details-popup {
-    display: none; /* Ascunde popup-ul implicit */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundal semi-transparent */
-    z-index: 1000; /* Asigură că apare deasupra altor elemente */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
+.win-message {
+    color: green !important;
+    font-weight: bold;
+}
+
+.sold-message {
+    color: blue !important;
+    font-weight: bold;
+}
 
 
 

@@ -37,18 +37,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             auctions.forEach(auction => {
                 const auctionElement = document.createElement('div');
                 auctionElement.classList.add('auction');
-                auctionElement.setAttribute('data-painting-id', auction.id_painting); // ID pentru identificare
+                auctionElement.setAttribute('data-painting-id', auction.id_painting);
 
                 const img = document.createElement('img');
                 img.src = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
                 img.alt = auction.painting_name || 'Untitled';
-                /*
-                if (auction.user_won) {
-                    const winnerMessage = document.createElement('div');
-                    winnerMessage.classList.add('winner-message');
-                    winnerMessage.textContent = 'You won this bid! Check your email for details';
-                    auctionElement.appendChild(winnerMessage);
-                } */
+
 
                 const name = document.createElement('h2');
                 name.textContent = auction.painting_name || 'Untitled';
@@ -207,10 +201,8 @@ function showBidDetails(bidAmount) {
     const bidDetailsPopup = document.getElementById('bid-details-popup');
     const bidDetailsText = document.getElementById('bid-details-text');
 
-    // Set the text for the popup
     bidDetailsText.textContent = `You offered ${bidAmount} RON.`;
 
-    // Show the popup
     bidDetailsPopup.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
@@ -235,16 +227,21 @@ async function checkUserWins() {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
         })
-        .then(wins => {
-            if (wins && wins.length > 0) {
+        .then(results => {
+            if (results && results.length > 0) {
                 const container = document.getElementById('auctions-container');
-                wins.forEach(win => {
-                    const wonAuction = container.querySelector(`[data-painting-id="${win.painting_id}"]`);
-                    if (wonAuction) {
+                results.forEach(result => {
+                    const paintingElement = container.querySelector(`[data-painting-id="${result.painting_id}"]`);
+                    if (paintingElement) {
                         const message = document.createElement('p');
-                        message.textContent = "Congrats! You won this bid. Check your email for further details.";
-                        message.classList.add('win-message');
-                        wonAuction.appendChild(message);
+                        if (result.status === 'won') {
+                            message.textContent = "Congrats! You won this bid. Check your email for further details.";
+                            message.classList.add('win-message');
+                        } else if (result.status === 'sold') {
+                            message.textContent = `Congrats, your painting was auctioned for ${result.final_bid} RON! Check your email for further details.`;
+                            message.classList.add('sold-message');
+                        }
+                        paintingElement.appendChild(message);
                     }
                 });
             }
@@ -253,4 +250,6 @@ async function checkUserWins() {
             console.error('Error checking user wins: ', error);
         });
 }
+
+
 

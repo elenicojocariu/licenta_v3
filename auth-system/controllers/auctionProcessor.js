@@ -98,7 +98,6 @@ function finalizeAuction() {
                         }
                         console.log(`Câștigătorul pentru pictura ${id_painting} a fost adăugat în tabelul winners.`);
 
-                        // 4. Trimiterea notificărilor pentru câștigător și vânzător
                         notifyUsers(winnerId, seller_id, painting_name, winningPrice);
                     });
                 }

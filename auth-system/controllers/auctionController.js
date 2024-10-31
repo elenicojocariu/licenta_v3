@@ -44,7 +44,7 @@ exports.listPainting = (req, res) => {
 };
 
 exports.getAuctions = (req, res) => {
-    const userId = req.user.id; // Get the logged-in user's ID
+    const userId = req.user.id;
 
     const query = `
         SELECT 
@@ -154,7 +154,12 @@ exports.checkIfUserWon = (req, res) => {
     const query = `
         SELECT 
             w.painting_id,
-            p.painting_name
+            p.painting_name,
+            w.final_bid,
+            CASE WHEN w.winner_id = ? THEN 'won' 
+                 WHEN w.seller_id = ? THEN 'sold' 
+                 ELSE NULL 
+            END AS status
         FROM
             winners w
         INNER JOIN
@@ -162,10 +167,10 @@ exports.checkIfUserWon = (req, res) => {
         ON 
             w.painting_id = p.id_painting
         WHERE 
-            w.winner_id = ?
+            w.winner_id = ? OR w.seller_id = ?
     `;
 
-    connection.query(query, [userId], (err, results) => {
+    connection.query(query, [userId, userId, userId, userId], (err, results) => {
         if (err) {
             console.error('Failed to check user wins:', err);
             return res.status(500).json({ message: 'Failed to check wins.' });
@@ -173,5 +178,4 @@ exports.checkIfUserWon = (req, res) => {
 
         res.status(200).json(results);
     });
-
-}
+};
