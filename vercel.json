@@ -4,7 +4,7 @@
     {
       "src": "server.js",
       "use": "@vercel/node",
-      "config": { "includeFiles": ["public/**", "config-mongodb/**"] }
+      "config": { "includeFiles": ["public/**", "uploads/**", "uploads-paintings/**", "config-mongodb/**"] }
     }
   ],
   "routes": [
@@ -12,5 +12,10 @@
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ]
+  ],
+  "env": {
+    "SESSION_SECRET": "@session_secret",
+    "JWT_SECRET": "@jwt_secret",
+    "PORT": "5000"
+  }
 }
