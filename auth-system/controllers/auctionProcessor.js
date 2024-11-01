@@ -29,7 +29,7 @@ function sendWinnerNotification(email, paintingName, pricePaid) {
     });
 }
 
-function sendSellerNotification(email, paintingName, pricePaid){
+function sendSellerNotification(email, paintingName, pricePaid) {
     const mailOptions = {
         from: senderEmail,
         to: email,
@@ -63,15 +63,15 @@ function finalizeAuction() {
         }
 
         results.forEach(auction => {
-            const { id_painting, seller_id, painting_name } = auction;
+            const {id_painting, seller_id, painting_name} = auction;
 
             const queryTopBids = `
-                SELECT id_auctioneer AS user_id, price
-                FROM auctioneer
-                WHERE id_painting = ?
-                ORDER BY price DESC
-                LIMIT 2
-            `;
+    SELECT id_auctioneer AS user_id, price
+    FROM auctioneer
+    WHERE id_painting = ?
+    ORDER BY price DESC, bid_time ASC
+    LIMIT 2
+`;
 
             connection.query(queryTopBids, [id_painting], (err, bids) => {
                 if (err) {
@@ -107,8 +107,6 @@ function finalizeAuction() {
 }
 
 
-
-
 function notifyUsers(winnerId, sellerId, paintingName, winningPrice) {
     const getEmailQuery = `SELECT email FROM users WHERE id = ?`;
 
@@ -134,4 +132,5 @@ function notifyUsers(winnerId, sellerId, paintingName, winningPrice) {
         }
     });
 }
+
 module.exports = finalizeAuction;
