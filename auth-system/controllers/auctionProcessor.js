@@ -69,7 +69,7 @@ function finalizeAuction() {
                 SELECT id_auctioneer AS user_id, price
                 FROM auctioneer
                 WHERE id_painting = ?
-                ORDER BY price DESC, offer_time ASC
+                ORDER BY price DESC
                 LIMIT 2
             `;
 
@@ -98,7 +98,7 @@ function finalizeAuction() {
                         }
                         console.log(`Câștigătorul pentru pictura ${id_painting} a fost adăugat în tabelul winners.`);
 
-                        notifyUsers(winnerId, seller_id, painting_name, winningPrice);
+                        notifyUsers(winnerId, seller_id, painting_name, secondHighestBid);
                     });
                 }
             });
