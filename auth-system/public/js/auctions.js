@@ -250,6 +250,13 @@ async function checkUserWins() {
             console.error('Error checking user wins: ', error);
         });
 }
+function showFAQ() {
+    document.getElementById("faqModal").style.display = "block";
+}
+
+function hideFAQ() {
+    document.getElementById("faqModal").style.display = "none";
+}
 
 
 

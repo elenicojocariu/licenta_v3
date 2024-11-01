@@ -78,6 +78,22 @@
         <p id="bid-details-text"></p>
     </div>
 </div>
+<div class="faq-button" onclick="showFAQ()">FAQ</div>
+
+<div class="faq-modal" id="faqModal">
+    <div class="faq-modal-content">
+        <span class="close-button" onclick="hideFAQ()">&times;</span>
+        <h3>This is a Vickrey auction.  </h3>
+        <h3>Here are the Bidding Rules:</h3>
+        <p>
+            1. The auction uses a second-price format, meaning the highest bidder wins.<br>
+            2. If there are identical bids, the first person to place the highest bid will win.<br>
+            3. The final price paid by the winner will be the second-highest bid.<br>
+            4. If there is only one bid, the winner will pay the amount they bid.<br>
+            5. All bids are final, and the auction ends at the specified closing time.
+        </p>
+    </div>
+</div>
 
 <script src="js/logout.js"></script>
 <script src="js/menu-bar.js"></script>
