@@ -1,5 +1,6 @@
 const connection = require('../config/db');
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 exports.listPainting = (req, res) => {
     const { name, artistName, startDate, endDate } = req.body;
@@ -77,8 +78,8 @@ exports.getAuctions = (req, res) => {
 };
 
 
-const senderEmail = "cojocariu.eleni24@gmail.com";
-const password = "idkv egdf cxej tpgr";
+const senderEmail = process.env.SENDER_EMAIL;
+const password = process.env.EMAIL_PASSWORD;
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',

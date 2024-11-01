@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 
 // Register user
@@ -139,8 +140,9 @@ exports.verifyToken = (req, res) => {
     res.status(200).json({userId});
 };
 
-const senderEmail = "cojocariu.eleni24@gmail.com";
-const password = "idkv egdf cxej tpgr";
+
+const senderEmail = process.env.SENDER_EMAIL;
+const password = process.env.EMAIL_PASSWORD;
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',

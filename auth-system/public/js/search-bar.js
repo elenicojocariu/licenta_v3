@@ -32,7 +32,7 @@ function handleSearchInput(event) {
         );
 
         if (filteredPaintings.length > 0) {
-            const fragment = document.createDocumentFragment(); // Creează un fragment de document
+            const fragment = document.createDocumentFragment();
 
             filteredPaintings.forEach(painting => {
                 const highlightedTitle = highlightMatch(painting.title, query);
@@ -49,20 +49,20 @@ function handleSearchInput(event) {
     `;
                 artElement.addEventListener('click', () => {
                     showPaintingDetails(painting);
-                    searchResults.innerHTML = '';  // Curăță rezultatele după selecție
-                    searchResults.style.display = 'none'; // Ascunde rezultatele după selecție
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
                 });
-                fragment.appendChild(artElement); // Adaugă fiecare element în fragment, nu direct în DOM
+                fragment.appendChild(artElement);
             });
 
-            searchResults.appendChild(fragment); // Adaugă fragmentul în DOM odată ce toate elementele au fost create
+            searchResults.appendChild(fragment);
 
             searchResults.style.display = 'block';
         } else {
             searchResults.innerHTML = '<p>No paintings found</p>';
             searchResults.style.display = 'block';
         }
-    }, 300); // Așteaptă 300ms după ultima tastare
+    }, 300);
 }
 
 function highlightMatch(text, query) {
@@ -76,33 +76,28 @@ function highlightMatch(text, query) {
 document.addEventListener('DOMContentLoaded', () => {
     const closeButton = document.getElementById('nav-search-close');
 
-    // Adaugă un eveniment de click pe butonul de închidere
     closeButton.addEventListener('click', () => {
         const searchContainer = document.getElementById('nav-search-container');
         const logoContainer = document.querySelector('.logo-container');
 
-        searchContainer.style.display = 'none'; // Ascunde bara de căutare
-        logoContainer.classList.remove('hidden'); // Reapare logo-ul
+        searchContainer.style.display = 'none';
+        logoContainer.classList.remove('hidden');
     });
 });
 
 function toggleSearchBar() {
     const searchContainer = document.getElementById('nav-search-container');
-    const logoContainer = document.querySelector('.logo-container'); // Selectează logo-ul
+    const logoContainer = document.querySelector('.logo-container');
 
-    // Verifică dacă bara de căutare este vizibilă
     if (searchContainer.style.display === 'none' || !searchContainer.style.display) {
-        searchContainer.style.display = 'block'; // Afișează bara de căutare
-        logoContainer.classList.add('hidden'); // Ascunde logo-ul
-        document.getElementById('nav-search-input').focus(); // Focus pe input
+        searchContainer.style.display = 'block';
+        logoContainer.classList.add('hidden');
+        document.getElementById('nav-search-input').focus();
     } else {
-        searchContainer.style.display = 'none'; // Ascunde bara de căutare
-        logoContainer.classList.remove('hidden'); // Afișează logo-ul
+        searchContainer.style.display = 'none';
+        logoContainer.classList.remove('hidden');
     }
 }
-
-
-
 
 window.handleSearchInput = handleSearchInput;
 window.Search = handleSearchInput;
