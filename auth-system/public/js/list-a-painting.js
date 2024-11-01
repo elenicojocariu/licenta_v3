@@ -6,16 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
         dateFormat: 'Y-m-d',
         minDate: 'today',
         onChange: function(selectedDates, dateStr, instance) {
-            endDatePicker.set("minDate", dateStr); // Setează minDate pentru endDate
-            endDatePicker.open(); // Deschide endDate picker automat
+            endDatePicker.set("minDate", dateStr);
+            endDatePicker.open();
         }
     });
 
-    // Inițializează flatpickr pentru endDate
     const endDatePicker = flatpickr(endDateInput, {
         dateFormat: "Y-m-d",
         onChange: function(selectedDates, dateStr, instance) {
-            // Cod pentru a colora perioada dintre startDate și endDate
             highlightRange(startDateInput.value, dateStr);
         }
     });
@@ -96,7 +94,6 @@ function showPopup() {
     popup.style.display = 'block';
 }
 
-// Funcția pentru închiderea popup-ului
 function closePopup() {
     const popup = document.getElementById('popup');
     popup.style.display = 'none';
