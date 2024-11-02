@@ -1,4 +1,5 @@
-
+const MONGODB_URI = "mongodb+srv://elenicojocariu24:Wfwdx3DFdJBtFxJm@cluster0.kuybvii.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_DB_NAME = "art";
 
 const {MongoClient} = require('mongodb');
 
@@ -12,10 +13,10 @@ const connectToDatabase = async () => {
     } // Returnează conexiunea existentă dacă există
 
     try {
-        const client = new MongoClient(process.env.MONGODB_URI);
+        const client = new MongoClient(MONGODB_URI);
         await client.connect();
-        db = client.db(process.env.MONGODB_DB_NAME);
-        console.log(`Connected to MongoDB database: ${process.env.MONGODB_DB_NAME}`);
+        db = client.db(MONGODB_DB_NAME);
+        console.log(`Connected to MongoDB database: ${MONGODB_DB_NAME}`);
         return db;
     } catch (err) {
         console.error('Failed to connect to MongoDB', err);
