@@ -1,7 +1,6 @@
 const artistNameElement = document.getElementById('artist-name');
 const artistImageElement = document.getElementById('artist-image');
 const artworksList = document.getElementById('artworks-list');
-const paginationControls = document.querySelector('.pagination-controls');
 
 const itemsPerPage = 20;
 let currentPage = 1;

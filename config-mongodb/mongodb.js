@@ -1,7 +1,7 @@
 const MONGODB_URI = "mongodb+srv://elenicojocariu24:Wfwdx3DFdJBtFxJm@cluster0.kuybvii.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const MONGODB_DB_NAME = "art";
 
-const {MongoClient} = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 
 let db;
 
