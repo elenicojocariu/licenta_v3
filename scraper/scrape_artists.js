@@ -85,10 +85,10 @@ fs.readFile('titles_with_urls.json', 'utf8', async (err, data) => {
 
     // Parcurge fiecare mișcare artistică și extrage artiștii și operele de artă
     for (const movement of artMovements) {
-        const { name, url } = movement;
+        const {name, url} = movement;
         try {
             const artists = await extractArtists(url);
-            console.log(`Artists for ${name}:`, artists);
+            console.log(`Artists for ${name}: ${JSON.stringify(artists, null, 2)}`);
             allArtMovements[name] = artists;
         } catch (error) {
             console.error(`Error extracting artists for ${name}:`, error);
@@ -96,11 +96,11 @@ fs.readFile('titles_with_urls.json', 'utf8', async (err, data) => {
     }
 
     // Salvează toate mișcările artistice și artiștii într-un fișier separat
-    fs.writeFile('all_art_movements_and_artists.json', JSON.stringify(allArtMovements, null, 2), err => {
+    fs.writeFile('all_art_movements_and_artists2.json', JSON.stringify(allArtMovements, null, 2), err => {
         if (err) {
             console.error('Error writing file:', err);
         } else {
-            console.log('All art movements and artists have been saved to all_art_movements_and_artists.json');
+            console.log('All art movements and artists have been saved to all_art_movements_and_artists2.json');
         }
     });
 });

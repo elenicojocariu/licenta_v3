@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: '../.env' });
 
-const MongoClient = require('mongodb').MongoClient;
+//const MongoClient = require('mongodb').MongoClient;
 const sharp = require('sharp');
 const axios = require('axios');
 const fs = require('fs');

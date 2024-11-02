@@ -1,3 +1,4 @@
+/*
 let paintings = [];
 let currentIndex = 0;
 
@@ -370,7 +371,7 @@ async function getFavorites(userId) {
         alert(`Eroare: ${errorData.message}`);
     }
 } */
-
+/*
 async function removeFavorite(userId, paintingId) {
     const token = localStorage.getItem('token');
     const response = await fetch('/favorites/removeFavorite', {
@@ -392,3 +393,4 @@ async function removeFavorite(userId, paintingId) {
 
 
 window.toggleFavorite = toggleFavorite;
+*/

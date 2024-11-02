@@ -1,0 +1,4197 @@
+{
+  "Categories": [
+    {
+      "_id": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Ancient Egyptian art",
+            "ar": "الفن في مصر القديمة",
+            "bg": "Изкуство на Древен Египет",
+            "ca": "Art de l'antic Egipte",
+            "de": "Altägyptische Kunst",
+            "es": "Arte del Antiguo Egipto",
+            "fa": "هنر مصر باستان",
+            "fi": "Muinaisen Egyptin taide",
+            "fr": "Art de l'Égypte antique",
+            "he": "אמנות מצרים העתיקה",
+            "hu": "Egyiptom művészete",
+            "id": "Seni Mesir Kuno",
+            "it": "Arte egizia",
+            "ja": "エジプト美術",
+            "ko": "고대 이집트의 미술",
+            "nl": "Oud-Egyptische kunst",
+            "pl": "Sztuka starożytnego Egiptu",
+            "pt": "Arte do Antigo Egito",
+            "ro": "Arta în Egiptul antic",
+            "ru": "Искусство Древнего Египта",
+            "sv": "Konst i forntida Egypten",
+            "th": "ศ\u0e34ลปะอ\u0e35ย\u0e34ปต\u0e4cโบราณ",
+            "tr": "Antik Mısır'da sanat",
+            "uk": "Мистецтво Стародавнього Єгипту"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "5ba2333eedc2c918cc698079"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Ancient Greek Art",
+            "ar": "الفن في اليونان القديمة",
+            "ca": "Art de l'antiga Grècia",
+            "cs": "Umění starověkého Řecka",
+            "de": "Griechische Kunst",
+            "es": "Arte de la Antigua Grecia",
+            "fa": "هنر در یونان باستان",
+            "fi": "Antiikin Kreikan taide",
+            "fr": "Art de la Grèce antique",
+            "he": "אמנות יוון העתיקה",
+            "hu": "Ókori görög művészet",
+            "id": "Seni Yunani Kuno",
+            "it": "Arte greca",
+            "ja": "ギリシア美術",
+            "nl": "Oud-Griekse kunst",
+            "no": "Gresk kunst i antikken",
+            "pl": "Sztuka starożytnej Grecji",
+            "pt": "Arte da Grécia Antiga",
+            "ro": "Arta în Grecia antică",
+            "ru": "Искусство Древней Греции",
+            "sv": "Den grekiska antikens konst",
+            "th": "ศ\u0e34ลปะย\u0e38คกร\u0e35ก",
+            "tr": "Antik Yunan sanatı",
+            "uk": "Давньогрецьке мистецтво",
+            "vi": "Nghệ thuật Hy Lạp cổ",
+            "zh": "古希臘藝術"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Western Medieval Art",
+            "ar": "الفن في القرون الوسطى",
+            "ca": "Art medieval",
+            "cs": "Umění středověku",
+            "es": "Arte medieval",
+            "fr": "Art médiéval",
+            "he": "אמנות ימי הביניים",
+            "hu": "Középkori művészet",
+            "id": "Seni rupa Abad Pertengahan",
+            "it": "Arte medievale",
+            "ko": "중세 미술",
+            "nl": "Middeleeuwse kunst",
+            "pt": "Arte da Idade Média",
+            "ro": "Pictura medievală",
+            "ru": "Искусство Средневековья",
+            "th": "ศ\u0e34ลปะสม\u0e31ยกลาง",
+            "uk": "Середньовічне мистецтво",
+            "zh": "欧洲中世纪美术",
+            "fa": "هنر قرون وسطی"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5e59edc2cd758cb1efaa"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Western Renaissance Art",
+            "fr": "Art Renaissance",
+            "ar": "فن عصر النهضة",
+            "el": "Αναγεννησιακή τέχνη",
+            "es": "Arte del Renacimiento",
+            "fi": "Renessanssin taide",
+            "it": "Arte del Rinascimento",
+            "ja": "ルネサンス美術",
+            "pl": "Malarstwo renesansu",
+            "ru": "Искусство Возрождения",
+            "sv": "Renässansens konst",
+            "vi": "Nghệ thuật thời kỳ Phục Hưng",
+            "zh": "文藝復興繪畫",
+            "fa": "هنر رنسانس",
+            "uk": "Культура епохи Відродження",
+            "pt": "Arte da Renascença Ocidental"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Western Post Renaissance Art",
+            "fr": "Art Post-Renaissance",
+            "ru": "Пост-ренессансное искусство",
+            "pt": "Arte Pós-renascentista Ocidental"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Modern Art",
+            "ar": "فن حديث",
+            "bg": "Модерно изкуство",
+            "ca": "Art modern",
+            "cs": "Moderní umění",
+            "da": "Moderne kunst",
+            "de": "Moderne Kunst",
+            "el": "Μοντέρνα τέχνη",
+            "es": "Arte moderno",
+            "fa": "هنر نوگرا",
+            "fi": "Moderni taide",
+            "fr": "Art moderne",
+            "he": "אמנות מודרנית",
+            "it": "Arte moderna",
+            "ko": "현대 미술",
+            "nl": "Moderne kunst",
+            "pt": "Arte Moderna",
+            "ro": "Artă modernă",
+            "th": "ศ\u0e34ลปะสม\u0e31ยใหม\u0e48",
+            "tr": "Modern sanat",
+            "uk": "Модерне мистецтво",
+            "zh": "现代艺术",
+            "ru": "Искусство Модерна"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Contemporary Art",
+            "ar": "فن معاصر",
+            "bg": "Съвременно изкуство",
+            "ca": "Art contemporani",
+            "de": "Zeitgenössische Kunst",
+            "es": "Arte contemporáneo",
+            "fa": "هنر معاصر",
+            "fi": "Nykytaide",
+            "fr": "Art contemporain",
+            "he": "אמנות עכשווית",
+            "id": "Seni kontemporer",
+            "it": "Arte contemporanea",
+            "ja": "近代美術と現代美術",
+            "ko": "동시대미술",
+            "nl": "Hedendaagse kunst",
+            "pl": "Sztuka współczesna",
+            "pt": "Arte Contemporânea",
+            "ro": "Artă contemporană",
+            "ru": "Современное искусство",
+            "sv": "Samtidskonst",
+            "th": "ศ\u0e34ลปะร\u0e48วมสม\u0e31ย",
+            "tr": "Çağdaş sanat",
+            "uk": "Сучасне мистецтво",
+            "zh": "當代藝術",
+            "no": "Samtidskunst"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Chinese Art",
+            "ca": "Art de la Xina",
+            "de": "Chinesische Kunst",
+            "es": "Arte de China",
+            "fa": "هنر چینی",
+            "fi": "Kiinan taide",
+            "fr": "Art chinois",
+            "he": "אמנות סינית",
+            "hu": "Kína művészete",
+            "it": "Arte cinese",
+            "ja": "中国美術",
+            "pl": "Sztuka chińska",
+            "pt": "Arte Chinesa",
+            "ru": "Искусство Китая",
+            "sv": "Kinesisk konst",
+            "zh": "中国美术史",
+            "ar": "فن صيني",
+            "bg": "Китайско изкуство",
+            "tr": "Çin sanatı"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5ecfedc2cd758cb28962"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Korean Art",
+            "ca": "Art coreà",
+            "es": "Arte coreano",
+            "hu": "Korea művészete",
+            "id": "Kesenian Korea",
+            "it": "Arte coreana",
+            "ja": "朝鮮美術",
+            "ko": "한국의 미술",
+            "fr": "Art coréen",
+            "ru": "Искусство Кореи",
+            "pt": "Arte Сoreana"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Japanese Art",
+            "ar": "فنون يابانية",
+            "bg": "Японско изобразително изкуство",
+            "ca": "Art del Japó",
+            "de": "Japanische Kunst",
+            "es": "Arte de Japón",
+            "fa": "هنر ژاپنی",
+            "fr": "Art japonais",
+            "he": "אמנות יפנית",
+            "hu": "Japán művészete",
+            "id": "Seni rupa Jepang",
+            "it": "Arte giapponese",
+            "ja": "日本美術史",
+            "pl": "Sztuka japońska",
+            "pt": "Arte Japonesa",
+            "ru": "Искусство Японии",
+            "sv": "Japansk konst",
+            "zh": "日本藝術",
+            "tr": "Japon sanatı"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Islamic Art",
+            "ar": "فن إسلامي",
+            "ca": "Art islàmic",
+            "cs": "Islámské umění",
+            "da": "Islamisk kunst",
+            "de": "Islamische Kunst",
+            "es": "Arte islámico",
+            "fa": "هنر اسلامی",
+            "fi": "Islamilainen taide",
+            "fr": "Arts de l'Islam",
+            "he": "אמנות מוסלמית",
+            "hu": "Az iszlám művészete",
+            "id": "Seni rupa Islam",
+            "it": "Arte islamica",
+            "ja": "イスラム美術",
+            "nl": "Islamitische kunst",
+            "pl": "Sztuka islamu",
+            "pt": "Arte Islâmica",
+            "ru": "Исламское искусство",
+            "sv": "Islamisk konst",
+            "tr": "İslam sanatı",
+            "uk": "Ісламське мистецтво",
+            "zh": "伊斯蘭藝術",
+            "no": "Islamsk kunst"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "57ee5eededc2cd758cb2b48a"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Native Art",
+            "ru": "Народное искусство",
+            "pt": "Arte Nativa"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "5eec5915edc2c933a8e285b7"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Pre-Columbian Art",
+            "ar": "الفن ما قبل الكولومبي",
+            "ca": "Art precolombí",
+            "de": "Präkolumbische Kunst",
+            "es": "Arte precolombino",
+            "fr": "Arts précolombiens",
+            "hu": "Indián művészet",
+            "pl": "Sztuka prekolumbijska",
+            "pt": "Arte Pré-colombiana",
+            "ro": "Arta precolumbiană",
+            "tr": "Kolomb öncesi sanat"
+          }
+        }
+      }
+    },
+    {
+      "_id": {
+        "_oid": "000000000000000000000000"
+      },
+      "Content": {
+        "Title": {
+          "Title": {
+            "en": "Dictionaries with no category"
+          }
+        }
+      }
+    }
+  ],
+  "DictionariesWithCategories": {
+    "5beea37bedc2c915a025a312": [
+      {
+        "Url": "/en/artists-by-art-movement/roman-period-1c-bc-4-c-ad",
+        "Count": 1,
+        "Title": "Roman Period (30 BC - 640 AD)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/early-dynastic-period-3150-2686-bc",
+        "Count": 1,
+        "Title": "Early Dynastic Period (3150 – 2686 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/old-kingdom-2686-2181-bc",
+        "Count": 1,
+        "Title": "Old Kingdom (2686–2181 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/1st-intermediate-period-2181-2055-bc",
+        "Count": 1,
+        "Title": "1st Intermediate Period (2181–2055 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/middle-kingdom-2055-1650-bc",
+        "Count": 1,
+        "Title": "Middle Kingdom (2055–1650 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/2nd-intermediate-period-1650-1550-bc",
+        "Count": 1,
+        "Title": "2nd Intermediate Period (1650–1550 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-kingdom-1550-1069-bc",
+        "Count": 1,
+        "Title": "New Kingdom (1550–1069 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/amarna-period-1351-1334-bc",
+        "Count": 1,
+        "Title": "Amarna Period (1351 - 1334 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/3rd-intermediate-period-1069-664-bc",
+        "Count": 1,
+        "Title": "3rd Intermediate Period (1069–664 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/late-period-664-332-bc",
+        "Count": 1,
+        "Title": "Late Period (664–332 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/ptolemaic-period-332-30-bc",
+        "Count": 1,
+        "Title": "Ptolemaic Period (332–30 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5beea37bedc2c915a025a312"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "5ba2333eedc2c918cc698079": [
+      {
+        "Url": "/en/artists-by-art-movement/classical-period-480-323-bc",
+        "Count": 3,
+        "Title": "Classical Period (480 - 323 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5ba2333eedc2c918cc698079"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/hellenistic-period-323-31-bc",
+        "Count": 3,
+        "Title": "Hellenistic Period (323-31 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5ba2333eedc2c918cc698079"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/archaic-period-700-480-bc",
+        "Count": 2,
+        "Title": "Archaic Period (700-480 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5ba2333eedc2c918cc698079"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/geometric-period-c-900-c-700-bc",
+        "Count": 1,
+        "Title": "Geometric Period (c.900 - c.700 BC)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5ba2333eedc2c918cc698079"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5e4aedc2cd758cb1df8b": [
+      {
+        "Url": "/en/artists-by-art-movement/gothic-art",
+        "Count": 12,
+        "Title": "Gothic Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e4aedc2cd758cb1df8b"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/romanesque-art",
+        "Count": 7,
+        "Title": "Romanesque Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e4aedc2cd758cb1df8b"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/byzantine-art",
+        "Count": 4,
+        "Title": "Byzantine Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e4aedc2cd758cb1df8b"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/medieval-art",
+        "Count": 2,
+        "Title": "Medieval Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e4aedc2cd758cb1df8b"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/coptic-art",
+        "Count": 2,
+        "Title": "Coptic art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e4aedc2cd758cb1df8b"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/pre-romanesque-art",
+        "Count": 1,
+        "Title": "Pre-Romanesque Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e4aedc2cd758cb1df8b"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5e59edc2cd758cb1efaa": [
+      {
+        "Url": "/en/artists-by-art-movement/mannerism-late-renaissance",
+        "Count": 47,
+        "Title": "Mannerism (Late Renaissance)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e59edc2cd758cb1efaa"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/northern-renaissance",
+        "Count": 47,
+        "Title": "Northern Renaissance",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e59edc2cd758cb1efaa"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/high-renaissance",
+        "Count": 36,
+        "Title": "High Renaissance",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e59edc2cd758cb1efaa"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/early-renaissance",
+        "Count": 33,
+        "Title": "Early Renaissance",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e59edc2cd758cb1efaa"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/proto-renaissance",
+        "Count": 9,
+        "Title": "Proto Renaissance",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e59edc2cd758cb1efaa"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5e66edc2cd758cb2070d": [
+      {
+        "Url": "/en/artists-by-art-movement/romanticism",
+        "Count": 280,
+        "Title": "Romanticism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/realism",
+        "Count": 215,
+        "Title": "Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/baroque",
+        "Count": 158,
+        "Title": "Baroque",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/academic-art",
+        "Count": 92,
+        "Title": "Academic Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neoclassicism",
+        "Count": 74,
+        "Title": "Neoclassicism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/rococo",
+        "Count": 60,
+        "Title": "Rococo",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/dutch-golden-age",
+        "Count": 53,
+        "Title": "Dutch Golden Age",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/orientalism",
+        "Count": 32,
+        "Title": "Orientalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e66edc2cd758cb2070d"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5e79edc2cd758cb22181": [
+      {
+        "Url": "/en/artists-by-art-movement/impressionism",
+        "Count": 226,
+        "Title": "Impressionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/expressionism",
+        "Count": 221,
+        "Title": "Expressionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/surrealism",
+        "Count": 181,
+        "Title": "Surrealism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/abstract-expressionism",
+        "Count": 161,
+        "Title": "Abstract Expressionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/abstract-art",
+        "Count": 152,
+        "Title": "Abstract Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/post-impressionism",
+        "Count": 135,
+        "Title": "Post-Impressionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/art-nouveau",
+        "Count": 119,
+        "Title": "Art Nouveau",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/pop-art",
+        "Count": 103,
+        "Title": "Pop Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/symbolism",
+        "Count": 92,
+        "Title": "Symbolism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/art-informel",
+        "Count": 82,
+        "Title": "Art Informel",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/cubism",
+        "Count": 75,
+        "Title": "Cubism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/post-painterly-abstraction",
+        "Count": 75,
+        "Title": "Post-Painterly Abstraction",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-expressionism",
+        "Count": 57,
+        "Title": "Neo-Expressionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/op-art",
+        "Count": 57,
+        "Title": "Op Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/concrete-art-concretism",
+        "Count": 51,
+        "Title": "Concrete Art (Concretism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/modernism",
+        "Count": 50,
+        "Title": "Modernism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/socialist-realism",
+        "Count": 49,
+        "Title": "Socialist Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/feminist-art",
+        "Count": 46,
+        "Title": "Feminist Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/na-ve-art-primitivism",
+        "Count": 45,
+        "Title": "Naïve Art (Primitivism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/social-realism",
+        "Count": 43,
+        "Title": "Social Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/magic-realism",
+        "Count": 43,
+        "Title": "Magic Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/constructivism",
+        "Count": 39,
+        "Title": "Constructivism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/outsider-art-art-brut",
+        "Count": 34,
+        "Title": "Outsider art (Art brut)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/avant-garde",
+        "Count": 31,
+        "Title": "Avant-garde",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/tachisme",
+        "Count": 31,
+        "Title": "Tachisme",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-dada",
+        "Count": 31,
+        "Title": "Neo-Dada",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/naturalism",
+        "Count": 25,
+        "Title": "Naturalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/modernismo",
+        "Count": 25,
+        "Title": "Modernismo",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/futurism",
+        "Count": 24,
+        "Title": "Futurism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/kinetic-art",
+        "Count": 24,
+        "Title": "Kinetic art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/dada",
+        "Count": 23,
+        "Title": "Dada",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-impressionism",
+        "Count": 22,
+        "Title": "Neo-Impressionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/art-deco",
+        "Count": 21,
+        "Title": "Art Deco",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/soviet-nonconformist-art",
+        "Count": 18,
+        "Title": "Soviet Nonconformist Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/harlem-renaissance-new-negro-movement",
+        "Count": 17,
+        "Title": "Harlem Renaissance (New Negro Movement)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/performance-art",
+        "Count": 17,
+        "Title": "Performance Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/arte-povera",
+        "Count": 16,
+        "Title": "Arte Povera",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-figurative-art",
+        "Count": 15,
+        "Title": "Neo-Figurative Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/nouveau-r-alisme",
+        "Count": 15,
+        "Title": "Nouveau Réalisme",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/regionalism",
+        "Count": 14,
+        "Title": "Regionalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/muralism",
+        "Count": 14,
+        "Title": "Muralism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/pictorialism",
+        "Count": 13,
+        "Title": "Pictorialism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-realism-american-realism",
+        "Count": 13,
+        "Title": "New Realism (American Realism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/tonalism",
+        "Count": 12,
+        "Title": "Tonalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/de-stijl-neoplasticism",
+        "Count": 11,
+        "Title": "De Stijl (Neoplasticism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/precisionism",
+        "Count": 11,
+        "Title": "Precisionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/arts-and-crafts",
+        "Count": 10,
+        "Title": "Arts and Crafts",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-romanticism",
+        "Count": 10,
+        "Title": "Neo-Romanticism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/spatialism",
+        "Count": 10,
+        "Title": "Spatialism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/classical-realism",
+        "Count": 10,
+        "Title": "Classical Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-objectivity-neue-sachlichkeit",
+        "Count": 9,
+        "Title": "New Objectivity (Neue Sachlichkeit)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/cubo-futurism",
+        "Count": 8,
+        "Title": "Cubo-Futurism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/metaphysical-art",
+        "Count": 8,
+        "Title": "Metaphysical art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/aestheticism",
+        "Count": 7,
+        "Title": "Aestheticism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/young-poland",
+        "Count": 7,
+        "Title": "Young Poland",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/suprematism",
+        "Count": 6,
+        "Title": "Suprematism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/haute-p-te-matter-painting",
+        "Count": 6,
+        "Title": "Haute Pâte (Matter Painting)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-concretism",
+        "Count": 6,
+        "Title": "Neo-Concretism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/fiber-art",
+        "Count": 6,
+        "Title": "Fiber Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/existential-art",
+        "Count": 6,
+        "Title": "Existential Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-generation-sculpture",
+        "Count": 6,
+        "Title": "New Generation Sculpture",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neosurrealismo",
+        "Count": 6,
+        "Title": "Neo-Surrealism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/indigenism",
+        "Count": 6,
+        "Title": "Indigenism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/secession",
+        "Count": 5,
+        "Title": "Secession",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/orphism-simultanism",
+        "Count": 5,
+        "Title": "Orphism (Simultanism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/lettrism",
+        "Count": 5,
+        "Title": "Lettrism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/abstract-illusionism",
+        "Count": 5,
+        "Title": "Abstract Illusionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/mail-art",
+        "Count": 5,
+        "Title": "Mail Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/vorticism",
+        "Count": 4,
+        "Title": "Vorticism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/purism",
+        "Count": 3,
+        "Title": "Purism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/indian-space-painting",
+        "Count": 3,
+        "Title": "Indian Space Painting",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/rayonism",
+        "Count": 2,
+        "Title": "Rayonism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/synchromism",
+        "Count": 2,
+        "Title": "Synchromism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/viennese-actionism",
+        "Count": 2,
+        "Title": "Viennese Actionism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/sots-art",
+        "Count": 2,
+        "Title": "Sots Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/analytical-realism",
+        "Count": 1,
+        "Title": "Analytical Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/transautomatism",
+        "Count": 1,
+        "Title": "Transautomatism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/art-singulier",
+        "Count": 1,
+        "Title": "Art Singulier",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/incoherents",
+        "Count": 1,
+        "Title": "Incoherents",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-medievialism",
+        "Count": 1,
+        "Title": "New Medievialism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e79edc2cd758cb22181"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5e8eedc2cd758cb23fd0": [
+      {
+        "Url": "/en/artists-by-art-movement/contemporary",
+        "Count": 158,
+        "Title": "Contemporary",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/conceptual-art",
+        "Count": 119,
+        "Title": "Conceptual Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/minimalism",
+        "Count": 104,
+        "Title": "Minimalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/post-minimalism",
+        "Count": 56,
+        "Title": "Post-Minimalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/contemporary-realism",
+        "Count": 49,
+        "Title": "Contemporary Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-minimalism-neo-geo",
+        "Count": 42,
+        "Title": "Neo-Minimalism (Neo-Geo)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/kitsch",
+        "Count": 37,
+        "Title": "Kitsch",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/photorealism-super-realism-hyper-realism",
+        "Count": 29,
+        "Title": "Photorealism (Super-Realism, Hyper-Realism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/street-art",
+        "Count": 28,
+        "Title": "Street art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/light-and-space",
+        "Count": 25,
+        "Title": "Light and Space",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/environmental-art",
+        "Count": 24,
+        "Title": "Environmental Art (Land art)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-pop-art",
+        "Count": 23,
+        "Title": "Neo-Pop Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/postcolonial-art",
+        "Count": 17,
+        "Title": "Postcolonial art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/relational-art",
+        "Count": 15,
+        "Title": "Relational Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-european-painting",
+        "Count": 14,
+        "Title": "New European Painting",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/transavantgarde",
+        "Count": 11,
+        "Title": "Transavantgarde",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/cyberart",
+        "Count": 8,
+        "Title": "CyberArt",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/junk-art",
+        "Count": 7,
+        "Title": "Junk Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/provisional-painting-new-casualism",
+        "Count": 7,
+        "Title": "Provisional Painting (New Casualism)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/fantasy-art",
+        "Count": 7,
+        "Title": "Fantasy Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-image-painting",
+        "Count": 6,
+        "Title": "New Image Painting",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-orthodoxism",
+        "Count": 6,
+        "Title": "Neo-Orthodoxism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/digital-art",
+        "Count": 6,
+        "Title": "Digital Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/institutional-critique",
+        "Count": 6,
+        "Title": "Institutional Critique",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/p-d-pattern-and-decoration",
+        "Count": 5,
+        "Title": "P&D (Pattern and Decoration)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/lowbrow-art",
+        "Count": 5,
+        "Title": "Lowbrow Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/maximalism",
+        "Count": 4,
+        "Title": "Maximalism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/excessivism",
+        "Count": 4,
+        "Title": "Excessivism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-media-art",
+        "Count": 4,
+        "Title": "New media art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/poster-art-realism",
+        "Count": 3,
+        "Title": "Poster Art Realism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/stuckism",
+        "Count": 3,
+        "Title": "Stuckism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/pittura-colta",
+        "Count": 2,
+        "Title": "Pittura Colta",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/black-arts-movement",
+        "Count": 2,
+        "Title": "Black Arts Movement",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/funk-art",
+        "Count": 1,
+        "Title": "Funk Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/confessional-art",
+        "Count": 1,
+        "Title": "Confessional Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/neo-conceptualism",
+        "Count": 1,
+        "Title": "Neo-Conceptualism",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/internet-art-net-art",
+        "Count": 1,
+        "Title": "Internet art (Net art)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/postinternet",
+        "Count": 1,
+        "Title": "Postinternet",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/futuretech-art",
+        "Count": 1,
+        "Title": "Futuretech Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/net-art-0",
+        "Count": 1,
+        "Title": "net.art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/chicano-art-movement",
+        "Count": 1,
+        "Title": "Chicano art movement",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5e8eedc2cd758cb23fd0"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5ea5edc2cd758cb25f26": [
+      {
+        "Url": "/en/artists-by-art-movement/republic-of-china",
+        "Count": 8,
+        "Title": "Republic of China (1912–1949)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/ming-dynasty",
+        "Count": 7,
+        "Title": "Ming Dynasty (1368–1644)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/tang-dynasty",
+        "Count": 5,
+        "Title": "Tang Dynasty (618–907)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/northern-song-dynasty",
+        "Count": 4,
+        "Title": "Northern Song Dynasty (960–1126)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/qing-dynasty",
+        "Count": 4,
+        "Title": "Qing Dynasty (1644–1912)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-ink-art",
+        "Count": 4,
+        "Title": "New Ink Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/yuan-dynasty",
+        "Count": 3,
+        "Title": "Yuan Dynasty (1271–1368)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/new-culture-movement",
+        "Count": 3,
+        "Title": "New Culture Movement (1915-1926)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/peoples-republic-of-china-1949-present",
+        "Count": 3,
+        "Title": "People's Republic of China (1949-present)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/five-dynasties-and-ten-kingdoms",
+        "Count": 2,
+        "Title": "Five Dynasties and Ten Kingdoms (907–960)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/southern-song-dynasty",
+        "Count": 1,
+        "Title": "Southern Song Dynasty (1127–1279)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ea5edc2cd758cb25f26"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5ecfedc2cd758cb28962": [
+      {
+        "Url": "/en/artists-by-art-movement/korean-informel",
+        "Count": 4,
+        "Title": "Korean Informel",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ecfedc2cd758cb28962"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/dansaekhwa-korean-monochrome-painting",
+        "Count": 4,
+        "Title": "Dansaekhwa (Korean Monochrome Painting)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ecfedc2cd758cb28962"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/joseon-dynasty",
+        "Count": 2,
+        "Title": "Joseon Dynasty",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ecfedc2cd758cb28962"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5eb2edc2cd758cb26a27": [
+      {
+        "Url": "/en/artists-by-art-movement/sh-wa-period-1926-1989",
+        "Count": 28,
+        "Title": "Shōwa period (1926–1989)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/edo-period-1603-1867",
+        "Count": 23,
+        "Title": "Edo period (1603–1867)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/taish-period-1912-1926",
+        "Count": 18,
+        "Title": "Taishō period (1912–1926)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/meiji-period-1868-1912",
+        "Count": 11,
+        "Title": "Meiji Period (1868–1912)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/muromachi-period-1392-1573",
+        "Count": 4,
+        "Title": "Muromachi period (1392–1573)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/ero-guro",
+        "Count": 2,
+        "Title": "Ero guro",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/azuchi-momoyama-period-1573-1603",
+        "Count": 1,
+        "Title": "Azuchi-Momoyama period (1573–1603)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eb2edc2cd758cb26a27"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5ebcedc2cd758cb2747d": [
+      {
+        "Url": "/en/artists-by-art-movement/safavid-period-before-1600",
+        "Count": 4,
+        "Title": "Safavid Period (before 1600)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/ottoman-period-after-1600",
+        "Count": 3,
+        "Title": "Ottoman Period (after 1600)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/timurid-period-c-1370-1507",
+        "Count": 2,
+        "Title": "Timurid Period (c.1370–1507)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/ottoman-period-before-1600",
+        "Count": 2,
+        "Title": "Ottoman Period (before 1600)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/safavid-and-qajar-periods-after-1600",
+        "Count": 2,
+        "Title": "Safavid and Qajar Periods (after 1600)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/abbasid-period-750-1258",
+        "Count": 1,
+        "Title": "Abbasid Period (750–1258)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/ilkhanid-period-1256-1353",
+        "Count": 1,
+        "Title": "Ilkhanid Period (1256–1353)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/s-leyman-the-magnificent-period-1520-1566",
+        "Count": 1,
+        "Title": "Süleyman the Magnificent Period (1520–1566)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/mughal-period-after-1600",
+        "Count": 1,
+        "Title": "Mughal Period (after 1600)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5ebcedc2cd758cb2747d"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "57ee5eededc2cd758cb2b48a": [
+      {
+        "Url": "/en/artists-by-art-movement/native-art",
+        "Count": 17,
+        "Title": "Native Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eededc2cd758cb2b48a"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/yoruba-art",
+        "Count": 1,
+        "Title": "Yoruba Art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eededc2cd758cb2b48a"
+        },
+        "SortOrder": 0
+      },
+      {
+        "Url": "/en/artists-by-art-movement/folk-art",
+        "Count": 1,
+        "Title": "Folk art",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "57ee5eededc2cd758cb2b48a"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "5eec5915edc2c933a8e285b7": [
+      {
+        "Url": "/en/artists-by-art-movement/post-classic-c-900-1580",
+        "Count": 1,
+        "Title": "Post-classic (c.900-1580)",
+        "Seo": null,
+        "CategoryId": {
+          "_oid": "5eec5915edc2c933a8e285b7"
+        },
+        "SortOrder": 0
+      }
+    ],
+    "000000000000000000000000": []
+  },
+  "Dictionaries": [
+    {
+      "Url": "/en/artists-by-art-movement/romanticism",
+      "Count": 280,
+      "Title": "Romanticism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/impressionism",
+      "Count": 226,
+      "Title": "Impressionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/expressionism",
+      "Count": 221,
+      "Title": "Expressionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/realism",
+      "Count": 215,
+      "Title": "Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/surrealism",
+      "Count": 181,
+      "Title": "Surrealism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/abstract-expressionism",
+      "Count": 161,
+      "Title": "Abstract Expressionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/baroque",
+      "Count": 158,
+      "Title": "Baroque",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/contemporary",
+      "Count": 158,
+      "Title": "Contemporary",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/abstract-art",
+      "Count": 152,
+      "Title": "Abstract Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/post-impressionism",
+      "Count": 135,
+      "Title": "Post-Impressionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/art-nouveau",
+      "Count": 119,
+      "Title": "Art Nouveau",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/conceptual-art",
+      "Count": 119,
+      "Title": "Conceptual Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/minimalism",
+      "Count": 104,
+      "Title": "Minimalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/pop-art",
+      "Count": 103,
+      "Title": "Pop Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/academic-art",
+      "Count": 92,
+      "Title": "Academic Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/symbolism",
+      "Count": 92,
+      "Title": "Symbolism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/art-informel",
+      "Count": 82,
+      "Title": "Art Informel",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/cubism",
+      "Count": 75,
+      "Title": "Cubism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/post-painterly-abstraction",
+      "Count": 75,
+      "Title": "Post-Painterly Abstraction",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neoclassicism",
+      "Count": 74,
+      "Title": "Neoclassicism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/rococo",
+      "Count": 60,
+      "Title": "Rococo",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-expressionism",
+      "Count": 57,
+      "Title": "Neo-Expressionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/op-art",
+      "Count": 57,
+      "Title": "Op Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/post-minimalism",
+      "Count": 56,
+      "Title": "Post-Minimalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/dutch-golden-age",
+      "Count": 53,
+      "Title": "Dutch Golden Age",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/concrete-art-concretism",
+      "Count": 51,
+      "Title": "Concrete Art (Concretism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/modernism",
+      "Count": 50,
+      "Title": "Modernism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/socialist-realism",
+      "Count": 49,
+      "Title": "Socialist Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/contemporary-realism",
+      "Count": 49,
+      "Title": "Contemporary Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/mannerism-late-renaissance",
+      "Count": 47,
+      "Title": "Mannerism (Late Renaissance)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e59edc2cd758cb1efaa"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/northern-renaissance",
+      "Count": 47,
+      "Title": "Northern Renaissance",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e59edc2cd758cb1efaa"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/feminist-art",
+      "Count": 46,
+      "Title": "Feminist Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/na-ve-art-primitivism",
+      "Count": 45,
+      "Title": "Naïve Art (Primitivism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/social-realism",
+      "Count": 43,
+      "Title": "Social Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/magic-realism",
+      "Count": 43,
+      "Title": "Magic Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-minimalism-neo-geo",
+      "Count": 42,
+      "Title": "Neo-Minimalism (Neo-Geo)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/constructivism",
+      "Count": 39,
+      "Title": "Constructivism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/kitsch",
+      "Count": 37,
+      "Title": "Kitsch",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/high-renaissance",
+      "Count": 36,
+      "Title": "High Renaissance",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e59edc2cd758cb1efaa"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/outsider-art-art-brut",
+      "Count": 34,
+      "Title": "Outsider art (Art brut)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/early-renaissance",
+      "Count": 33,
+      "Title": "Early Renaissance",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e59edc2cd758cb1efaa"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/orientalism",
+      "Count": 32,
+      "Title": "Orientalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e66edc2cd758cb2070d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/avant-garde",
+      "Count": 31,
+      "Title": "Avant-garde",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/tachisme",
+      "Count": 31,
+      "Title": "Tachisme",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-dada",
+      "Count": 31,
+      "Title": "Neo-Dada",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/photorealism-super-realism-hyper-realism",
+      "Count": 29,
+      "Title": "Photorealism (Super-Realism, Hyper-Realism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/street-art",
+      "Count": 28,
+      "Title": "Street art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/sh-wa-period-1926-1989",
+      "Count": 28,
+      "Title": "Shōwa period (1926–1989)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/naturalism",
+      "Count": 25,
+      "Title": "Naturalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/modernismo",
+      "Count": 25,
+      "Title": "Modernismo",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/light-and-space",
+      "Count": 25,
+      "Title": "Light and Space",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/futurism",
+      "Count": 24,
+      "Title": "Futurism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/kinetic-art",
+      "Count": 24,
+      "Title": "Kinetic art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/environmental-art",
+      "Count": 24,
+      "Title": "Environmental Art (Land art)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/dada",
+      "Count": 23,
+      "Title": "Dada",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-pop-art",
+      "Count": 23,
+      "Title": "Neo-Pop Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/edo-period-1603-1867",
+      "Count": 23,
+      "Title": "Edo period (1603–1867)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-impressionism",
+      "Count": 22,
+      "Title": "Neo-Impressionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/art-deco",
+      "Count": 21,
+      "Title": "Art Deco",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/soviet-nonconformist-art",
+      "Count": 18,
+      "Title": "Soviet Nonconformist Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/taish-period-1912-1926",
+      "Count": 18,
+      "Title": "Taishō period (1912–1926)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/harlem-renaissance-new-negro-movement",
+      "Count": 17,
+      "Title": "Harlem Renaissance (New Negro Movement)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/performance-art",
+      "Count": 17,
+      "Title": "Performance Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/native-art",
+      "Count": 17,
+      "Title": "Native Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eededc2cd758cb2b48a"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/postcolonial-art",
+      "Count": 17,
+      "Title": "Postcolonial art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/arte-povera",
+      "Count": 16,
+      "Title": "Arte Povera",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-figurative-art",
+      "Count": 15,
+      "Title": "Neo-Figurative Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/nouveau-r-alisme",
+      "Count": 15,
+      "Title": "Nouveau Réalisme",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/relational-art",
+      "Count": 15,
+      "Title": "Relational Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/regionalism",
+      "Count": 14,
+      "Title": "Regionalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/muralism",
+      "Count": 14,
+      "Title": "Muralism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-european-painting",
+      "Count": 14,
+      "Title": "New European Painting",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/pictorialism",
+      "Count": 13,
+      "Title": "Pictorialism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-realism-american-realism",
+      "Count": 13,
+      "Title": "New Realism (American Realism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/gothic-art",
+      "Count": 12,
+      "Title": "Gothic Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/tonalism",
+      "Count": 12,
+      "Title": "Tonalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/de-stijl-neoplasticism",
+      "Count": 11,
+      "Title": "De Stijl (Neoplasticism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/precisionism",
+      "Count": 11,
+      "Title": "Precisionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/transavantgarde",
+      "Count": 11,
+      "Title": "Transavantgarde",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/meiji-period-1868-1912",
+      "Count": 11,
+      "Title": "Meiji Period (1868–1912)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/arts-and-crafts",
+      "Count": 10,
+      "Title": "Arts and Crafts",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-romanticism",
+      "Count": 10,
+      "Title": "Neo-Romanticism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/spatialism",
+      "Count": 10,
+      "Title": "Spatialism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/classical-realism",
+      "Count": 10,
+      "Title": "Classical Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/proto-renaissance",
+      "Count": 9,
+      "Title": "Proto Renaissance",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e59edc2cd758cb1efaa"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-objectivity-neue-sachlichkeit",
+      "Count": 9,
+      "Title": "New Objectivity (Neue Sachlichkeit)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/cubo-futurism",
+      "Count": 8,
+      "Title": "Cubo-Futurism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/metaphysical-art",
+      "Count": 8,
+      "Title": "Metaphysical art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/cyberart",
+      "Count": 8,
+      "Title": "CyberArt",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/republic-of-china",
+      "Count": 8,
+      "Title": "Republic of China (1912–1949)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/romanesque-art",
+      "Count": 7,
+      "Title": "Romanesque Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/aestheticism",
+      "Count": 7,
+      "Title": "Aestheticism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/junk-art",
+      "Count": 7,
+      "Title": "Junk Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/provisional-painting-new-casualism",
+      "Count": 7,
+      "Title": "Provisional Painting (New Casualism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/ming-dynasty",
+      "Count": 7,
+      "Title": "Ming Dynasty (1368–1644)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/young-poland",
+      "Count": 7,
+      "Title": "Young Poland",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/fantasy-art",
+      "Count": 7,
+      "Title": "Fantasy Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/suprematism",
+      "Count": 6,
+      "Title": "Suprematism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/haute-p-te-matter-painting",
+      "Count": 6,
+      "Title": "Haute Pâte (Matter Painting)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-concretism",
+      "Count": 6,
+      "Title": "Neo-Concretism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/fiber-art",
+      "Count": 6,
+      "Title": "Fiber Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/existential-art",
+      "Count": 6,
+      "Title": "Existential Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-generation-sculpture",
+      "Count": 6,
+      "Title": "New Generation Sculpture",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-image-painting",
+      "Count": 6,
+      "Title": "New Image Painting",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-orthodoxism",
+      "Count": 6,
+      "Title": "Neo-Orthodoxism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neosurrealismo",
+      "Count": 6,
+      "Title": "Neo-Surrealism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/digital-art",
+      "Count": 6,
+      "Title": "Digital Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/indigenism",
+      "Count": 6,
+      "Title": "Indigenism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/institutional-critique",
+      "Count": 6,
+      "Title": "Institutional Critique",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/secession",
+      "Count": 5,
+      "Title": "Secession",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/orphism-simultanism",
+      "Count": 5,
+      "Title": "Orphism (Simultanism)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/lettrism",
+      "Count": 5,
+      "Title": "Lettrism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/abstract-illusionism",
+      "Count": 5,
+      "Title": "Abstract Illusionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/mail-art",
+      "Count": 5,
+      "Title": "Mail Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/p-d-pattern-and-decoration",
+      "Count": 5,
+      "Title": "P&D (Pattern and Decoration)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/lowbrow-art",
+      "Count": 5,
+      "Title": "Lowbrow Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/tang-dynasty",
+      "Count": 5,
+      "Title": "Tang Dynasty (618–907)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/byzantine-art",
+      "Count": 4,
+      "Title": "Byzantine Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/vorticism",
+      "Count": 4,
+      "Title": "Vorticism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/korean-informel",
+      "Count": 4,
+      "Title": "Korean Informel",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ecfedc2cd758cb28962"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/maximalism",
+      "Count": 4,
+      "Title": "Maximalism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/northern-song-dynasty",
+      "Count": 4,
+      "Title": "Northern Song Dynasty (960–1126)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/qing-dynasty",
+      "Count": 4,
+      "Title": "Qing Dynasty (1644–1912)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/muromachi-period-1392-1573",
+      "Count": 4,
+      "Title": "Muromachi period (1392–1573)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/safavid-period-before-1600",
+      "Count": 4,
+      "Title": "Safavid Period (before 1600)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/dansaekhwa-korean-monochrome-painting",
+      "Count": 4,
+      "Title": "Dansaekhwa (Korean Monochrome Painting)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ecfedc2cd758cb28962"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/excessivism",
+      "Count": 4,
+      "Title": "Excessivism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-ink-art",
+      "Count": 4,
+      "Title": "New Ink Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-media-art",
+      "Count": 4,
+      "Title": "New media art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/purism",
+      "Count": 3,
+      "Title": "Purism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/indian-space-painting",
+      "Count": 3,
+      "Title": "Indian Space Painting",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/poster-art-realism",
+      "Count": 3,
+      "Title": "Poster Art Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/stuckism",
+      "Count": 3,
+      "Title": "Stuckism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/yuan-dynasty",
+      "Count": 3,
+      "Title": "Yuan Dynasty (1271–1368)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-culture-movement",
+      "Count": 3,
+      "Title": "New Culture Movement (1915-1926)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/ottoman-period-after-1600",
+      "Count": 3,
+      "Title": "Ottoman Period (after 1600)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/peoples-republic-of-china-1949-present",
+      "Count": 3,
+      "Title": "People's Republic of China (1949-present)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/classical-period-480-323-bc",
+      "Count": 3,
+      "Title": "Classical Period (480 - 323 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5ba2333eedc2c918cc698079"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/hellenistic-period-323-31-bc",
+      "Count": 3,
+      "Title": "Hellenistic Period (323-31 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5ba2333eedc2c918cc698079"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/rayonism",
+      "Count": 2,
+      "Title": "Rayonism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/synchromism",
+      "Count": 2,
+      "Title": "Synchromism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/viennese-actionism",
+      "Count": 2,
+      "Title": "Viennese Actionism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/pittura-colta",
+      "Count": 2,
+      "Title": "Pittura Colta",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/five-dynasties-and-ten-kingdoms",
+      "Count": 2,
+      "Title": "Five Dynasties and Ten Kingdoms (907–960)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/timurid-period-c-1370-1507",
+      "Count": 2,
+      "Title": "Timurid Period (c.1370–1507)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/ottoman-period-before-1600",
+      "Count": 2,
+      "Title": "Ottoman Period (before 1600)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/safavid-and-qajar-periods-after-1600",
+      "Count": 2,
+      "Title": "Safavid and Qajar Periods (after 1600)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/joseon-dynasty",
+      "Count": 2,
+      "Title": "Joseon Dynasty",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ecfedc2cd758cb28962"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/ero-guro",
+      "Count": 2,
+      "Title": "Ero guro",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/sots-art",
+      "Count": 2,
+      "Title": "Sots Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/archaic-period-700-480-bc",
+      "Count": 2,
+      "Title": "Archaic Period (700-480 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5ba2333eedc2c918cc698079"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/medieval-art",
+      "Count": 2,
+      "Title": "Medieval Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/coptic-art",
+      "Count": 2,
+      "Title": "Coptic art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/black-arts-movement",
+      "Count": 2,
+      "Title": "Black Arts Movement",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/pre-romanesque-art",
+      "Count": 1,
+      "Title": "Pre-Romanesque Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e4aedc2cd758cb1df8b"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/analytical-realism",
+      "Count": 1,
+      "Title": "Analytical Realism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/transautomatism",
+      "Count": 1,
+      "Title": "Transautomatism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/funk-art",
+      "Count": 1,
+      "Title": "Funk Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/confessional-art",
+      "Count": 1,
+      "Title": "Confessional Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/southern-song-dynasty",
+      "Count": 1,
+      "Title": "Southern Song Dynasty (1127–1279)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ea5edc2cd758cb25f26"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/azuchi-momoyama-period-1573-1603",
+      "Count": 1,
+      "Title": "Azuchi-Momoyama period (1573–1603)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eb2edc2cd758cb26a27"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/abbasid-period-750-1258",
+      "Count": 1,
+      "Title": "Abbasid Period (750–1258)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/ilkhanid-period-1256-1353",
+      "Count": 1,
+      "Title": "Ilkhanid Period (1256–1353)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/s-leyman-the-magnificent-period-1520-1566",
+      "Count": 1,
+      "Title": "Süleyman the Magnificent Period (1520–1566)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/mughal-period-after-1600",
+      "Count": 1,
+      "Title": "Mughal Period (after 1600)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5ebcedc2cd758cb2747d"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/art-singulier",
+      "Count": 1,
+      "Title": "Art Singulier",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/incoherents",
+      "Count": 1,
+      "Title": "Incoherents",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/neo-conceptualism",
+      "Count": 1,
+      "Title": "Neo-Conceptualism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/internet-art-net-art",
+      "Count": 1,
+      "Title": "Internet art (Net art)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/postinternet",
+      "Count": 1,
+      "Title": "Postinternet",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/roman-period-1c-bc-4-c-ad",
+      "Count": 1,
+      "Title": "Roman Period (30 BC - 640 AD)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-medievialism",
+      "Count": 1,
+      "Title": "New Medievialism",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e79edc2cd758cb22181"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/geometric-period-c-900-c-700-bc",
+      "Count": 1,
+      "Title": "Geometric Period (c.900 - c.700 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5ba2333eedc2c918cc698079"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/early-dynastic-period-3150-2686-bc",
+      "Count": 1,
+      "Title": "Early Dynastic Period (3150 – 2686 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/old-kingdom-2686-2181-bc",
+      "Count": 1,
+      "Title": "Old Kingdom (2686–2181 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/1st-intermediate-period-2181-2055-bc",
+      "Count": 1,
+      "Title": "1st Intermediate Period (2181–2055 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/middle-kingdom-2055-1650-bc",
+      "Count": 1,
+      "Title": "Middle Kingdom (2055–1650 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/2nd-intermediate-period-1650-1550-bc",
+      "Count": 1,
+      "Title": "2nd Intermediate Period (1650–1550 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/new-kingdom-1550-1069-bc",
+      "Count": 1,
+      "Title": "New Kingdom (1550–1069 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/amarna-period-1351-1334-bc",
+      "Count": 1,
+      "Title": "Amarna Period (1351 - 1334 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/3rd-intermediate-period-1069-664-bc",
+      "Count": 1,
+      "Title": "3rd Intermediate Period (1069–664 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/late-period-664-332-bc",
+      "Count": 1,
+      "Title": "Late Period (664–332 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/ptolemaic-period-332-30-bc",
+      "Count": 1,
+      "Title": "Ptolemaic Period (332–30 BC)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5beea37bedc2c915a025a312"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/yoruba-art",
+      "Count": 1,
+      "Title": "Yoruba Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eededc2cd758cb2b48a"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/futuretech-art",
+      "Count": 1,
+      "Title": "Futuretech Art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/folk-art",
+      "Count": 1,
+      "Title": "Folk art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5eededc2cd758cb2b48a"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/net-art-0",
+      "Count": 1,
+      "Title": "net.art",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/post-classic-c-900-1580",
+      "Count": 1,
+      "Title": "Post-classic (c.900-1580)",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "5eec5915edc2c933a8e285b7"
+      },
+      "SortOrder": 0
+    },
+    {
+      "Url": "/en/artists-by-art-movement/chicano-art-movement",
+      "Count": 1,
+      "Title": "Chicano art movement",
+      "Seo": null,
+      "CategoryId": {
+        "_oid": "57ee5e8eedc2cd758cb23fd0"
+      },
+      "SortOrder": 0
+    }
+  ],
+  "Group": 1,
+  "SortBy": 1,
+  "Menu": null
+}
