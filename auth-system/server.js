@@ -16,7 +16,6 @@ const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const favoriteRoutes = require('./routes/favorite');
 const auctionRoutes = require('./routes/auction');
-const connection = require("./config/db");
 
 // Middleware
 app.use(bodyParser.json());
