@@ -8,10 +8,10 @@
     "p-limit": "^5.0.0",
     "sharp": "^0.33.4",
     "tinify": "^1.7.1",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "vercel": "^37.14.0"
   },
   "scripts": {
     "start": "node server.js"
   }
-
 }
