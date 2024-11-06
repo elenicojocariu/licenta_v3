@@ -17,20 +17,17 @@ const profileRoutes = require('./routes/profile');
 const favoriteRoutes = require('./routes/favorite');
 const auctionRoutes = require('./routes/auction');
 
-// Middleware
 app.use(bodyParser.json());
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Static files
 app.use(express.static('public'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads-paintings', express.static(path.join(__dirname, 'uploads-paintings')));
 
 
-// Routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 app.use('/favorite', favoriteRoutes);
@@ -54,7 +51,7 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 app.get('/reset-password', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/reset-password.html'));
@@ -65,7 +62,6 @@ app.get('/api/artworks', async (req, res) => {
         const collection = db.collection('data');
         const data = await collection.find({}).toArray();
         res.json(data);
-        //console.log("sau aici?")
     } catch (err) {
         console.error('Failed to fetch data from MongoDB', err);
         res.status(500).send('Error fetching data from MongoDB');
