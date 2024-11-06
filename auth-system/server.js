@@ -69,7 +69,7 @@ app.get('/api/artworks', async (req, res) => {
 });
 
 cron.schedule('0 0 * * *', () => {
-    console.log("Running scheduled auction finalization...");
+    console.log("Running scheduled auction finalization..");
     finalizeAuction();
 });
 
