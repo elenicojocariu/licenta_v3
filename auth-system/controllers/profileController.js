@@ -66,7 +66,24 @@ exports.deleteAccount = async (req, res) => {
         const deleteFavoritesQuery = `DELETE FROM favorite WHERE user_id = ?`;
         await db.promise().query(deleteFavoritesQuery, [userId]);
 
+        // Șterge înregistrările din winners asociate cu userId ca winner_id
+        const deleteWinnersByWinnerQuery = `DELETE FROM winners WHERE winner_id = ?`;
+        await db.promise().query(deleteWinnersByWinnerQuery, [userId]);
 
+        // Șterge înregistrările din winners asociate picturilor utilizatorului
+        const deleteWinnersByPaintingQuery = `DELETE FROM winners WHERE painting_id IN (SELECT id_painting FROM auction_paintings WHERE id_user = ?)`;
+        await db.promise().query(deleteWinnersByPaintingQuery, [userId]);
+
+        // Șterge înregistrările din auctioneer asociate atât picturilor, cât și utilizatorului ca auctioneer
+        const deleteAuctioneerByPaintingQuery = `DELETE FROM auctioneer WHERE id_painting IN (SELECT id_painting FROM auction_paintings WHERE id_user = ?)`;
+        await db.promise().query(deleteAuctioneerByPaintingQuery, [userId]);
+
+        const deleteAuctioneerByUserQuery = `DELETE FROM auctioneer WHERE id_auctioneer = ?`;
+        await db.promise().query(deleteAuctioneerByUserQuery, [userId]);
+
+        // Șterge înregistrările din auction_paintings asociate utilizatorului
+        const deleteAuctionPaintingsQuery = `DELETE FROM auction_paintings WHERE id_user = ?`;
+        await db.promise().query(deleteAuctionPaintingsQuery, [userId]);
         const query = `DELETE FROM users WHERE id = ?`;
         await db.promise().query(query, [userId]);
         res.status(200).json({success: true, message: 'Account deleted successfully'});
