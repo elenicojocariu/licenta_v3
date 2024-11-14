@@ -26,4 +26,5 @@ router.post('/check-bid', authMiddleware.authenticate, auctionController.checkEx
 
 router.get('/check-win', authMiddleware.authenticate, auctionController.checkIfUserWon);
 
+
 module.exports = router;

@@ -5,9 +5,11 @@ const session = require('express-session');
 const cors = require('cors');
 const path = require('path');
 const {connectToDatabase} = require('../config-mongodb/mongodb');
-
+const multer = require("multer");
 const cron = require('node-cron');
 const finalizeAuction = require('./controllers/auctionProcessor');
+
+const extrusionRoutes = require('./routes/auction')
 
 dotenv.config();
 
@@ -32,6 +34,8 @@ app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 app.use('/favorite', favoriteRoutes);
 app.use('/auction', auctionRoutes);
+
+app.use('/auction', extrusionRoutes);
 
 app.use(express.json())
 
@@ -69,9 +73,11 @@ app.get('/api/artworks', async (req, res) => {
 });
 
 cron.schedule('0 0 * * *', () => {
-    console.log("Running scheduled auction finalization..");
+    console.log("Running scheduled auction finalization...");
     finalizeAuction();
 });
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

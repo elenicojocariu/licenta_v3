@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return response.json();
         })
-        .then(auctions => {
+        .then(async auctions => {
             //console.log('Auctions data:', auctions);
 
             if (!Array.isArray(auctions)) {
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const radius = 4; // raza cercului  pentru a fi mai apropiat
             const totalPaintings = auctions.length;
-            console.log("yoooo", totalPaintings);
+            //console.log("yoooo", totalPaintings);
             if (totalPaintings === 0) {
                 console.warn('No paintings available to display.');
                 return;
@@ -57,14 +57,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const angleStep = (2 * Math.PI) / totalPaintings; // pas unghiular
 
-            auctions.forEach((auction, index) => {
+            for (const [index, auction] of auctions.entries()) {
                 const paintingUrl = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
 
-                // add imaginea in assets
+                // Trimitem imaginea pentru extrudare și așteptăm rezultatul
+                const extrudedUrl = await sendImageToExtrudeAPI(paintingUrl, auction.id_painting);
+
+                // Adăugăm imaginea extrudată în assets
                 const img = document.createElement('img');
                 img.setAttribute('id', `painting-${auction.id_painting}`);
-                img.setAttribute('src', paintingUrl);
+                img.setAttribute('src', extrudedUrl);  // Setăm src-ul cu URL-ul extrudat
                 assets.appendChild(img);
+
 
                 // calc pozitia pe cerc
                 const angle = index * angleStep;
@@ -188,9 +192,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 paintingGroup.appendChild(paintingEntity);
                 paintingEntity.appendChild(frameGroup);
                 paintingGroup.appendChild(textEntity);
-            });
+            }
+
+
         })
         .catch(error => {
             console.error('Error fetching auctions:', error);
         });
+
+    // Funcție pentru trimiterea imaginii la API-ul de extrudare
+    async function sendImageToExtrudeAPI(paintingUrl, auctionId) {
+        try {
+            const response = await fetch(paintingUrl);
+            if (!response.ok) throw new Error(`Failed to load image: ${response.statusText}`);
+
+            const blob = await response.blob();
+            const formData = new FormData();
+            formData.append('image', blob, `painting-${auctionId}.jpg`);
+
+            const extrudeResponse = await fetch('http://localhost:5001/extrude', {
+                method: 'POST',
+                body: formData
+            });
+            if (!extrudeResponse.ok) throw new Error(`Extrusion failed with status: ${extrudeResponse.status}`);
+
+            const extrudedBlob = await extrudeResponse.blob();
+            return URL.createObjectURL(extrudedBlob);
+        } catch (error) {
+            console.error('Extrusion error:', error);
+        }
+    }
 });
+
