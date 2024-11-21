@@ -203,6 +203,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // Funcție pentru trimiterea imaginii la API-ul de extrudare
     async function sendImageToExtrudeAPI(paintingUrl, auctionId) {
         try {
+            // Verificăm dacă harta există deja
+            const responseCheck = await fetch('http://localhost:5001/depth_exists', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_name: `painting-${auctionId}.jpg` })
+            });
+
+            if (responseCheck.ok) {
+                const data = await responseCheck.json();
+                if (data.exists) {
+                    console.log(`Harta de adâncime există deja pentru ${paintingUrl}`);
+                    return `http://localhost:5001${data.processed_image_path}`; // Returnăm direct calea
+                }
+            }
+
             const response = await fetch(paintingUrl);
             if (!response.ok) throw new Error(`Failed to load image: ${response.statusText}`);
 
