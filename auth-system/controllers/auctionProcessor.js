@@ -50,7 +50,7 @@ function sendSellerNotification(email, paintingName, pricePaid) {
 }
 
 function finalizeAuction() {
-    console.log("Verificare licitații încheiate...");
+    console.log("Check finished bids...");
 
     const queryEndedAuctions = `
         SELECT id_painting, id_user AS seller_id, painting_name
@@ -61,7 +61,7 @@ function finalizeAuction() {
 
     connection.query(queryEndedAuctions, (err, results) => {
         if (err) {
-            console.error('Eroare la preluarea licitațiilor terminate:', err);
+            console.error('Error at processing finished bids:', err);
             return;
         }
 
@@ -78,12 +78,12 @@ function finalizeAuction() {
 
             connection.query(queryTopBids, [id_painting], (err, bids) => {
                 if (err) {
-                    console.error('Eroare la preluarea ofertelor pentru pictura:', err);
+                    console.error('Error at processing offers for painting:', err);
                     return;
                 }
 
                 if (bids.length === 0) {
-                    console.log(`Nicio ofertă pentru pictura ${id_painting}. Licitația a eșuat.`);
+                    console.log(`No offers for the painting ${id_painting}. The auction failed.`);
                 } else {
                     const winnerId = bids[0].user_id;
                     const winningPrice = bids[0].price;
@@ -96,10 +96,10 @@ function finalizeAuction() {
 
                     connection.query(insertWinner, [id_painting, winnerId, secondHighestBid, seller_id], (err, result) => {
                         if (err) {
-                            console.error('Eroare la inserarea câștigătorului:', err);
+                            console.error('Error at inserting winner:', err);
                             return;
                         }
-                        console.log(`Câștigătorul pentru pictura ${id_painting} a fost adăugat în tabelul winners.`);
+                        console.log(`The winner for the painting ${id_painting} added in winners table.`);
 
                         notifyUsers(winnerId, seller_id, painting_name, secondHighestBid);
                     });
@@ -115,7 +115,7 @@ function notifyUsers(winnerId, sellerId, paintingName, winningPrice) {
 
     connection.query(getEmailQuery, [winnerId], (err, results) => {
         if (err) {
-            console.error(`Failed to fetch winner's email for user ${winnerId}:`, err);
+            console.error(`Failed to fetch winner s email for user ${winnerId}:`, err);
             return;
         }
         if (results.length > 0) {
@@ -126,7 +126,7 @@ function notifyUsers(winnerId, sellerId, paintingName, winningPrice) {
 
     connection.query(getEmailQuery, [sellerId], (err, results) => {
         if (err) {
-            console.error(`Failed to fetch seller's email for user ${sellerId}:`, err);
+            console.error(`Failed to fetch seller s email for user ${sellerId}:`, err);
             return;
         }
         if (results.length > 0) {

@@ -21,10 +21,10 @@ exports.register = async (req, res) => {
             return res.status(500).send({ message: err.message });
         }
 
-        // Trimite emailul de confirmare
+        // trim mail de confirmare
         sendConfirmationEmail(first_name,last_name,email, confirmationCode);
 
-        // Răspuns către frontend cu mesaj de succes
+        // rasp la front cu mesaj de succes
         res.status(200).json({
             message: 'User registered successfully! Please check your email to confirm your account.'
         });
@@ -32,11 +32,11 @@ exports.register = async (req, res) => {
 };
 
 
-// Confirmation route - /auth/confirm/:confirmationCode
+// ruta confirmare /auth/confirm/confirmationcode
 exports.confirm = (req, res) => {
     const {confirmationCode} = req.params;
 
-    // Look up the user by confirmation code
+    // caut user dupa cod confirmare
     const query = `SELECT * FROM users WHERE confirmation_code = ?`;
     db.query(query, [confirmationCode], (err, results) => {
         if (err) {
@@ -51,7 +51,7 @@ exports.confirm = (req, res) => {
 
         const user = results[0];
 
-        // Update the is_confirmed flag and clear the confirmation code
+        // update is_confirmed
         const updateQuery = `UPDATE users SET is_confirmed = ?, confirmation_code = ? WHERE id = ?`;
         db.query(updateQuery, [true, '', user.id], (err, results) => {
             if (err) {
@@ -59,7 +59,7 @@ exports.confirm = (req, res) => {
                 return;
             }
 
-            // Redirect to login page after confirmation
+            // redirectioneaza la login dupa confirmare
             //res.status(200).send({ message: 'Account confirmed successfully!' });
             //res.redirect('/login.html'); // Ensure this line is placed correctly
             res.redirect('/confirmation-success.html');
@@ -78,7 +78,7 @@ exports.login = (req, res) => {
         } else {
             const user = results[0];
 
-            // Check if the user has confirmed their email
+            // verif daca userul si a confirmat mailul
             if (user.is_confirmed === 0) { //----------------------------------------------atentie aici ca trb ==1
                 return res.status(400).json({message: 'Please confirm your email before logging in.'});
             }
@@ -180,7 +180,7 @@ exports.forgotPassword = (req, res) => {
     const { email } = req.body;
     console.log("emaill: ", email);
 
-    // Găsește utilizatorul după email
+    // caut utilizator dupa mail
     db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
         if (err) {
             console.error('Database query error:', err); // Add this line for more debugging
@@ -193,15 +193,15 @@ exports.forgotPassword = (req, res) => {
 
         const user = results[0];
         const resetToken = crypto.randomBytes(20).toString('hex');
-        console.log('Generated reset token:', resetToken); // Log pentru tokenul generat
+        console.log('Generated reset token:', resetToken);
 
-        // Salvează tokenul în baza de date (de exemplu, într-un câmp `reset_password_token`)
+        // salvez token in bd
         db.query('UPDATE users SET reset_password_token = ? WHERE id = ?', [resetToken, user.id], (err) => {
             if (err) {
                 return res.status(500).send({ message: 'Database error' });
             }
 
-            // Trimite emailul cu linkul de resetare
+            // trim mail cu link de resetare
             const resetUrl = `http://localhost:5000/reset-password?token=${resetToken}`;
             const mailOptions = {
                 from: 'cojocariu.eleni24@gmail.com',
@@ -237,7 +237,7 @@ exports.resetPassword = (req, res) => {
         const user = results[0];
         const hashedPassword = bcrypt.hashSync(newPassword, 8);
 
-        // Actualizează parola și elimină tokenul de resetare
+        // update la parola si elimin token de resetare
         db.query('UPDATE users SET password = ?, reset_password_token = NULL WHERE id = ?', [hashedPassword, user.id], (err) => {
             if (err) {
                 return res.status(500).send({ message: 'Database error' });

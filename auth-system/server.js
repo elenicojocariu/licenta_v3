@@ -5,10 +5,9 @@ const session = require('express-session');
 const cors = require('cors');
 const path = require('path');
 const {connectToDatabase} = require('../config-mongodb/mongodb');
-const multer = require("multer");
 const cron = require('node-cron');
 const finalizeAuction = require('./controllers/auctionProcessor');
-
+const  axios = require('axios');
 const extrusionRoutes = require('./routes/auction')
 
 dotenv.config();
@@ -76,6 +75,7 @@ cron.schedule('0 0 * * *', () => {
     console.log("Running scheduled auction finalization...");
     finalizeAuction();
 });
+
 
 
 

@@ -91,7 +91,7 @@ let transporter = nodemailer.createTransport({
 
 function sendConfirmationEmail(email)
 {
-    // Setup email data
+    // data for email
     let mailOptions = {
         from: senderEmail,
         to: email,
@@ -108,7 +108,7 @@ function sendConfirmationEmail(email)
 }
 
 exports.submitAuction = (req, res) => {
-    console.log("licitatie", req.body)
+    console.log("bidding", req.body)
     const { offerAmount, userId, paintingId } = req.body;
 
     if (!offerAmount || !userId || !paintingId) {

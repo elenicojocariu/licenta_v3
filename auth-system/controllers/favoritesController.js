@@ -44,7 +44,7 @@ exports.removeFavorite = async (req, res) => {
     try {
         const { userId, paintingId } = req.body;
 
-        // Execută interogarea SQL pentru a șterge înregistrarea
+        // sterg inregistrarea
         const query = `
             DELETE FROM favorite
             WHERE user_id = ? AND painting_id = ?
@@ -54,11 +54,11 @@ exports.removeFavorite = async (req, res) => {
         connection.query(query, values, (err, result) => {
             if (err) {
                 console.error('Error removing favorite:', err);
-                res.status(500).json({ message: 'A apărut o eroare la ștergerea picturii din favorite.' });
+                res.status(500).json({ message: 'An error occured when deleting the painting from favorite.' });
                 return;
             }
             if (result.affectedRows === 1) {
-                res.status(200).json({ message: 'Pictura a fost ștearsă din favorite cu succes!' });
+                res.status(200).json({ message: 'The painting has been deleted successfully from favorites.' });
             } else {
                 res.status(404).json({ message: 'Pictura nu a fost găsită în favorite.' });
             }
