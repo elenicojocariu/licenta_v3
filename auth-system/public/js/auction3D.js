@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const loadingScreen = document.getElementById('loading');
     document.querySelector('a-scene').addEventListener('loaded', function () {
         loadingScreen.style.display = 'none';
+        const ambientLight = document.createElement('a-light');
+        ambientLight.setAttribute('type', 'ambient');
+        ambientLight.setAttribute('color', '#ffffff');
+        ambientLight.setAttribute('intensity', '1');
+        document.querySelector('a-scene').appendChild(ambientLight);
+
+        // Adaugă lumină direcțională
+        const directionalLight = document.createElement('a-light');
+        directionalLight.setAttribute('type', 'directional');
+        directionalLight.setAttribute('color', '#ffffff');
+        directionalLight.setAttribute('intensity', '1.5');
+        directionalLight.setAttribute('position', '0 10 5');
+        document.querySelector('a-scene').appendChild(directionalLight);
     });
 
     const token = localStorage.getItem('token');
@@ -47,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const assets = document.querySelector('a-assets');
             const paintingsEntity = document.getElementById('paintings');
 
-            const radius = 4; // raza cercului  pentru a fi mai apropiat
+            const radius = 8; // raza cercului  pentru a fi mai apropiat
             const totalPaintings = auctions.length;
             //console.log("yoooo", totalPaintings);
             if (totalPaintings === 0) {
@@ -77,18 +90,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // grup pentru fiecare pictura (pictura + rama + text)
                 const paintingGroup = document.createElement('a-entity');
-                paintingGroup.setAttribute('position', `${x} 2 ${z}`);
-                paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 180} 0`); // rotesc spre centru
+                paintingGroup.setAttribute('position', `${x} 1 ${z}`);
+                paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 160} 0`); // rotesc spre centru
                 paintingsEntity.appendChild(paintingGroup);
 
-                // plane pt a afisa pictura
-                const paintingEntity = document.createElement('a-plane');
-                paintingEntity.setAttribute('src', `#painting-${auction.id_painting}`);
-                paintingEntity.setAttribute('width', '2');
-                paintingEntity.setAttribute('height', '2');
-                paintingEntity.setAttribute('shadow', 'cast: true');
-                paintingEntity.setAttribute('material', 'roughness: 0.7; metalness: 0.3');
+                const paintingEntity = document.createElement('a-entity');
+                paintingEntity.setAttribute('gltf-model', extrudedUrl);
+                paintingEntity.setAttribute('scale', '0.01 0.01 0.01'); // Scale mult mai mic
+                paintingEntity.setAttribute('position', '0 -0.5 0'); // Poziție mai joasă
+                paintingEntity.setAttribute('position', '0 0 0');
                 paintingEntity.setAttribute('look-at', '[camera]');
+                paintingEntity.setAttribute('material', {
+                    color: '#ffffff', // Culoare de bază
+                    roughness: 1,   // Cât de mat este materialul
+                    metalness: 0.1,   // Cât de metalic este materialul
+                    emissive: '#ffffff', // Emisie ușoară pentru iluminare proprie
+                    emissiveIntensity: 0.2 // Intensitatea emisiei
+                });
+                paintingEntity.setAttribute('shadow', 'cast: true; receive: false;');
+                paintingEntity.addEventListener('model-loaded', () => {
+                    const mesh = paintingEntity.getObject3D('mesh');
+                    mesh.traverse((node) => {
+                        if (node.isMesh) {
+                            node.material.roughness = 0.5;
+                            node.material.metalness = 0.1;
+                            node.material.emissive = new THREE.Color(0.1, 0.1, 0.1); // Ușoară emisie
+                            node.material.emissiveIntensity = 0.3; // Intensitatea emisiei
+                            node.material.needsUpdate = true;
+                        }
+                    });
+                });
 
                 //  titlu si nume artist
                 const textEntity = document.createElement('a-text');
@@ -109,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 backingPlate.setAttribute('color', '#703b15');
 
                 //  cadrul picturii
+
                 const frameGroup = document.createElement('a-entity');
                 const frameTop = document.createElement('a-box');
                 frameTop.setAttribute('position', `0 1.1 0`);
@@ -206,8 +238,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Verificăm dacă harta există deja
             const responseCheck = await fetch('http://localhost:5001/depth_exists', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ image_name: `painting-${auctionId}.jpg` })
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({image_name: `painting-${auctionId}.jpg`})
             });
 
             if (responseCheck.ok) {
@@ -215,6 +247,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.exists) {
                     console.log(`Harta de adâncime există deja pentru ${paintingUrl}`);
                     return `http://localhost:5001${data.processed_image_path}`; // Returnăm direct calea
+                }
+            }
+            // Verificăm dacă mesh-ul GLTF există deja
+            const responseCheckMesh = await fetch('http://localhost:5001/gltf_exists', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({image_name: `painting-${auctionId}.jpg`})
+            });
+
+            if (responseCheckMesh.ok) {
+                const dataMesh = await responseCheckMesh.json();
+                if (dataMesh.exists) {
+                    console.log(`Mesh-ul GLTF există deja pentru ${paintingUrl}`);
+                   // return `http://localhost:5001${dataMesh.gltf_path}`; // Returnăm direct calea GLTF
+
+                    // Solicităm mesh-ul de la backend
+                    const responseMesh = await fetch('http://localhost:5001/send_mesh', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image_name: `painting-${auctionId}.jpg` })
+                    });
+                    if (responseMesh.ok) {
+                        const blob = await responseMesh.blob();
+                        const meshUrl = URL.createObjectURL(blob);
+                        return meshUrl; // Returnăm URL-ul către mesh
+                    }
                 }
             }
 
