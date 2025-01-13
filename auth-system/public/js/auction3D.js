@@ -8,19 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const loadingScreen = document.getElementById('loading');
     document.querySelector('a-scene').addEventListener('loaded', function () {
         loadingScreen.style.display = 'none';
-        const ambientLight = document.createElement('a-light');
-        ambientLight.setAttribute('type', 'ambient');
-        ambientLight.setAttribute('color', '#ffffff');
-        ambientLight.setAttribute('intensity', '1');
-        document.querySelector('a-scene').appendChild(ambientLight);
 
-        // Adaugă lumină direcțională
-        const directionalLight = document.createElement('a-light');
-        directionalLight.setAttribute('type', 'directional');
-        directionalLight.setAttribute('color', '#ffffff');
-        directionalLight.setAttribute('intensity', '1.5');
-        directionalLight.setAttribute('position', '0 10 5');
-        document.querySelector('a-scene').appendChild(directionalLight);
     });
 
     const token = localStorage.getItem('token');
@@ -60,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const assets = document.querySelector('a-assets');
             const paintingsEntity = document.getElementById('paintings');
 
-            const radius = 8; // raza cercului  pentru a fi mai apropiat
+            const radius = 5; // raza cercului  pentru a fi mai apropiate-----merge si 7
             const totalPaintings = auctions.length;
-            //console.log("yoooo", totalPaintings);
+            //console.log("yoooo this is nb of total paintings", totalPaintings);
             if (totalPaintings === 0) {
                 console.warn('No paintings available to display.');
                 return;
@@ -73,13 +61,13 @@ document.addEventListener('DOMContentLoaded', function () {
             for (const [index, auction] of auctions.entries()) {
                 const paintingUrl = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
 
-                // Trimitem imaginea pentru extrudare și așteptăm rezultatul
+                // trim img pentru extrudare si astept rezultat
                 const extrudedUrl = await sendImageToExtrudeAPI(paintingUrl, auction.id_painting);
 
-                // Adăugăm imaginea extrudată în assets
+                // add imagine extrudata in assets
                 const img = document.createElement('img');
                 img.setAttribute('id', `painting-${auction.id_painting}`);
-                img.setAttribute('src', extrudedUrl);  // Setăm src-ul cu URL-ul extrudat
+                img.setAttribute('src', extrudedUrl);
                 assets.appendChild(img);
 
 
@@ -88,114 +76,56 @@ document.addEventListener('DOMContentLoaded', function () {
                 const x = radius * Math.sin(angle);
                 const z = radius * Math.cos(angle);
 
-                // grup pentru fiecare pictura (pictura + rama + text)
+                // grup pentru fiecare pictura (pictura  + text)
                 const paintingGroup = document.createElement('a-entity');
                 paintingGroup.setAttribute('position', `${x} 1 ${z}`);
-                paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 160} 0`); // rotesc spre centru
+                paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 180} 0`); // rotesc spre centru
                 paintingsEntity.appendChild(paintingGroup);
 
                 const paintingEntity = document.createElement('a-entity');
                 paintingEntity.setAttribute('gltf-model', extrudedUrl);
-                paintingEntity.setAttribute('scale', '0.01 0.01 0.01'); // Scale mult mai mic
-                paintingEntity.setAttribute('position', '0 -0.5 0'); // Poziție mai joasă
-                paintingEntity.setAttribute('position', '0 0 0');
+                paintingEntity.setAttribute('scale', '0.01 0.01 0.01');
+                paintingEntity.setAttribute('position', '-2.5 0 -1.4');
                 paintingEntity.setAttribute('look-at', '[camera]');
-                paintingEntity.setAttribute('material', {
-                    color: '#ffffff', // Culoare de bază
-                    roughness: 1,   // Cât de mat este materialul
-                    metalness: 0.1,   // Cât de metalic este materialul
-                    emissive: '#ffffff', // Emisie ușoară pentru iluminare proprie
-                    emissiveIntensity: 0.2 // Intensitatea emisiei
-                });
+                paintingEntity.setAttribute('material', 'side: double')
                 paintingEntity.setAttribute('shadow', 'cast: true; receive: false;');
                 paintingEntity.addEventListener('model-loaded', () => {
                     const mesh = paintingEntity.getObject3D('mesh');
-                    mesh.traverse((node) => {
-                        if (node.isMesh) {
-                            node.material.roughness = 0.5;
-                            node.material.metalness = 0.1;
-                            node.material.emissive = new THREE.Color(0.1, 0.1, 0.1); // Ușoară emisie
-                            node.material.emissiveIntensity = 0.3; // Intensitatea emisiei
-                            node.material.needsUpdate = true;
-                        }
-                    });
+                    if (mesh) {
+                        mesh.traverse((node) => {
+                            if (node.isMesh) {
+                                node.material.side = THREE.DoubleSide;
+                                node.material.roughness = 0.5;
+                                node.material.metalness = 0.1;
+                                node.material.emissive = new THREE.Color(0.1, 0.1, 0.1);
+                                node.material.emissiveIntensity = 0.3;
+                                node.material.needsUpdate = true;
+                            }
+                        });
+                    }
                 });
 
                 //  titlu si nume artist
                 const textEntity = document.createElement('a-text');
                 textEntity.setAttribute('value', `${auction.painting_name || 'Untitled'} by ${auction.artist_name || 'Unknown'}`);
                 textEntity.setAttribute('align', 'center');
-                textEntity.setAttribute('position', `0 -0.7 0.5`); // Relativ la pictură
-                textEntity.setAttribute('width', '3');
-                textEntity.setAttribute('color', '#eac31d');
+                textEntity.setAttribute('position', `-0.15 0 0.5`); // Relativ la pictură
+                textEntity.setAttribute('width', '6');
+                textEntity.setAttribute('color', 'rgba(234,195,29,0.61)');
                 textEntity.setAttribute('font', 'https://cdn.aframe.io/fonts/Roboto-msdf.json');
-
-                //backing plate
-                const backingPlate = document.createElement('a-box');
-
-                backingPlate.setAttribute('position', `0 0 -0.05`);
-                backingPlate.setAttribute('width', '2.1');
-                backingPlate.setAttribute('height', '2.1');
-                backingPlate.setAttribute('depth', '0.01');
-                backingPlate.setAttribute('color', '#703b15');
-
-                //  cadrul picturii
-
-                const frameGroup = document.createElement('a-entity');
-                const frameTop = document.createElement('a-box');
-                frameTop.setAttribute('position', `0 1.1 0`);
-                frameTop.setAttribute('width', '2.2');
-                frameTop.setAttribute('height', '0.2');
-                frameTop.setAttribute('depth', '0.2');
-                frameTop.setAttribute('color', '#8B4513');
-                frameTop.setAttribute('src', '#woodTexture');
-                frameTop.setAttribute('shadow', 'cast: true');
-
-                const frameBottom = document.createElement('a-box');
-                frameBottom.setAttribute('position', `0 -1 0`);
-                frameBottom.setAttribute('width', '2.4');
-                frameBottom.setAttribute('height', '0.2');
-                frameBottom.setAttribute('depth', '0.2');
-                frameBottom.setAttribute('color', '#8B4513');
-                frameBottom.setAttribute('src', '#woodTexture');
-                frameBottom.setAttribute('shadow', 'cast: true');
-
-                const frameLeft = document.createElement('a-box');
-                frameLeft.setAttribute('position', `-1.1 0 0`);
-                frameLeft.setAttribute('width', '0.2');
-                frameLeft.setAttribute('height', '2.4');
-                frameLeft.setAttribute('depth', '0.2');
-                frameLeft.setAttribute('color', '#8B4513');
-                frameLeft.setAttribute('src', '#woodTexture');
-                frameLeft.setAttribute('shadow', 'cast: true');
-
-                const frameRight = document.createElement('a-box');
-                frameRight.setAttribute('position', `1.1 0 0`);
-                frameRight.setAttribute('width', '0.2');
-                frameRight.setAttribute('height', '2.4');
-                frameRight.setAttribute('depth', '0.2');
-                frameRight.setAttribute('color', '#8B4513');
-                frameRight.setAttribute('src', '#woodTexture');
-                frameRight.setAttribute('shadow', 'cast: true');
-
-                // add cadrele la grupul de cadre
-                frameGroup.appendChild(frameTop);
-                frameGroup.appendChild(frameBottom);
-                frameGroup.appendChild(frameLeft);
-                frameGroup.appendChild(frameRight);
 
                 // poz coloanei intre picturi
                 for (let index = 0; index < totalPaintings; index++) {
                     const angle = index * angleStep;
                     const nextAngle = ((index + 1) % totalPaintings) * angleStep;
                     const midAngle = (angle + nextAngle) / 2;
-                    const columnRadius = radius + 1; // distanța pentru coloane
+                    const columnRadius = radius + 1; // dist pt coloane
                     const midX = columnRadius * Math.sin(midAngle);
                     const midZ = columnRadius * Math.cos(midAngle);
 
                     const columnEntity = document.createElement('a-entity');
                     columnEntity.setAttribute('gltf-model', '/3d/doric_column.glb');
-                    columnEntity.setAttribute('scale', '0.3 0.55 0.3');
+                    columnEntity.setAttribute('scale', '0.3 0.65 0.3');
                     columnEntity.setAttribute('rotation', `0 ${radToDeg(midAngle) + 180} 0`);
                     columnEntity.setAttribute('position', `${midX} 0.8 ${midZ}`);
                     columnEntity.setAttribute('material', 'src: #columnTexture; roughness: 0.8');
@@ -212,17 +142,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const closingColumnEntity = document.createElement('a-entity');
                 closingColumnEntity.setAttribute('gltf-model', '/3d/doric_column.glb');
-                closingColumnEntity.setAttribute('scale', '0.3 0.5 0.3');
+                closingColumnEntity.setAttribute('scale', '0.3 0.65 0.3');
                 closingColumnEntity.setAttribute('rotation', `0 ${radToDeg(finalMidAngle) + 180} 0`);
                 closingColumnEntity.setAttribute('position', `${finalMidX} 0.7 ${finalMidZ}`);
                 closingColumnEntity.setAttribute('material', 'src: #columnTexture; roughness: 0.8');
 
                 paintingsEntity.appendChild(closingColumnEntity);
 
-                paintingGroup.appendChild(backingPlate);
 
                 paintingGroup.appendChild(paintingEntity);
-                paintingEntity.appendChild(frameGroup);
                 paintingGroup.appendChild(textEntity);
             }
 
@@ -232,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching auctions:', error);
         });
 
-    // Funcție pentru trimiterea imaginii la API-ul de extrudare
+    // fct pt trim img la api din python pt extrudare
     async function sendImageToExtrudeAPI(paintingUrl, auctionId) {
         try {
             // Verificăm dacă harta există deja
@@ -245,11 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (responseCheck.ok) {
                 const data = await responseCheck.json();
                 if (data.exists) {
-                    console.log(`Harta de adâncime există deja pentru ${paintingUrl}`);
-                    return `http://localhost:5001${data.processed_image_path}`; // Returnăm direct calea
+                    console.log(`Depth map already exists for ${paintingUrl}`);
+                    return `http://localhost:5001${data.processed_image_path}`; // ii dau direct calea
                 }
             }
-            // Verificăm dacă mesh-ul GLTF există deja
+            // vf daca mesh gltf exista deja
             const responseCheckMesh = await fetch('http://localhost:5001/gltf_exists', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -260,18 +188,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 const dataMesh = await responseCheckMesh.json();
                 if (dataMesh.exists) {
                     console.log(`Mesh-ul GLTF există deja pentru ${paintingUrl}`);
-                   // return `http://localhost:5001${dataMesh.gltf_path}`; // Returnăm direct calea GLTF
+                    // return `http://localhost:5001${dataMesh.gltf_path}`; // dau calea la gtlf
 
-                    // Solicităm mesh-ul de la backend
+                    // fac cerere de la backend pt mesh
                     const responseMesh = await fetch('http://localhost:5001/send_mesh', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ image_name: `painting-${auctionId}.jpg` })
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({image_name: `painting-${auctionId}.jpg`})
                     });
                     if (responseMesh.ok) {
                         const blob = await responseMesh.blob();
                         const meshUrl = URL.createObjectURL(blob);
-                        return meshUrl; // Returnăm URL-ul către mesh
+                        return meshUrl; // dau return la url catre mesh
                     }
                 }
             }
