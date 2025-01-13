@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 paintingEntity.setAttribute('scale', '0.01 0.01 0.01');
                 paintingEntity.setAttribute('position', '-2.5 0 -1.4');
                 paintingEntity.setAttribute('look-at', '[camera]');
-                paintingEntity.setAttribute('material', 'side: double')
                 paintingEntity.setAttribute('shadow', 'cast: true; receive: false;');
                 paintingEntity.addEventListener('model-loaded', () => {
                     const mesh = paintingEntity.getObject3D('mesh');
@@ -96,11 +95,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (node.isMesh) {
                                 node.material.side = THREE.DoubleSide;
                                 node.material.roughness = 0.5;
-                                node.material.metalness = 0.1;
+                                node.material.metalness = 0.0;
                                 node.material.emissive = new THREE.Color(0.1, 0.1, 0.1);
                                 node.material.emissiveIntensity = 0.3;
-                                node.material.needsUpdate = true;
-                            }
+                                node.geometry.computeVertexNormals();
+                                node.material.flatShading = false;
+                                node.material.needsUpdate = true;                            }
                         });
                     }
                 });
