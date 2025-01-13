@@ -259,6 +259,9 @@ body.popup-open {
     float: right;
     cursor: pointer;
 }
-
+.logo-container a{
+    text-decoration: none;
+    color: #333;
+}
 
 

@@ -2,9 +2,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
-    // Fetch user's email from the token (optional, if token stores email)
-    //const userEmailElement = document.getElementById('user-email');
-    //userEmailElement.textContent = 'user@example.com'; // Replace with actual logic
 
     const resetForm = document.getElementById('reset-password-form');
     const popupMessage = document.getElementById('popup-message');

@@ -837,3 +837,7 @@ body {
 
 }
 
+.logo-container a{
+    text-decoration: none;
+    color: #333;
+}

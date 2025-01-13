@@ -186,3 +186,7 @@
 .close-button:hover {
     color: #e74c3c;
 }
+.logo-container a{
+    text-decoration: none;
+    color: #333;
+}

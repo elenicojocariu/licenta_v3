@@ -32,16 +32,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('token', token);
                 localStorage.setItem('userId', userId);
 
-                console.log('Token:', token); // Loghează doar token-ul în consolă
+                console.log('Token:', token);
                 console.log('Login successful');
-                window.location.href = 'home.html'; // Sau pagina către care vrei să redirecționezi utilizatorul după login
+                window.location.href = 'home.html';
             } else {
                 console.log(result.message);
                 if (result.message === 'Please confirm your email before logging in.') {
                     // Show the modal for unconfirmed email
                     unconfirmedEmailModal.style.display = 'block';
                 } else {
-                    console.log(result.message); // Handle other error messages
+                    console.log(result.message);
                     errorMessage.textContent = result.message || 'Email or password is incorrect';
                     errorMessage.style.display = 'block';
                 }
@@ -84,22 +84,22 @@ document.addEventListener('DOMContentLoaded', function () {
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const emailSentMsg = document.getElementById('email-sent-msg');
 
-    // Deschide fereastra modală pentru forgot password
+    //  forgot password
     forgotPasswordBtn.addEventListener('click', function () {
         forgotPasswordModal.style.display = 'block';
     });
 
-    // Închide fereastra modală
+    //
     closeModal.addEventListener('click', function () {
         forgotPasswordModal.style.display = 'none';
     });
 
-    // Închide modalul de confirmare email trimis
+    //  confirmare email trimis
     emailSentOkBtn.addEventListener('click', function () {
         emailSentModal.style.display = 'none';
     });
 
-    // Trimite cererea pentru resetare parolă
+    //  cererea pentru resetare parola
     forgotPasswordForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         const email = document.getElementById('forgot-email').value;
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Funcție pentru a masca emailul
+    // functie pentru a masca emailul
     function maskEmail(email) {
         const [localPart, domain] = email.split('@');
         return `${localPart[0]}*******${localPart.slice(-1)}@${domain}`;

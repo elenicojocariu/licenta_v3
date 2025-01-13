@@ -261,20 +261,35 @@ button.toggle-btn:hover {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
 }
 
 .modal-content {
-    background-color: rgba(254, 254, 254, 0.74);
-    margin: 15% auto;
+    background: linear-gradient(135deg, #cbb397, #c9af63);
+    color: #fff;
+    margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 2px solid #ff8d63;
     width: 80%;
     max-width: 400px;
     text-align: center;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(232, 151, 80, 0.91);
-}
+    box-shadow: 0 15px 30px rgba(232, 151, 80, 0.91);
+    animation: slideDown 0.4s ease-in-out;
 
+}
+.modal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.modal-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
 .close {
     color: #aaa;
     float: right;
