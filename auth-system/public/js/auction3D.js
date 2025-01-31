@@ -167,13 +167,17 @@ document.addEventListener('DOMContentLoaded', async function () {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({image_name: `painting-${auctionId}.jpg`})
             });
-
+            let depthExists = false;
             if (responseCheck.ok) {
                 const data = await responseCheck.json();
                 if (data.exists) {
                     console.log(`Depth map already exists for ${paintingUrl}`);
-                    return `http://localhost:5001${data.processed_image_path}`; // ii dau direct calea
+                    depthExists = true;
+                    //return `http://localhost:5001${data.processed_image_path}`; // ii dau direct calea
                 }
+            }
+            if (!depthExists){
+                console.log(`generating depth map for ${paintingUrl}...`)
             }
             // vf daca mesh gltf exista deja
             const responseCheckMesh = await fetch('http://localhost:5001/gltf_exists', {
