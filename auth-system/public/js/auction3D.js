@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     //  conversia radianilor in grade
     function radToDeg(rad) {
         return rad * (180 / Math.PI);
@@ -19,13 +19,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // fetch auction paintings si le adaug la scena
-    fetch('/auction/auctions', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-        .then(response => {
+    async function fetchAndDisplayAuctions() {
+        try {
+            const response = await fetch('/auction/auctions', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
             if (response.status === 401) {
                 alert('Unauthorized. Please log in.');
                 window.location.href = '/login.html';
@@ -36,10 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            return response.json();
-        })
-        .then(async auctions => {
-            //console.log('Auctions data:', auctions);
+            const auctions = await response.json();
 
             if (!Array.isArray(auctions)) {
                 throw new TypeError('Expected an array of auctions');
@@ -48,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const assets = document.querySelector('a-assets');
             const paintingsEntity = document.getElementById('paintings');
 
-            const radius = 5; // raza cercului  pentru a fi mai apropiate-----merge si 7
+            const radius = 6; // raza cercului pentru a fi mai apropiate
             const totalPaintings = auctions.length;
-            //console.log("yoooo this is nb of total paintings", totalPaintings);
+
             if (totalPaintings === 0) {
                 console.warn('No paintings available to display.');
                 return;
@@ -61,25 +60,24 @@ document.addEventListener('DOMContentLoaded', function () {
             for (const [index, auction] of auctions.entries()) {
                 const paintingUrl = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
 
-                // trim img pentru extrudare si astept rezultat
+                // Trim img pentru extrudare si astept rezultat
                 const extrudedUrl = await sendImageToExtrudeAPI(paintingUrl, auction.id_painting);
 
-                // add imagine extrudata in assets
+                // Adauga imagine extrudata in assets
                 const img = document.createElement('img');
                 img.setAttribute('id', `painting-${auction.id_painting}`);
                 img.setAttribute('src', extrudedUrl);
                 assets.appendChild(img);
 
-
-                // calc pozitia pe cerc
+                // Calculeaza pozitia pe cerc
                 const angle = index * angleStep;
                 const x = radius * Math.sin(angle);
                 const z = radius * Math.cos(angle);
 
-                // grup pentru fiecare pictura (pictura  + text)
+                // Grup pentru fiecare pictura (pictura + text)
                 const paintingGroup = document.createElement('a-entity');
                 paintingGroup.setAttribute('position', `${x} 1 ${z}`);
-                paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 180} 0`); // rotesc spre centru
+                paintingGroup.setAttribute('rotation', `0 ${radToDeg(angle) + 180} 0`); // Roteste spre centru
                 paintingsEntity.appendChild(paintingGroup);
 
                 const paintingEntity = document.createElement('a-entity');
@@ -100,26 +98,29 @@ document.addEventListener('DOMContentLoaded', function () {
                                 node.material.emissiveIntensity = 0.3;
                                 node.geometry.computeVertexNormals();
                                 node.material.flatShading = false;
-                                node.material.needsUpdate = true;                            }
+                                node.material.needsUpdate = true;
+                            }
                         });
                     }
                 });
 
-                //  titlu si nume artist
+                // Titlu si nume artist
                 const textEntity = document.createElement('a-text');
                 textEntity.setAttribute('value', `${auction.painting_name || 'Untitled'} by ${auction.artist_name || 'Unknown'}`);
                 textEntity.setAttribute('align', 'center');
-                textEntity.setAttribute('position', `-0.15 0 0.5`); // Relativ la pictură
+                textEntity.setAttribute('position', `-0.15 0 0.5`); // Relativ la pictura
                 textEntity.setAttribute('width', '6');
                 textEntity.setAttribute('color', 'rgba(234,195,29,0.61)');
                 textEntity.setAttribute('font', 'https://cdn.aframe.io/fonts/Roboto-msdf.json');
 
-                // poz coloanei intre picturi
+
+
+                // Pozitie coloane intre picturi
                 for (let index = 0; index < totalPaintings; index++) {
                     const angle = index * angleStep;
                     const nextAngle = ((index + 1) % totalPaintings) * angleStep;
                     const midAngle = (angle + nextAngle) / 2;
-                    const columnRadius = radius + 1; // dist pt coloane
+                    const columnRadius = radius + 1; // Distanta pt coloane
                     const midX = columnRadius * Math.sin(midAngle);
                     const midZ = columnRadius * Math.cos(midAngle);
 
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     paintingsEntity.appendChild(columnEntity);
                 }
 
-                // col in plus intre prima si ultima
+                // Coloana intre prima si ultima
                 const lastAngle = (totalPaintings - 1) * angleStep;
                 const firstAngle = 0;
                 const finalMidAngle = (lastAngle + firstAngle + 2 * Math.PI) / 2;
@@ -149,21 +150,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 paintingsEntity.appendChild(closingColumnEntity);
 
-
                 paintingGroup.appendChild(paintingEntity);
                 paintingGroup.appendChild(textEntity);
             }
 
-
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error fetching auctions:', error);
-        });
+        }
+    }
 
     // fct pt trim img la api din python pt extrudare
     async function sendImageToExtrudeAPI(paintingUrl, auctionId) {
         try {
-            // Verificăm dacă harta există deja
             const responseCheck = await fetch('http://localhost:5001/depth_exists', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -204,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            const response = await fetch(paintingUrl);
+            const response = await fetch(paintingUrl); ///uploads-paintings/nume.png
             if (!response.ok) throw new Error(`Failed to load image: ${response.statusText}`);
 
             const blob = await response.blob();
@@ -217,11 +215,13 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             if (!extrudeResponse.ok) throw new Error(`Extrusion failed with status: ${extrudeResponse.status}`);
 
-            const extrudedBlob = await extrudeResponse.blob();
+            const extrudedBlob = await extrudeResponse.blob(); //fac si rasp serverului binar
             return URL.createObjectURL(extrudedBlob);
         } catch (error) {
             console.error('Extrusion error:', error);
         }
     }
+
+    await fetchAndDisplayAuctions();
 });
 
