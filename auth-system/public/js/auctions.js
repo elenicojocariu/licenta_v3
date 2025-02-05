@@ -2,124 +2,116 @@ document.addEventListener('DOMContentLoaded', async function () {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('You need to log in to view the auctions.');
-        window.location.href = '/login.html'; 
+        window.location.href = '/login.html';
         return;
     }
-
-    const userId = await getUserId();
-
-    fetch('/auction/auctions', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-        .then(response => {
-            if (response.status === 401) {
-                alert('Unauthorized. Please log in.');
-                window.location.href = '/login.html';
-                return;
+    try {
+        const userId = await getUserId();
+        const auctionResponse = await fetch('/auction/auctions', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            return response.json();
-        })
-        .then(auctions => {
-            console.log('Auctions dataaaa:', auctions);
-            const container = document.getElementById('auctions-container');
-            if (!container) {
-                console.error("Failed to find 'auctions-container' in the DOM.");
-                return;
-            }
-            auctions.forEach(auction => {
-                const auctionElement = document.createElement('div');
-                auctionElement.classList.add('auction');
-                auctionElement.setAttribute('data-painting-id', auction.id_painting);
-
-                const img = document.createElement('img');
-                img.src = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
-                img.alt = auction.painting_name || 'Untitled';
-
-
-                const name = document.createElement('h2');
-                name.textContent = auction.painting_name || 'Untitled';
-
-                const artist = document.createElement('p');
-                artist.textContent = `Artist: ${auction.artist_name || 'Unknown'}`;
-
-                const status = document.createElement('p');
-                const auctionStatus = getAuctionStatus(auction.start_date, auction.end_date);
-                status.textContent = auctionStatus;
-
-                auctionElement.appendChild(img);
-                auctionElement.appendChild(name);
-                auctionElement.appendChild(artist);
-                auctionElement.appendChild(status);
-
-                const button = document.createElement('button');
-                if (auctionStatus.includes('Auction ended')) {
-                    button.textContent = 'Auction ended';
-                    button.classList.add('button-ended');
-                    button.disabled = true;
-                } else if (auction.user_bid) {
-                    button.textContent = 'You\'ve already bid. See details';
-                    button.addEventListener('click', () => showBidDetails(auction.user_bid));
-                } else {
-                    if (userId !== auction.artist_id) {
-                        button.textContent = 'Make an offer!';
-                        button.addEventListener('click', () => displayAuctionPopup(img, name, auction.id_painting, button));
-                    } else {
-                        button.textContent = 'Posted by you';
-                        button.disabled = true;
-                        button.classList.add('button-posted-by-you');
-                    }
-                }
-                auctionElement.appendChild(button);
-
-                container.appendChild(auctionElement);
-            });
-        })
-
-        .catch(error => {
-            console.error('Error fetching auctions:', error);
         });
-    await checkUserWins();
+        if (auctionResponse.status === 401) {
+            alert('Please log in.');
+            window.location.href = 'http://localhost:5000/login';
+            return;
+        }
+        if (!auctionResponse.ok) {
+            throw new Error(`HTTP error! Status: ${auctionResponse.status}`);
+        }
+        const auctionList = await auctionResponse.json();
+        console.log('Auctions dataaaa:', auctionList);
+
+        const container = document.getElementById('auctions-container');
+        if (!container) {
+            console.error("Failed to find 'auctions-container' in the DOM.");
+            return;
+        }
+        auctionsList.forEach(auction => {
+            const auctionElement = document.createElement('div');
+            auctionElement.classList.add('auction');
+            auctionElement.setAttribute('data-painting-id', auction.id_painting);
+
+            const img = document.createElement('img');
+            img.src = `/uploads-paintings/${auction.painting_pic || 'placeholder.jpg'}`;
+            img.alt = auction.painting_name || 'Untitled';
+
+
+            const name = document.createElement('h2');
+            name.textContent = auction.painting_name || 'Untitled';
+
+            const artist = document.createElement('p');
+            artist.textContent = `Artist: ${auction.artist_name || 'Unknown'}`;
+
+            const status = document.createElement('p');
+            const auctionStatus = getAuctionStatus(auction.start_date, auction.end_date);
+            status.textContent = auctionStatus;
+
+            auctionElement.append(img, name, artist,status);
+
+
+            const button = document.createElement('button');
+            if (auctionStatus.includes('Auction ended')) {
+                button.textContent = 'Auction ended';
+                button.classList.add('button-ended');
+                button.disabled = true;
+            } else if (auction.user_bid) {
+                button.textContent = 'You\'ve already bid. See details';
+                button.addEventListener('click', () => showBidDetails(auction.user_bid));
+            } else {
+                if (userId !== auction.artist_id) {
+                    button.textContent = 'Make an offer!';
+                    button.addEventListener('click', () => displayAuctionPopup(img, name, auction.id_painting, button));
+                } else {
+                    button.textContent = 'Posted by you';
+                    button.disabled = true;
+                    button.classList.add('button-posted-by-you');
+                }
+            }
+            auctionElement.appendChild(button);
+
+            container.appendChild(auctionElement);
+        });
+        await checkUserWins();
+    }catch (error){
+        console.error('Could not fetch auctions', error);
+
+    }
 });
 
 
 async function getUserId() {
     const token = localStorage.getItem('token');
     if (!token) {
-        alert('Nu ești autentificat!');
+        alert('Please log in.');
         window.location.href = 'http://localhost:5000/login';
         return;
     }
     try {
-        console.log('Sending request to verify token...');
-        const response = await fetch('http://localhost:5000/auth/verifyToken', {
+        console.log('Verifying token..');
+        const userResponse = await fetch('http://localhost:5000/auth/verifyToken', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
 
-        if (response.ok) {
-            const data = await response.json();
+        if (userResponse.ok) {
+            const data = await userResponse.json();
             console.log('Token verified successfully:', data);
             return data.userId;
         }
     } catch (error) {
         console.error('Error during token verification:', error);
-        alert('Autentificarea a eșuat, te rugăm să te autentifici din nou.');
+        alert('Authentication failed. Please try again.');
         localStorage.removeItem('token');
         window.location.href = 'http://localhost:5000/login';
     }
 }
 
-function displayAuctionPopup(img, name, paintingId, button) {
+async function displayAuctionPopup(img, name, paintingId, button) {
     const modal = document.getElementById('offer-popup');
     const token = localStorage.getItem('token');
 
@@ -136,43 +128,41 @@ function displayAuctionPopup(img, name, paintingId, button) {
     paintingImage.src = img.src || 'placeholder.jpg';
     paintingTitle.textContent = name.textContent || 'Untitled';
 
-    sendOfferBtn.onclick = function () {
-        const offerAmount = offerAmountInput.value;
-        getUserId().then(userId => {
+    sendOfferBtn.onclick = async function () {
+        try{
+            const offerAmount = offerAmountInput.value;
+            const userId = await getUserId(); //astept sa obt userid
             if (!offerAmount || !userId || !paintingId) {
                 console.error('Missing required information.');
                 return;
             }
-
             const data = {
                 offerAmount: offerAmount.valueOf(),
                 userId: userId,
                 paintingId: paintingId
             };
-
-            fetch('/auction/submit-offer', {
+            const response = await fetch('/auction/submit-offer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (button) {
-                        button.textContent = "You've already bid. See details";
-                        button.onclick = () => showBidDetails(data.offerAmount);
-                    }
-                    closeAuction();
-                })
-                .catch(error => {
-                    console.error('Failed to submit offer:', error);
-                    alert('Failed to submit offer. Please try again.');
-                });
-        }).catch(error => {
-            console.error('Failed to get user ID:', error);
-        });
+            });
+            if(!response.ok){
+                throw new Error(`HTTP error. Status: ${response.status}`);
+            }
+            const responseData = await response.json();
+            if( button){
+                button.textContent = "You've already bid. See details.";
+                button.onclick= ()=> showBidDetails(responseData.offerAmount);
+            }
+            closeAuction();
+
+        }catch (error){
+            console.error('Failed to submit offer ', error);
+            alert('Failed to submit offer. Please try again. ');
+        }
     };
 
     modal.style.display = 'block';
@@ -188,13 +178,15 @@ function closeAuction() {
 
 function getAuctionStatus(startDate, endDate) {
     const now = new Date();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-    if (now < new Date(startDate)) {
-        return `Auction starts on: ${new Date(startDate).toLocaleDateString()}`;
-    } else if (now <= new Date(endDate)) {
-        return `Auction ends on: ${new Date(endDate).toLocaleDateString()}`;
+    if (now < start) {
+        return `Auction starts on: ${start.toLocaleDateString()}`;
+    } else if (now <= end) {
+        return `Auction ends on: ${end.toLocaleDateString()}`;
     }
-    return `Auction ended on: ${new Date(endDate).toLocaleDateString()}`;
+    return `Auction ended on: ${end.toLocaleDateString()}`;
 }
 
 function showBidDetails(bidAmount) {
@@ -216,40 +208,39 @@ function closeBidDetailsPopup() {
 async function checkUserWins() {
     const token = localStorage.getItem('token');
     if (!token) return;
-
-    fetch('http://localhost:5000/auction/check-win', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(results => {
-            if (results && results.length > 0) {
-                const container = document.getElementById('auctions-container');
-                results.forEach(result => {
-                    const paintingElement = container.querySelector(`[data-painting-id="${result.painting_id}"]`);
-                    if (paintingElement) {
-                        const message = document.createElement('p');
-                        if (result.status === 'won') {
-                            message.textContent = "Congrats! You won this bid. Check your email for further details.";
-                            message.classList.add('win-message');
-                        } else if (result.status === 'sold') {
-                            message.textContent = `Congrats, your painting was auctioned for ${result.final_bid} RON! Check your email for further details.`;
-                            message.classList.add('sold-message');
-                        }
-                        paintingElement.appendChild(message);
-                    }
-                });
+    try{
+        const response = await fetch('http://localhost:5000/auction/check-win', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-        })
-        .catch(error => {
-            console.error('Error checking user wins: ', error);
         });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const results = await response.json();
+        if (results && results.length > 0) {
+            const container = document.getElementById('auctions-container');
+            results.forEach(result => {
+                const paintingElement = container.querySelector(`[data-painting-id="${result.painting_id}"]`);
+                if (paintingElement) {
+                    const message = document.createElement('p');
+                    if (result.status === 'won') {
+                        message.textContent = "Congrats! You won this bid. Check your email for further details.";
+                        message.classList.add('win-message');
+                    } else if (result.status === 'sold') {
+                        message.textContent = `Congrats, your painting was auctioned for ${result.final_bid} RON! Check your email for further details.`;
+                        message.classList.add('sold-message');
+                    }
+                    paintingElement.appendChild(message);
+                }
+            });
+        }
+        } catch(error){
+            console.error('Error checking user wins: ', error);
+        }
 }
+
 function showFAQ() {
     document.getElementById("faqModal").style.display = "block";
 }
