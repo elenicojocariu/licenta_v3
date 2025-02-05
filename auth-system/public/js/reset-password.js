@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
-
     const resetForm = document.getElementById('reset-password-form');
     const popupMessage = document.getElementById('popup-message');
     const popupText = document.getElementById('popup-text');

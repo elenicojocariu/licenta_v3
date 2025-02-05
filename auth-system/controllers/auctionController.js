@@ -81,7 +81,7 @@ exports.getAuctions = (req, res) => {
 const senderEmail = process.env.SENDER_EMAIL;
 const password = process.env.EMAIL_PASSWORD;
 
-let transporter = nodemailer.createTransport({
+let transporter_function = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: senderEmail,
@@ -99,7 +99,7 @@ function sendConfirmationEmail(email)
         text: 'Hello! We added your painting to our auction page. \n We will notify you once the auction has ended and the winning bidder is announced. \n Thank you, \n VirtuArt team',
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter_function.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(error);
         }
@@ -132,11 +132,12 @@ exports.submitAuction = (req, res) => {
         res.status(200).send({ message: 'Offer submitted successfully', results });
     });
 }
-
+/*
+//vf daca a bidduit deja
 exports.checkExistingBid = (req, res) => {
     const { userId, paintingId } = req.body;
     const query = `
-        SELECT * FROM auctioneer 
+        SELECT * FROM auctioneer
         WHERE id_auctioneer = ? AND id_painting = ?
     `;
 
@@ -147,7 +148,7 @@ exports.checkExistingBid = (req, res) => {
         }
         res.status(200).send({ hasBid: results.length > 0 });
     });
-};
+};*/
 
 exports.checkIfUserWon = (req, res) => {
     const userId = req.user.id;

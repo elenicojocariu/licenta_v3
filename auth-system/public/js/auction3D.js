@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
                 // Pozitie coloane intre picturi
-                for (let index = 0; index < totalPaintings; index++) {
+                for (let index = 0; index < totalPaintings-1; index++) {
                     const angle = index * angleStep;
                     const nextAngle = ((index + 1) % totalPaintings) * angleStep;
                     const midAngle = (angle + nextAngle) / 2;

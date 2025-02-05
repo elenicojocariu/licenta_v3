@@ -27,13 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const result = await response.json();
             if (response.ok) {
-                // Afișează mesajul pentru utilizator
                 alert('User registered successfully! Please check your email to confirm your account.');
 
-                // După câteva secunde, redirecționează la login
                 setTimeout(() => {
                     window.location.href = 'http://localhost:5000/login';
-                }, 3000); // 3 secunde întârziere înainte de redirecționare
+                }, 3000);
             } else {
                 alert(result.message);
             }

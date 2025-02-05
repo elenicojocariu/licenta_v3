@@ -26,10 +26,7 @@
 
 <a-scene shadow="true">
     <a-assets>
-        <!-- img assets for paintings dynamically added  -->
-        <img id="woodTexture" src="img/wood.jpg">
         <img id="skyTexture" src="img/skyy.jpg">
-        <img id="columnTexture" src="img/marble.jpg">
     </a-assets>
 
     <a-entity id="camera" camera look-controls wasd-controls position="0 1.6 0"></a-entity>
@@ -41,7 +38,7 @@
     <a-plane position="0 0 0" rotation="-90 0 0" width="50" height="50" color="#874741" material="roughness: 1 "></a-plane>
     <a-sky src="#skyTexture"></a-sky>
 
-    <a-entity id="paintings"></a-entity>
+    <a-entity id="paintings"></a-entity> <!-- gol, dinamycally added -->
 
 </a-scene>
 

@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 exports.authenticate = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
+    const authentificationHeader = req.headers['authorization']; //obtin headerul
 
-    if (!authHeader) {
+    if (!authentificationHeader) {
         return res.status(401).send({message: 'No authorization header provided.'});
     }
 
-    const tokenParts = authHeader.split(' ');
+    const tokenParts = authentificationHeader.split(' '); // Bearer {token} => [0] = bearer si [1]=token jwt
 
     if (tokenParts.length !== 2 || tokenParts[0] !== 'Bearer') {
         return res.status(401).send({message: 'Malformed authorization header.'});
@@ -20,7 +20,7 @@ exports.authenticate = (req, res, next) => {
             return res.status(500).send({message: 'Failed to authenticate token.'});
         }
 
-        req.user = decoded;
+        req.user = decoded; //in req user am informtiile userului autentificat
         next();
     });
 };

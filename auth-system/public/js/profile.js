@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}` //pt autentif si autorizare
 
                 },
                 body: JSON.stringify({password: currentPassword})

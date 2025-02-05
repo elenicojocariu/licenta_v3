@@ -7,7 +7,7 @@ require('dotenv').config();
 const senderEmail = process.env.SENDER_EMAIL;
 const password = process.env.EMAIL_PASSWORD;
 
-let transporter = nodemailer.createTransport({
+let transporter_functions = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: senderEmail,
@@ -23,7 +23,7 @@ function sendWinnerNotification(email, paintingName, pricePaid) {
         text: `Congratulations! You won the auction for ${paintingName} ! The price you will pay is ${pricePaid}.`,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter_functions.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error("Failed to send notification email: ", error);
         } else {
@@ -40,7 +40,7 @@ function sendSellerNotification(email, paintingName, pricePaid) {
         text: `Congratulations! Your painting "${paintingName}" has been sold for ${pricePaid}.`,
 
     };
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter_functions.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.error("Failed to send notification email to seller: ", error);
         } else {

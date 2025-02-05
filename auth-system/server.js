@@ -7,7 +7,6 @@ const path = require('path');
 const {connectToDatabase} = require('../config-mongodb/mongodb');
 const cron = require('node-cron');
 const finalizeAuction = require('./controllers/auctionProcessor');
-const  axios = require('axios');
 const extrusionRoutes = require('./routes/auction')
 
 dotenv.config();
@@ -42,7 +41,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: false} // Seteaza secure: true dacă fol HTTPS
+    cookie: {secure: false} // true-daca fol https
 }));
 
 connectToDatabase().then(() => {

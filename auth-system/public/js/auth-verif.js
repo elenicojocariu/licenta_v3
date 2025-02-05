@@ -2,7 +2,7 @@
 async function authenticateUser() {
     const token = localStorage.getItem('token');
     if (!token) {
-        alert('Nu ești autentificat!');
+        alert('You are not authenticated!');
         window.location.href = 'http://localhost:5000/login';
         return;
     }
@@ -21,10 +21,10 @@ async function authenticateUser() {
         } else {
             const errorData = await response.json();
             console.error('Token verification failed:', errorData);
-            throw new Error('Token invalid');
+            throw new Error('Invalid Token ');
         }
     } catch (error) {
-        alert('Autentificarea a eșuat, te rugăm să te autentifici din nou.');
+        alert('The authentification failed, plase try again.');
         localStorage.removeItem('token');
         window.location.href = 'http://localhost:5000/login';
     }

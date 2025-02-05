@@ -2,9 +2,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
-    const unconfirmedEmailModal = document.getElementById('unconfirmed-email-modal');
-    const closeUnconfirmedEmailBtn = document.getElementById('close-unconfirmed-email');
-    const errorMessage = document.getElementById('error-message');
+    const ModalUncofirmedEmail = document.getElementById('unconfirmed-email-modal'); //pls confirm mail before
+    const xBtn = document.getElementById('close-unconfirmed-email');
+    const errorMessage = document.getElementById('error-message'); //pb cu autentif
 
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 console.log(result.message);
                 if (result.message === 'Please confirm your email before logging in.') {
-                    // Show the modal for unconfirmed email
-                    unconfirmedEmailModal.style.display = 'block';
+                    ModalUncofirmedEmail.style.display = 'block';
                 } else {
                     console.log(result.message);
                     errorMessage.textContent = result.message || 'Email or password is incorrect';
@@ -48,21 +47,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
         } catch (error) {
-            console.error('An error occurred:', error.message);
+            console.error('An error ocurred:', error.message);
         }
     });
 
-    closeUnconfirmedEmailBtn.addEventListener('click', function () {
-        unconfirmedEmailModal.style.display = 'none';
+    xBtn.addEventListener('click', function () {
+        ModalUncofirmedEmail.style.display = 'none';
     });
+
 
     window.onclick = function (event){
-        if(event.target == unconfirmedEmailModal){
-            unconfirmedEmailModal.style.display = 'none';
+        if(event.target === ModalUncofirmedEmail){
+            ModalUncofirmedEmail.style.display = 'none';
         }
     }
-
-    document.getElementById('toggle-password').addEventListener('click', function () {
+    const togglePass = document.getElementById('toggle-password');
+    togglePass.addEventListener('click', function () {
         const passwordField = document.getElementById('password');
         const toggleIcon = document.getElementById('toggle-password');
         if (passwordField.type === 'password') {
@@ -84,12 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const emailSentMsg = document.getElementById('email-sent-msg');
 
-    //  forgot password
     forgotPasswordBtn.addEventListener('click', function () {
         forgotPasswordModal.style.display = 'block';
     });
 
-    //
     closeModal.addEventListener('click', function () {
         forgotPasswordModal.style.display = 'none';
     });
@@ -114,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (response.ok) {
-                const maskedEmail = maskEmail(email);
-                emailSentMsg.textContent = `We sent an email to ${maskedEmail} with a link to get back into your account.`;
+                const userHiddenMail = hiddenMail(email);
+                emailSentMsg.textContent = `We sent an email to ${userHiddenMail} with a link to get back into your account.`;
                 forgotPasswordModal.style.display = 'none';
                 emailSentModal.style.display = 'block';
             } else {
@@ -127,10 +125,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // functie pentru a masca emailul
-    function maskEmail(email) {
-        const [localPart, domain] = email.split('@');
-        return `${localPart[0]}*******${localPart.slice(-1)}@${domain}`;
+    // fct pentru a masca emailul
+    function hiddenMail(email) {
+        const [name, domain] = email.split('@');
+        return `${name[0]}*******${name.slice(-1)}@${domain}`; //inainte de @
     }
 
 
