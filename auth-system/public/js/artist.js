@@ -1,11 +1,11 @@
 const artistNameElement = document.getElementById('artist-name');
 const artistImageElement = document.getElementById('artist-image');
-const artworksList = document.getElementById('artworks-list');
+const allArtworksList = document.getElementById('artworks-list');
 
 const itemsPerPage = 20;
 let currentPage = 1;
 let totalPages = 1;
-let currentArtworks = []; // Picturile curente pentru artistul selectat
+let currentArtworks = []; // picturi aferente pentru artistul selectat
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -27,7 +27,7 @@ async function fetchArtworksByArtist(artistName) {
     try {
         const response = await fetch('/api/artworks');
         const data = await response.json();
-        const artistData = extractArtworksByArtist(data, artistName);
+        const artistData = extractArtworksByArtistName(data, artistName);
         if (artistData) {
             displayArtistInfo(artistData.artistImage, artistName);
             displayArtworks(artistData.artworks);
@@ -39,7 +39,7 @@ async function fetchArtworksByArtist(artistName) {
     }
 }
 
-function extractArtworksByArtist(data, artistName) {
+function extractArtworksByArtistName(data, artistName) {
     let artworks = [];
     let artistImage = null;
 
@@ -81,20 +81,20 @@ function displayArtistInfo(artistImage, artistName) {
 }
 
 function displayArtworks(artworks) {
-    artworksList.innerHTML = ''; // Golește lista de picturi existente
+    allArtworksList.innerHTML = ''; // golesc lista de picturi
 
-    // Stocăm picturile și calculăm numărul de pagini
+    // stochez picturile si calc nr de pag
     currentArtworks = artworks;
     totalPages = Math.ceil(artworks.length / itemsPerPage);
 
-    // Calculăm indexul de început și de sfârșit pentru pagina curentă
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
+    // calc index de inceput si finish pentru pag curenta
+    const indexStart = (currentPage - 1) * itemsPerPage;
+    const end = indexStart + itemsPerPage;
 
-    const paginatedArtworks = artworks.slice(start, end);
+    const paginatedArtworks = artworks.slice(indexStart, end);
 
     paginatedArtworks.forEach(artwork => {
-        const isFavorite = checkIfFavorite(artwork.paintingId); // Verifică dacă pictura este favorită
+        const isFavorite = checkIfFavorite(artwork.paintingId);
         const artworkDiv = document.createElement('div');
         artworkDiv.classList.add('grid-art-item');
 
@@ -115,27 +115,27 @@ function displayArtworks(artworks) {
             toggleFavorite(event, artwork);
         });
 
-        artworksList.appendChild(artworkDiv);
+        allArtworksList.appendChild(artworkDiv);
     });
 
     updatePaginationControls();
-    lazyLoadImages()
+    lazyLoadForImages()
 }
-function lazyLoadImages() {
+function lazyLoadForImages() {
     const lazyImages = document.querySelectorAll('.lazy-image');
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.getAttribute('data-src'); // Încarcă imaginea
-                img.removeAttribute('data-src'); // Elimină atributul după încărcare
-                observer.unobserve(img); // Oprim observarea imaginii încărcate
+                const image = entry.target;
+                image.src = image.getAttribute('data-src'); // incarc img
+                image.removeAttribute('data-src'); // scot atributul dupa incarcare
+                observer.unobserve(image); // opresc observarea imaginii incarcate
             }
         });
     });
 
-    lazyImages.forEach(img => {
-        observer.observe(img); // Începem observarea fiecărei imagini
+    lazyImages.forEach(image => {
+        observer.observe(image); // observ fiecare imagine
     });
 }
 function openModal(imageUrl, title){
@@ -156,10 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('image-modal');
     const closeButton = document.querySelector('.close-button');
 
-    // Închide modalul când se apasă pe butonul 'x'
     closeButton.addEventListener('click', closeModal);
 
-    // Închide modalul când utilizatorul face click în afara conținutului modalului
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             closeModal();
@@ -186,17 +184,15 @@ function updatePaginationControls() {
     const nextBtn = document.getElementById('next-btn');
     const pageNumberElement = document.getElementById('page-number');
 
-    // Actualizează numărul paginii
+    // actulizez nr paginii
     pageNumberElement.textContent = currentPage;
 
-    // Ascunde butonul "Previous" dacă suntem pe prima pagină
     if (currentPage === 1) {
         previousBtn.style.display = 'none';
     } else {
         previousBtn.style.display = 'block';
     }
-
-    // Ascunde butonul "Next" dacă suntem pe ultima pagină
+    //fara next pe ultima pagina
     if (currentPage >= totalPages || totalPages <= 1) {
         nextBtn.style.display = 'none';
     } else {
@@ -209,13 +205,13 @@ function checkIfFavorite(paintingId) {
     return favorites.some(favorite => favorite.painting_id === paintingId);
 }
 
-// Funcția de toggle pentru favorite
+
 async function toggleFavorite(event, art) {
     const heartIcon = event.target;
     const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
 
     if (!userId) {
-        alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
+        alert('Please login before adding to favorite.');
         return;
     }
 
@@ -234,8 +230,8 @@ async function toggleFavorite(event, art) {
             heartIcon.setAttribute('data-favorite', 'true');
         }
     } catch (error) {
-        console.error('Eroare la actualizarea favoritei:', error);
-        alert('A apărut o eroare. Te rugăm să încerci din nou.');
+        console.error('Error at updating the favorite:', error);
+        alert('An error occured. Please try again..');
     }
 }
 

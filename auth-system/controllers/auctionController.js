@@ -141,7 +141,7 @@ exports.checkExistingBid = (req, res) => {
         WHERE id_auctioneer = ? AND id_painting = ?
     `;
 
-    connection.query(query, [userId, paintingId], (err, results) => {
+    db.query(query, [userId, paintingId], (err, results) => {
         if (err) {
             console.error('Failed to check existing bid:', err);
             return res.status(500).send({ message: 'Failed to check existing bid.' });

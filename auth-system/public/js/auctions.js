@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const token = localStorage.getItem('token');
     if (!token) {
         alert('You need to log in to view the auctions.');
-        window.location.href = '/login.html'; // Redirect to login page
+        window.location.href = '/login.html'; 
         return;
     }
 

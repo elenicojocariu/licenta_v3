@@ -1,4 +1,4 @@
-const connection = require('../config/db');
+const db = require('../config/db');
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
@@ -59,7 +59,7 @@ function finalizeAuction() {
         AND id_painting NOT IN (SELECT painting_id FROM winners)
     `;
 
-    connection.query(queryEndedAuctions, (err, results) => {
+    db.query(queryEndedAuctions, (err, results) => {
         if (err) {
             console.error('Error at processing finished bids:', err);
             return;
@@ -69,14 +69,14 @@ function finalizeAuction() {
             const {id_painting, seller_id, painting_name} = auction;
 
             const queryTopBids = `
-    SELECT id_auctioneer AS user_id, price
-    FROM auctioneer
-    WHERE id_painting = ?
-    ORDER BY price DESC, bid_time ASC
-    LIMIT 2
-`;
+                    SELECT id_auctioneer AS user_id, price
+                    FROM auctioneer
+                    WHERE id_painting = ?
+                    ORDER BY price DESC, bid_time ASC
+                    LIMIT 2
+                            `;
 
-            connection.query(queryTopBids, [id_painting], (err, bids) => {
+            db.query(queryTopBids, [id_painting], (err, bids) => {
                 if (err) {
                     console.error('Error at processing offers for painting:', err);
                     return;
@@ -93,8 +93,8 @@ function finalizeAuction() {
                         INSERT INTO winners (painting_id, winner_id, final_bid, seller_id)
                         VALUES (?, ?, ?, ?)
                     `;
-
-                    connection.query(insertWinner, [id_painting, winnerId, secondHighestBid, seller_id], (err, result) => {
+                    const values = [id_painting, winnerId, secondHighestBid, seller_id]
+                    db.query(insertWinner, values, (err, result) => {
                         if (err) {
                             console.error('Error at inserting winner:', err);
                             return;
@@ -113,7 +113,7 @@ function finalizeAuction() {
 function notifyUsers(winnerId, sellerId, paintingName, winningPrice) {
     const getEmailQuery = `SELECT email FROM users WHERE id = ?`;
 
-    connection.query(getEmailQuery, [winnerId], (err, results) => {
+    db.query(getEmailQuery, [winnerId], (err, results) => {
         if (err) {
             console.error(`Failed to fetch winner s email for user ${winnerId}:`, err);
             return;
@@ -124,7 +124,7 @@ function notifyUsers(winnerId, sellerId, paintingName, winningPrice) {
         }
     });
 
-    connection.query(getEmailQuery, [sellerId], (err, results) => {
+    db.query(getEmailQuery, [sellerId], (err, results) => {
         if (err) {
             console.error(`Failed to fetch seller s email for user ${sellerId}:`, err);
             return;
