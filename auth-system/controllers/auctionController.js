@@ -1,4 +1,4 @@
-const connection = require('../config/db');
+const db = require('../config/db');
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
@@ -16,7 +16,7 @@ exports.listPainting = (req, res) => {
         VALUES (?, ?, ?, ?, ?, ?, 1)
     `;
 
-    connection.query(query, [name, artistName, userId, paintingPic, startDate, endDate], (err, results) => {
+    db.query(query, [name, artistName, userId, paintingPic, startDate, endDate], (err, results) => {
         if (err) {
             console.error('Failed to insert painting:', err);
             return res.status(500).send({ message: 'Failed to list painting.' });
@@ -28,7 +28,7 @@ exports.listPainting = (req, res) => {
             WHERE id = ?
         `;
 
-        connection.query(querySelect, [userId], (err, results) => {
+        db.query(querySelect, [userId], (err, results) => {
             if (err) {
                 console.error('Failed to fetch user email:', err);
                 return res.status(500).send({ message: 'Failed to fetch user email.' });
@@ -67,7 +67,7 @@ exports.getAuctions = (req, res) => {
             p.verified_ok = 1
     `;
 
-    connection.query(query, [userId], (err, results) => {
+    db.query(query, [userId], (err, results) => {
         if (err) {
             console.error('Failed to fetch auctions:', err);
             return res.status(500).send({ message: 'Failed to fetch auctions.' });
@@ -122,7 +122,7 @@ exports.submitAuction = (req, res) => {
         VALUES (?, ?, ?)
     `;
 
-    connection.query(query, [userId, paintingId, offerAmount], (err, results) => {
+    db.query(query, [userId, paintingId, offerAmount], (err, results) => {
         if (err) {
             console.error('Failed to submit offer:', err);
             return res.status(500).send({ message: 'Failed to submit offer.' });
@@ -172,7 +172,7 @@ exports.checkIfUserWon = (req, res) => {
             w.winner_id = ? OR w.seller_id = ?
     `;
 
-    connection.query(query, [userId, userId, userId, userId], (err, results) => {
+    db.query(query, [userId, userId, userId, userId], (err, results) => {
         if (err) {
             console.error('Failed to check user wins:', err);
             return res.status(500).json({ message: 'Failed to check wins.' });

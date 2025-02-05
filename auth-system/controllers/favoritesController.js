@@ -7,8 +7,6 @@ exports.addFavorite =  (req, res) => {
     if (!userId || !paintingId) {
         return res.status(400).json({ message: 'userId and paintingId required' });
     }
-
-
         const query = 'INSERT INTO favorite (user_id, painting_id, painting_img, painting_name) VALUES (?, ?, ?, ?)';
         const values = [userId, paintingId, painting_img, painting_name]
         db.query(query, values, (err, results) => {

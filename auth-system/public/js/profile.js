@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -7,69 +7,70 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = 'login.html';
         return;
     }
-
-    // Fetch profile data
-    fetch('http://localhost:5000/profile', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('Error fetching profile:', data.error);
-                return;
+    try {
+        // fetch profile data
+        const response = await fetch('http://localhost:5000/profile', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
-            document.getElementById('first-name').value = data.first_name;
-            document.getElementById('last-name').value = data.last_name;
-            document.getElementById('email').value = data.email;
-            if (data.profile_pic) {
-                document.getElementById('profile-image').src = data.profile_pic;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching profile:', error);
         });
+        const data = await response.json();
+        if (!response.ok) {
+            console.error('Error fetching profile ', data.error);
+            return;
+        }
+
+
+        document.getElementById('first-name').value = data.first_name;
+        document.getElementById('last-name').value = data.last_name;
+        document.getElementById('email').value = data.email;
+
+        if (data.profile_pic) {
+            document.getElementById('profile-image').src = data.profile_pic;
+        }
+    } catch (error) {
+        console.error('Error fethcing profile ', error);
+    }
+
 
     // Update profile
-    document.getElementById('profile-form').addEventListener('submit', function (event) {
+    document.getElementById('profile-form').addEventListener('submit', async function (event) {
         event.preventDefault();
 
         const firstName = document.getElementById('first-name').value;
         const lastName = document.getElementById('last-name').value;
         const email = document.getElementById('email').value;
+        try {
+            const response = await fetch('http://localhost:5000/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email
+                })
+            });
 
-        fetch('http://localhost:5000/profile', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                first_name: firstName,
-                last_name: lastName,
-                email: email
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Profile updated successfully!');
-                } else {
-                    alert('Failed to update profile.');
-                }
-            })
-            .catch(error => {
+            const data = await response.json();
+            if(!response.ok){
+                console.error('Server errror ', data.error);
+                throw new Error(data.message || 'Failed to update profile.'); //sare direct in catch
+            }
+            alert('Profile updated successfully!')
+        } catch(error){
                 console.error('Error:', error);
                 alert('An error occurred while updating the profile.');
-            });
+        }
     });
 });
 
 //update profile pic
-document.getElementById('profile-pic-input').addEventListener('change', function (event) {
+document.getElementById('profile-pic-input').addEventListener('change', async function (event) {
 
     const file = event.target.files[0];
     const formData = new FormData();
@@ -77,56 +78,49 @@ document.getElementById('profile-pic-input').addEventListener('change', function
 
     const token = localStorage.getItem('token'); // Obține token-ul din localStorage
 
-    fetch('http://localhost:5000/profile/upload-profile-pic', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        },
-        body: formData
-    })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    throw new Error(text)
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                document.getElementById('profile-image').src = data.profilePicUrl;
-                alert('Profile picture updated successfully!');
-            } else {
-                alert('Failed to update profile picture.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while updating the profile picture.');
+    try {
+        const response = await fetch('http://localhost:5000/profile/upload-profile-pic', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
         });
+        const data = await response.json();
+        if(!response.ok){
+            console.error('Error updating profile-pic ', data.error);
+            return;
+        }
+        document.getElementById('profile-image').src = data.profilePicUrl;
+    }catch(error) {
+        console.error('Error:', error);
+        alert('An error occurred while updating the profile picture.');
+    }
 });
+
+
+
 // Delete account
-document.getElementById('delete-account').addEventListener('click', function () {
-    if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-        fetch('http://localhost:5000/profile', {
+document.getElementById('delete-account').addEventListener('click', async function () {
+    if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+        return; }
+    try{
+        const response = await fetch('http://localhost:5000/profile', {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Account deleted successfully!');
-                    window.location.href = '/login.html';
-                } else {
-                    alert('Failed to delete account.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while deleting the account.');
-            });
+        });
+        const data = await response.json();
+        if(!response.ok){
+            console.error('Error: ', error);
+            throw new Error(data.message || 'Failes to delete the account.');
+        }
+        alert('Account deleted successfully!');
+        window.location.href = '/login.html';
+    }catch (error){
+        console.error('Error: ', error);
+        alert('An error occured while deleting the account.');
     }
 });
 
