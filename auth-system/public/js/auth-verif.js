@@ -2,7 +2,7 @@
 async function authenticateUser() {
     const token = localStorage.getItem('token');
     if (!token) {
-        alert('You are not authenticated!');
+        alert('You need to login first.');
         window.location.href = 'http://localhost:5000/login';
         return;
     }
@@ -21,9 +21,10 @@ async function authenticateUser() {
         } else {
             const errorData = await response.json();
             console.error('Token verification failed:', errorData);
-            throw new Error('Invalid Token ');
+            throw new Error('Invalid token ');
         }
     } catch (error) {
+        console.error('Auth error ', error);
         alert('The authentification failed, plase try again.');
         localStorage.removeItem('token');
         window.location.href = 'http://localhost:5000/login';
