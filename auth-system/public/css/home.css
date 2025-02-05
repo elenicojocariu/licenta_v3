@@ -125,7 +125,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 10px 0; /* ajustare pentru a face butoanele mai mici */
+    padding: 10px 0;
 }
 
 .navbar ul {
@@ -273,9 +273,9 @@ body {
 
 .art-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 6 paintings per row */
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-    max-width: 1800px; /* Set a max-width to control total width */
+    max-width: 1800px;
     margin: 0 auto;
 
 
@@ -334,7 +334,7 @@ body {
 }
 
 
-/* CSS for Search Popup */
+
 #search-input {
     width: 100%;
     padding: 15px;
@@ -414,7 +414,7 @@ body {
 }
 
 
-/* Modal styles */
+
 .modal {
     display: flex;
     position: fixed;
@@ -433,14 +433,14 @@ body {
     position: relative;
     background-color: #fff;
     border-radius: 12px;
-    padding: 10px; /* Ajustează padding-ul */
+    padding: 10px;
     text-align: center;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, opacity 0.3s ease;
     animation-name: slide-in;
     animation-duration: 0.5s;
-    width: 400px; /* Lățime fixă, ajustează după necesitate */
-    margin: 20px auto; /* Centrăm modalul pe pagină */
+    width: 400px;
+    margin: 20px auto;
 }
 
 @keyframes slide-in {
@@ -473,7 +473,7 @@ body {
     max-height: 70vh;
     border-radius: 8px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    margin: 0 auto; /* Centrăm imaginea */
+    margin: 0 auto;
 }
 
 
@@ -487,23 +487,20 @@ body {
 
 
 
-/*  search bar and results */
-
-
 #nav-search-input {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: calc(50% - 20px); /* Adjust the width to take half the screen minus some padding */
-    position: relative; /* Ensure the search bar is positioned correctly */
-    z-index: 1100; /* Set a higher z-index than the navbars */
+    width: calc(50% - 20px);
+    position: relative;
+    z-index: 1100;
 }
 
 .nav-search-container {
     display: none;
     position: fixed;
-    left: 10px; /* Aligned with the button or another reference point */
-    top: 20px; /* Adjust to lift it higher on the page */
+    left: 10px;
+    top: 20px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -534,7 +531,6 @@ body {
     right: 10px;
 }
 
-/* Additional styles for the results */
 .nav-search-result-item {
     display: flex;
     align-items: center;
@@ -579,15 +575,15 @@ body {
 }
 
 .heart-icon {
-    color: gray; /* Culoarea inițială a inimii */
-    font-size: 24px; /* Dimensiunea iconiței */
-    cursor: pointer; /* Cursorul devine pointer la hover */
+    color: gray;
+    font-size: 24px;
+    cursor: pointer;
     transition: transform 0.3s ease, color 0.3s ease;
 
 }
 
 .heart-icon:hover {
-    transform: scale(1.3); /* Mărim inima la hover */
+    transform: scale(1.3);
 }
 
 .heart-icon.favorite {
@@ -595,7 +591,7 @@ body {
 }
 
 .heart-icon {
-    color: #9b9a9a; /* Culoare implicită când nu e favorită */
+    color: #9b9a9a;
 }
 
 
@@ -675,7 +671,6 @@ body {
 }
 
 
-/* Definirea animației pentru mișcare */
 @keyframes scrollLeft {
     0% {
         transform: translateX(0);
@@ -790,15 +785,15 @@ body {
     }
 
     .navbar ul li a, .navbar ul li button {
-        padding: 15px 20px; /* Reducerea dimensiunii butonului */
-        background-color: transparent; /* Background transparent pentru butoane */
-        width: auto; /* Butonul ocupă întreaga lățime */
-        text-align: right; /* Aliniere text la dreapta */
+        padding: 15px 20px;
+        background-color: transparent;
+        width: auto;
+        text-align: right;
     }
 
     .top-navbar {
         width: auto;
-        background-color: transparent; /* O nuanță consistentă pentru navbar */
+        background-color: transparent;
         position: static;
         margin-top: 2px;
     }

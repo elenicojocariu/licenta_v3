@@ -1,12 +1,11 @@
 .artworks-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 6 paintings per row */
+    grid-template-columns: repeat(5, 1fr); /* 6 picturi */
     gap: 20px;
-    max-width: 1800px; /* Set a max-width to control total width */
+    max-width: 1800px;
     margin: 0 auto;
     padding: 20px;
 }
-
 
 .grid-art-item {
     text-align: center;
@@ -66,12 +65,9 @@
     box-shadow: 0 4px 12px rgba(190, 145, 62, 0.4);
 }
 
-
-
 #page-number:hover {
     transform: scale(1.1);
 }
-
 
 #artist-name {
     font-size: 3em;
@@ -95,9 +91,9 @@
 }
 
 .artist-info img {
-    border-radius: 50% / 40%; /* Making the image more oval */
+    border-radius: 50% / 40%;
     width: 200px;
-    height: 250px; /* Adjusted height to make the oval shape */
+    height: 250px;
     object-fit: cover;
     margin-right: 20px;
 }
@@ -108,23 +104,24 @@
 }
 
 .heart-icon {
-    color: gray; /* Culoarea inițială a inimii */
-    font-size: 24px; /* Dimensiunea iconiței */
-    cursor: pointer; /* Cursorul devine pointer la hover */
+    color: gray;
+    font-size: 24px;
+    cursor: pointer;
     transition: transform 0.3s ease, color 0.3s ease;
 
 }
+
 .heart-icon:hover {
-    transform: scale(1.3); /* Mărim inima la hover */
+    transform: scale(1.3);
 }
-.heart-icon.favorite{
+
+.heart-icon.favorite {
     color: red;
 }
 
 .heart-icon {
-    color: #9b9a9a; /* Culoare implicită când nu e favorită */
+    color: #9b9a9a;
 }
-
 
 .modal {
     display: flex;
@@ -186,7 +183,8 @@
 .close-button:hover {
     color: #e74c3c;
 }
-.logo-container a{
+
+.logo-container a {
     text-decoration: none;
     color: #333;
 }

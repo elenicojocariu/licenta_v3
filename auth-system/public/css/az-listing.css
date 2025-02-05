@@ -177,7 +177,7 @@
     float: right;
     font-size: 28px;
     font-weight: normal;
-    position: absolute; /* Absolute positioning to align properly */
+    position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
@@ -223,13 +223,13 @@
 
 }
 .artmovements-grid input[type="checkbox"] {
-    display: none; /* Ascunde checkbox-ul nativ */
+    display: none;
 }
 .artmovements-grid label {
     display: flex;
     align-items: center;
     position: relative;
-    padding-left: 30px; /* Spatiu pentru checkbox */
+    padding-left: 30px;
     cursor: pointer;
     font-size: 16px;
     color: #333;
@@ -241,20 +241,20 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px; /* Ajustează dimensiunea */
+    width: 20px;
     height: 20px;
-    border: 2px solid #007bff; /* Bordura pentru checkbox */
-    border-radius: 5px; /* Poți face colțurile rotunjite */
+    border: 2px solid #007bff;
+    border-radius: 5px;
     background-color: #fff;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 .artmovements-grid input[type="checkbox"]:checked + label::before {
-    background-color: #007bff; /* Schimbă culoarea când e selectat */
+    background-color: #007bff;
     border-color: #007bff;
 }
 
 .artmovements-grid input[type="checkbox"]:checked + label::after {
-    content: '✔'; /* Icon pentru bifare */
+    content: '✔';
     position: absolute;
     left: 5px;
     top: 50%;
@@ -328,7 +328,7 @@ button:hover {
     }
 
     .artmovements-grid {
-        grid-template-columns:1fr; /* Adjust grid for smaller screens */
+        grid-template-columns:1fr;
     }
 }
 .alphabet-filter {
@@ -414,7 +414,7 @@ button:hover {
     margin: 5px;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition for transform */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .alphabet-button:hover {
@@ -422,9 +422,9 @@ button:hover {
 }
 
 .alphabet-button.active {
-    background-color: #333; /* Darker background for selected state */
-    transform: translateY(-2px); /* Raise the button slightly */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for elevation effect */
+    background-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo-container a{

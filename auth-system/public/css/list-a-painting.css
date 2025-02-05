@@ -72,7 +72,7 @@ input[type="submit"]:hover {
 #info-section {
     margin: 40px auto;
     padding: 20px;
-    width: 80%; /* Adjust as needed */
+    width: 80%;
     background-color: rgba(248, 249, 250, 0.51);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
