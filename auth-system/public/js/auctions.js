@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error("Failed to find 'auctions-container' in the DOM.");
             return;
         }
-        auctionsList.forEach(auction => {
+        auctionList.forEach(auction => {
             const auctionElement = document.createElement('div');
             auctionElement.classList.add('auction');
             auctionElement.setAttribute('data-painting-id', auction.id_painting);
