@@ -13,36 +13,36 @@ const addPaintingId = async () => {
         const db = client.db(process.env.MONGODB_DB_NAME );
         const collection = db.collection('data');
 
-        // Găsește toate documentele din colecție
+        // toate documentele din colectie
         const cursor = collection.find();
         while (await cursor.hasNext()) {
             const document = await cursor.next();
 
-            // Parcurge fiecare cheie de perioadă din document
+            //parcurg cheile
             for (const periodKey in document) {
                 if (Array.isArray(document[periodKey])) {
-                    // Parcurge fiecare pictură din perioada respectivă
+                    // apoi picturile
                     document[periodKey].forEach(painting => {
                         if (painting.artworks && Array.isArray(painting.artworks)) {
-                            // Actualizează fiecare lucrare cu un UUID unic
+                            // pun uuid unic
                             painting.artworks = painting.artworks.map(artwork => ({
                                 ...artwork,
-                                paintingId: uuidv4()// Adaugă un UUID fiecărei lucrări
+                                paintingId: uuidv4()
                             }));
                         }
                     });
                 }
             }
 
-            // Actualizează documentul în baza de date
+            // actualizez doc in bd
             await collection.updateOne(
                 { _id: document._id },
                 { $set: document }
             );
         }
-        console.log('Picturile au fost actualizate cu paintingId-uri unice.');
+        console.log('Paintings updated with unique paintingId');
     } catch (err) {
-        console.error('Eroare la actualizarea picturilor:', err);
+        console.error('Error at updating the paintings', err);
     } finally {
         await client.close();
     }

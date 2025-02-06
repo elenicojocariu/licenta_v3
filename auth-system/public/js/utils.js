@@ -24,11 +24,11 @@ function extractArtworks(data) {
                             if (!artworkImages.has(artwork.image)) {
                                 artworkImages.add(artwork.image);
                                 let artworkItem = {
-                                    image: artwork.image || 'placeholder.jpg', // Fallback image
+                                    image: artwork.image || 'placeholder.jpg',
                                     title: artwork.title || 'Untitled',
                                     name: artistName,
                                     period: periodKey,
-                                    paintingId: artwork.paintingId, // Ensure paintingId is included
+                                    paintingId: artwork.paintingId,
                                 };
                                 artworks.push(artworkItem);
                             }

@@ -11,18 +11,18 @@ router.use(authMiddleware.authenticate);
 router.get('/', profileController.getProfile);
 router.put('/', profileController.updateProfile);
 
-// Configurarea multer pentru încărcarea imaginilor de profil
+//pt imagini de profil
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../uploads')); // Directorul în care sunt salvate temporar imaginile încărcate
+        cb(null, path.join(__dirname, '../uploads'));
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname); // Generează un nume de fișier unic
+        cb(null, Date.now() + '-' + file.originalname); //nume fisier unic
     }
 });
 const upload = multer({storage: storage});
 
-// Ruta pentru încărcarea imaginilor de profil
+
 router.post('/upload-profile-pic', upload.single('profile-pic'), profileController.uploadProfilePic);
 
 router.delete('/', profileController.deleteAccount);

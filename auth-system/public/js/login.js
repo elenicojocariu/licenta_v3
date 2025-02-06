@@ -56,11 +56,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    window.onclick = function (event){
-        if(event.target === ModalUncofirmedEmail){
+    window.addEventListener('click', event =>{
+        if(event.target === ModalUncofirmedEmail) {
             ModalUncofirmedEmail.style.display = 'none';
         }
-    }
+    });
+
     const togglePass = document.getElementById('toggle-password');
     togglePass.addEventListener('click', function () {
         const passwordField = document.getElementById('password');

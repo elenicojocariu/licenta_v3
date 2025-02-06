@@ -10,7 +10,7 @@ const connectToDatabase = async () => {
         console.log('Using existing MongoDB connection');
 
         return db;
-    } // Returnează conexiunea existentă dacă există
+    }
 
     try {
         const client = new MongoClient(MONGODB_URI);

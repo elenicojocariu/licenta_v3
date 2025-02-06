@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 function displayRandomPaintings() {
     const slider = document.getElementById('art-slider');
     if (!slider) {
-        console.warn('Elementul art-slider nu a fost găsit.');
+        console.warn('Element art-slider not found.');
         return;
     }
-    slider.innerHTML = '';
+    slider.innerHTML = ''; //golesc
 
-    const randomPaintings = getRandomPaintings(15); // Selectăm 10 picturi random
+    const randomPaintings = getRandomPaintings(15);
     const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
 
     const loopPaintings = [...randomPaintings, ...randomPaintings];
@@ -29,7 +29,6 @@ function displayRandomPaintings() {
         const artElement = document.createElement('div');
         artElement.classList.add('art-item');
 
-        // Verificăm dacă pictura este în favorite
         const isFavorite = favoritePaintings.some(fav => fav.painting_id === painting.paintingId);
 
         artElement.innerHTML = `
@@ -46,7 +45,6 @@ function displayRandomPaintings() {
         })
 
 
-        // Eveniment click pentru iconița de inimă
         artElement.querySelector('.heart-icon').addEventListener('click', (event) => {
             toggleFavorite(event, painting);
         });
@@ -54,28 +52,27 @@ function displayRandomPaintings() {
         slider.appendChild(artElement);
     });
 
-    lazyLoadImages(); // Apelăm funcția pentru a încărca imaginile la scroll
+    lazyLoadImages(); // pt a incarca imaginile la scroll
 }
 
 function displayRandomPaintingsReverse() {
     const slider = document.getElementById('art-slider-reverse');
     if (!slider) {
-        console.warn('Elementul art-slider nu a fost găsit.');
+        console.warn('Element art-slider not found.');
         return;
     }
     slider.innerHTML = '';
 
-    const randomPaintings = getRandomPaintings(15); // Selectăm picturile random
+    const randomPaintings = getRandomPaintings(15);
     const favoritePaintings = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    // Dublăm picturile pentru a crea efectul de loop infinit
+    //loop infinit
     const loopPaintings = [...randomPaintings, ...randomPaintings];
 
     loopPaintings.forEach(painting => {
         const artElement = document.createElement('div');
         artElement.classList.add('art-item');
 
-        // Verificăm dacă pictura este în favorite
         const isFavorite = favoritePaintings.some(fav => fav.painting_id === painting.paintingId);
 
         artElement.innerHTML = `
@@ -87,7 +84,6 @@ function displayRandomPaintingsReverse() {
             <p class="clickable-artist">${painting.name}</p>
         `;
 
-        // Eveniment click pentru iconița de inimă
         artElement.querySelector('.heart-icon').addEventListener('click', (event) => {
             toggleFavorite(event, painting);
         });
@@ -95,7 +91,7 @@ function displayRandomPaintingsReverse() {
         slider.appendChild(artElement);
     });
 
-    lazyLoadImages(); // Apelăm funcția pentru a încărca imaginile la scroll
+    lazyLoadImages();
 }
 
 async function toggleFavorite(event, painting) {
@@ -103,23 +99,23 @@ async function toggleFavorite(event, painting) {
     const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
     const paintingId = painting.paintingId;
     if (!userId) {
-        alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
+        alert('Please login.');
         return;
     }
+    //daca e deja la fav o elimin
     if (isFavorite) {
-        // Dacă pictura este deja în favorite, o eliminăm
         await removeFavorite(userId, paintingId);
         heartIcon.classList.remove('favorite');
-        heartIcon.classList.remove('fas'); // Schimbăm la inima goală
-        heartIcon.classList.add('far'); // Adăugăm clasa de inimă goală
+        heartIcon.classList.remove('fas');
+        heartIcon.classList.add('far'); //far-clasa inima goala,fas inima plina
 
         heartIcon.setAttribute('data-favorite', 'false');
     } else {
-        // Dacă pictura nu este în favorite, o adăugăm
+        // daca nu e o adaug la fav
         await addToFavorite(userId, paintingId, painting.image, painting.title);
         heartIcon.classList.add('favorite');
-        heartIcon.classList.remove('far'); // Schimbăm la inima plină
-        heartIcon.classList.add('fas'); // Adăugăm clasa de inimă plină
+        heartIcon.classList.remove('far');
+        heartIcon.classList.add('fas');
 
         heartIcon.setAttribute('data-favorite', 'true');
     }
@@ -130,21 +126,11 @@ function getRandomPaintings(count) {
     if (paintings.length === 0) {
         return [];
     }
-    const shuffled = paintings.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
+    const shuffledPaintings = paintings.sort(() => 0.5 - Math.random());
+    return shuffledPaintings.slice(0, count);
 }
 
-function scrollSlider(direction) {
-    currentIndex += direction * 5;
 
-    if (currentIndex < 0) {
-        currentIndex = paintings.length - 5;
-    } else if (currentIndex >= paintings.length) {
-        currentIndex = 0;
-    }
-
-    displayRandomPaintings();
-}
 
 
 function checkIfFavorite(paintingId) {
@@ -155,7 +141,7 @@ function checkIfFavorite(paintingId) {
 function closePaintingDetails() {
     const modal = document.getElementById('painting-details-modal');
     modal.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Enable background scrolling
+    document.body.style.overflow = 'auto';
 }
 
 window.addEventListener('click', (event) => {
@@ -185,7 +171,6 @@ function lazyLoadImages() {
             observer.observe(img);
         });
     } else {
-        // Fallback pentru browserele care nu suportă IntersectionObserver
         lazyImages.forEach(img => {
             img.src = img.dataset.src;
         });

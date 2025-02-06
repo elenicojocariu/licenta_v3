@@ -1,24 +1,24 @@
 const fs = require('fs');
 const axios = require('axios');
 
-// Citește fișierul titles_with_urls.json
+//citesc fisierul
 fs.readFile('titles_with_urls.json', 'utf8', async (err, data) => {
     if (err) {
         console.error('Error reading file:', err);
         return;
     }
 
-    // Parsează JSON-ul
+
     const titlesWithUrls = JSON.parse(data);
 
-    // Creează obiectul artMovements din titlesWithUrls
+    //creez artMovements din titlesWithUrls
     const baseWikiartUrl = "https://www.wikiart.org";
     const artMovements = Object.keys(titlesWithUrls).map(title => ({
         name: title,
         url: `${baseWikiartUrl}${titlesWithUrls[title]}?json=3&layout=new&page=1&resultType=masonry`
     }));
 
-    // Funcție pentru a extrage operele de artă ale unui artist
+    //extrag operele de arta din artist
     const extractArtworks = async (artistUrl) => {
         const artworksUrl = `${artistUrl}/mode/all-paintings-by-alphabet?json=2&layout=new&page=1&resultType=masonry`;
         try {
@@ -45,7 +45,7 @@ fs.readFile('titles_with_urls.json', 'utf8', async (err, data) => {
         }
     };
 
-    // Funcție pentru a extrage artiștii dintr-un URL
+    //extrag artistii din URL
     const extractArtists = async (url) => {
         try {
             const response = await axios.get(url, {
@@ -80,10 +80,9 @@ fs.readFile('titles_with_urls.json', 'utf8', async (err, data) => {
         }
     };
 
-    // Obiect pentru a stoca toate mișcările artistice și artiștii
     const allArtMovements = {};
 
-    // Parcurge fiecare mișcare artistică și extrage artiștii și operele de artă
+    //parcurg fiecare artmovement si extragartistii si operele de arta
     for (const movement of artMovements) {
         const {name, url} = movement;
         try {
@@ -95,7 +94,7 @@ fs.readFile('titles_with_urls.json', 'utf8', async (err, data) => {
         }
     }
 
-    // Salvează toate mișcările artistice și artiștii într-un fișier separat
+    //salvez separat
     fs.writeFile('all_art_movements_and_artists2.json', JSON.stringify(allArtMovements, null, 2), err => {
         if (err) {
             console.error('Error writing file:', err);

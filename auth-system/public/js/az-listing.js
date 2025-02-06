@@ -20,7 +20,7 @@ async function fetchArtists() {
         artmovements = extractArtmovements(data);
         displayArtmovements();
         displayAlphabetFilter();
-        artists.sort((a, b) => a.name.localeCompare(b.name)); // Sort artists alphabetically by name
+        artists.sort((a, b) => a.name.localeCompare(b.name));
         displayArtists();
     } catch (error) {
         console.error('Error fetching artworks:', error);
@@ -40,7 +40,7 @@ function extractArtists(data) {
                         artistNames.add(artistName);
                         let artist = {
                             name: artistName,
-                            image: item.image || 'placeholder.jpg', // Fallback image
+                            image: item.image || 'placeholder.jpg',
                         };
                         artists.push(artist);
                     }
@@ -96,12 +96,12 @@ function displayArtists() {
     const paginatedArtists = alphabetFilteredArtists.slice(start, end);
 
     const previousBtn = document.getElementById('previous-btn');
-    const nextBtn = document.getElementById('next-btn'); // Adăugat pentru a manipula butonul "Next"
+    const nextBtn = document.getElementById('next-btn');
 
     if (currentPage === 1) {
-        previousBtn.style.display = 'none'; // Ascunde butonul "Previous"
+        previousBtn.style.display = 'none';
     } else {
-        previousBtn.style.display = 'block'; // Afișează butonul "Previous"
+        previousBtn.style.display = 'block';
     }
 
     if (paginatedArtists.length === 0) {
@@ -120,11 +120,11 @@ function displayArtists() {
         });
     }
 
-    // Verificare dacă este ultima pagină
+    //daca e ultima pag
     if (currentPage * itemsPerPage >= alphabetFilteredArtists.length) {
-        nextBtn.style.display = 'none'; // Ascunde butonul "Next" dacă este ultima pagină
+        nextBtn.style.display = 'none';
     } else {
-        nextBtn.style.display = 'block'; // Afișează butonul "Next"
+        nextBtn.style.display = 'block';
     }
 
     pageNumberElement.textContent = currentPage;
@@ -141,7 +141,6 @@ function filterArtistsByArtmovement(artists) {
     artworksData.forEach(periodData => {
         Object.keys(periodData).forEach(period => {
             if (selectedArtmovements.has(period)) {
-                // Verifică dacă periodData[period] este un array înainte de a aplica forEach
                 if (Array.isArray(periodData[period])) {
                     periodData[period].forEach(item => {
                         let artistName = item.name || 'Unknown Artist';
@@ -195,47 +194,49 @@ function applyFilter() {
     selectedArtmovements.clear();
     const checkboxes = artmovementsList.querySelectorAll('input[type="checkbox"]:checked');
     checkboxes.forEach(checkbox => selectedArtmovements.add(checkbox.value));
-    console.log('Selected Artmovements:', Array.from(selectedArtmovements)); // Debugging line
-    updateSelectedArtmovementsDisplay(); // Update the display of selected art movements
+    console.log('Selecteddddd artmovements:', Array.from(selectedArtmovements));
+    updateSelectedArtmovementsDisplay();
     currentPage = 1;
     displayArtists();
     closeFilterModal();
 }
 function updateSelectedArtmovementsDisplay() {
     const selectedArtmovementsList = document.getElementById('selected-artmovements-list');
-    selectedArtmovementsList.innerHTML = ''; // Curăță lista precedentă
+    selectedArtmovementsList.innerHTML = ''; //curat lista anterioara
 
     selectedArtmovements.forEach(artmovement => {
         const li = document.createElement('li');
-        li.classList.add('selected-artmovement-item'); // Adaugă o clasă pentru styling
+        li.classList.add('selected-artmovement-item'); // pt styling
 
-        // Creează un span pentru numele mișcării de artă
+
         const artmovementName = document.createElement('span');
         artmovementName.textContent = artmovement;
 
-        // Creează butonul mic de "X" pentru eliminare
+
         const removeButton = document.createElement('button-remove');
-        removeButton.textContent = '✖'; // Folosește simbolul de "X"
-        removeButton.classList.add('remove-artmovement-button'); // Adaugă o clasă pentru styling
+        removeButton.textContent = '✖';
+        removeButton.classList.add('remove-artmovement-button');
         removeButton.onclick = () => {
-            selectedArtmovements.delete(artmovement); // Elimină mișcarea de artă din selecție
-            currentPage = 1; // Resetează pagina curentă
-            displayArtists(); // Reafișează artiștii
-            updateSelectedArtmovementsDisplay(); // Actualizează lista de mișcări selectate
+            selectedArtmovements.delete(artmovement);
+            currentPage = 1; // pag curenta resetata
+            displayArtists();
+            updateSelectedArtmovementsDisplay();
         };
 
         li.appendChild(artmovementName);
         li.appendChild(removeButton);
-        selectedArtmovementsList.appendChild(li); // Adaugă elementul la listă
+        selectedArtmovementsList.appendChild(li);
     });
 }
 
 
-window.onclick = function(event) {
-    if (event.target === filterModal) {
+window.addEventListener('click', event => {
+    if (event.target === filterModal)
         filterModal.style.display = 'none';
-    }
-}
+}) ;
+
+
+
 
 function displayAlphabetFilter() {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -244,30 +245,29 @@ function displayAlphabetFilter() {
         letterButton.textContent = letter;
         letterButton.classList.add('alphabet-button');
 
-        // Check if the letter is currently selected and apply the active class
+        // este litera selectata?
         if (selectedLetters.has(letter)) {
-            letterButton.classList.add('active'); // Add active class if selected
+            letterButton.classList.add('active'); // add active la class
         }
 
         letterButton.addEventListener('click', () => {
             if (selectedLetters.has(letter)) {
-                // If the letter is already selected, deselect it
-                selectedLetters.delete(letter); // Remove from selected letters
-                letterButton.classList.remove('active'); // Remove active class
+                // deselecteaza
+                selectedLetters.delete(letter);
+                letterButton.classList.remove('active');
             } else {
-                // Select the letter
-                selectedLetters.add(letter); // Add to selected letters
-                letterButton.classList.add('active'); // Add active class
+                // selecteaza
+                selectedLetters.add(letter);
+                letterButton.classList.add('active');
             }
-            currentPage = 1; // Reset to the first page
-            displayArtists(); // Refresh the artist list
+            currentPage = 1;
+            displayArtists(); // refresh lista cu artisti
         });
 
         alphabetFilter.appendChild(letterButton);
     });
 }
 
-// Lazy load images using Intersection Observer API
 document.addEventListener('DOMContentLoaded', () => {
     const lazyImages = document.querySelectorAll('img.lazy-image');
 
@@ -276,9 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const lazyImage = entry.target;
-                    lazyImage.src = lazyImage.dataset.src; // Set real image source
+                    lazyImage.src = lazyImage.dataset.src;
                     lazyImage.classList.remove('lazy-image');
-                    lazyImageObserver.unobserve(lazyImage); // Stop observing the image
+                    lazyImageObserver.unobserve(lazyImage);
                 }
             });
         });
@@ -287,7 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
             lazyImageObserver.observe(lazyImage);
         });
     } else {
-        // Fallback for browsers that don't support Intersection Observer
         lazyImages.forEach(lazyImage => {
             lazyImage.src = lazyImage.dataset.src;
         });

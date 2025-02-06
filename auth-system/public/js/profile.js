@@ -76,7 +76,7 @@ document.getElementById('profile-pic-input').addEventListener('change', async fu
     const formData = new FormData();
     formData.append('profile-pic', file);
 
-    const token = localStorage.getItem('token'); // Obține token-ul din localStorage
+    const token = localStorage.getItem('token'); //am nev de token
 
     try {
         const response = await fetch('http://localhost:5000/profile/upload-profile-pic', {

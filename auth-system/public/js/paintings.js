@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 function displayArtworks() {
     sortByPaintingName();
-    artGrid.innerHTML = ''; // Curăță grid-ul
+    artGrid.innerHTML = ''; // golesc
 
-    const fragment = document.createDocumentFragment(); // Creează un fragment în memorie
+    const fragment = document.createDocumentFragment(); //frament in memorie
 
     const artworks = paintings.slice((currentPage - 1) * limit, currentPage * limit);
     artworks.forEach(art => {
@@ -29,7 +29,7 @@ function displayArtworks() {
         fragment.appendChild(artItem);
     });
 
-    artGrid.appendChild(fragment); // Adaugă tot fragmentul în DOM odată
+    artGrid.appendChild(fragment); //adaug tot fragmentul in dom odata
 
     updatePaginationControls();
 }
@@ -41,9 +41,9 @@ function sortByPaintingName() {
 function createArtItem(art) {
     const artItem = document.createElement('div');
     artItem.classList.add('grid-art-item');
-    artItem.setAttribute('data-painting-id', art.paintingId); // Atribuie un ID unic
+    artItem.setAttribute('data-painting-id', art.paintingId); //pun id unic
 
-    const isFavorite = checkIfFavorite(art.paintingId); // Verifică dacă pictura este în favorite
+    const isFavorite = checkIfFavorite(art.paintingId);
 
     artItem.innerHTML = `
         <div class="art-wrapper">
@@ -79,7 +79,7 @@ async function toggleFavorite(event, art) {
     const isFavorite = heartIcon.getAttribute('data-favorite') === 'true';
 
     if (!userId) {
-        alert('Te rugăm să te autentifici pentru a adăuga la favorite.');
+        alert('Please login.');
         return;
     }
 
@@ -98,7 +98,7 @@ async function toggleFavorite(event, art) {
             heartIcon.setAttribute('data-favorite', 'true');
         }
 
-        // Actualizează iconița corespunzătoare din grid (dacă există)
+        // actualizez iconita corep din grid
         const gridHeartIcon = document.querySelector(`.grid-art-item[data-painting-id="${art.paintingId}"] .heart-icon`);
         if (gridHeartIcon) {
             gridHeartIcon.classList.toggle('favorite', !isFavorite);
@@ -108,8 +108,8 @@ async function toggleFavorite(event, art) {
         }
 
     } catch (error) {
-        console.error('Eroare la actualizarea favoritei:', error);
-        alert('A apărut o eroare. Te rugăm să încerci din nou.');
+        console.error('Error updating favorite:', error);
+        alert('An error occured. Please try again.');
     }
 }
 
